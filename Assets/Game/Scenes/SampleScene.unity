@@ -571,7 +571,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -7376,6 +7376,8 @@ GameObject:
   - component: {fileID: 925199398}
   - component: {fileID: 925199397}
   - component: {fileID: 925199396}
+  - component: {fileID: 925199400}
+  - component: {fileID: 925199399}
   m_Layer: 6
   m_Name: Adderall
   m_TagString: Untagged
@@ -7449,7 +7451,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1186971225, guid: 1841f87f4ad040d4a849161724122d4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7470,12 +7472,102 @@ Transform:
   m_GameObject: {fileID: 925199395}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.64, y: -0.47, z: 0}
+  m_LocalPosition: {x: 1.16, y: -0.04, z: 0}
   m_LocalScale: {x: 0.2959, y: 0.2902, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &925199399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925199395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c686415a69e1beb47a196482397494f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Playermovement
+  rb: {fileID: 925199400}
+  movementSpeed: 5
+  playerControlls:
+    m_Name: Player Controlls
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 812fd384-0fed-4d28-bbbf-7b4f593b307b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: e43f3b8a-5e55-4c8b-9396-0dbef68a8a72
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controlls
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 4463d7ae-5729-4cb4-8f43-a699025be3f8
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controlls
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 9ceca5fe-f912-47d0-a013-a05f162bca5e
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controlls
+      m_Flags: 8
+    - m_Name: left
+      m_Id: f37d7688-4025-463c-9146-27a1a9ad71d6
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controlls
+      m_Flags: 8
+    - m_Name: right
+      m_Id: a43e8fe0-dd5a-40d8-87b3-2e2821930e1b
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controlls
+      m_Flags: 8
+    m_Flags: 0
+--- !u!50 &925199400
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925199395}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1465267745
 GameObject:
   m_ObjectHideFlags: 0
