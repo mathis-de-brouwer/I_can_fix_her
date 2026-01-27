@@ -1,0 +1,30 @@
+{
+  "name": "I Can Fix Her - MVP Sprint",
+  "lists": [
+    {
+      "name": "Done (Last Week)",
+      "cards": [
+        {"name": "Setup GitHub Repo & .gitignore", "desc": "Linked Unity project to GitHub Desktop."},
+        {"name": "Player Movement Script", "desc": "Implemented basic X/Y movement in playerMouvement.cs."},
+        {"name": "Cinemachine Setup", "desc": "Camera follows player with correct Z-axis offset."},
+        {"name": "Unity Editor Fixes", "desc": "Resolved Settings Manager signature issues."}
+      ]
+    },
+    {
+      "name": "In Progress",
+      "cards": [
+        {"name": "Physics & Collisions", "desc": "Adding BoxCollider2D to player and walls."},
+        {"name": "AI Asset Pipeline", "desc": "Researching Leonardo.ai/Scenario.gg for pixel art."},
+        {"name": "Environment Rule Tiles", "desc": "Setting up boundaries and terrain logic."}
+      ]
+    },
+    {
+      "name": "To Do (Next Steps)",
+      "cards": [
+        {"name": "Character Animations", "desc": "Idle/Walk states in Animator Controller."},
+        {"name": "Health/Life System", "desc": "Logic for Hero-to-Villain transformation."},
+        {"name": "Sound Design", "desc": "Placeholder SFX for movement and collisions."}
+      ]
+    }
+  ]
+}
