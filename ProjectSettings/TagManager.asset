@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerCharacter
+  - 
   - 
   - 
   - 
@@ -40,6 +40,18 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Water
+    uniqueID: 946752453
+    locked: 0
+  - name: Ground
+    uniqueID: 606677411
+    locked: 0
+  - name: PC
+    uniqueID: 2906177409
+    locked: 0
+  - name: Plants
+    uniqueID: 3509904451
     locked: 0
   m_RenderingLayers:
   - Default
