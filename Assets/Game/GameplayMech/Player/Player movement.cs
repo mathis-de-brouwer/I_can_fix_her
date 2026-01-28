@@ -4,12 +4,14 @@ using UnityEngine.InputSystem;
 public class Playermovement : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-   public Rigidbody2D rb;
-   public float movementSpeed = 5f;
+    public Rigidbody2D rb;
+    public float movementSpeed = 5f;
+    public Animator animator;
 
-   Vector2 movementDirection = Vector2.zero;
 
-   public InputAction playerControlls;
+    Vector2 movementDirection = Vector2.zero;
+
+    public InputAction playerControlls;
 
     void OnEnable()
     {
@@ -27,6 +29,9 @@ public class Playermovement : MonoBehaviour
     void Update()
     {
         movementDirection = playerControlls.ReadValue<Vector2>();
+        animator.SetFloat("Horizontal", movementDirection.x);
+        animator.SetFloat("Vertical", movementDirection.y);
+        animator.SetFloat("Speed", movementDirection.sqrMagnitude);
     }
 
     void FixedUpdate()
