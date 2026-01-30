@@ -9,13 +9,15 @@ public class WeaponController : MonoBehaviour
     public float CooldownDuration;
     float currentCooldown;
     public int pierce;  //This is the max amount of times a weapon can touch an enemy before disappearing (like can only touch 1 or 2 enemy's before disappearing )
-    void Start()
+    protected Playermovement pm;
+    protected virtual void Start()
     {
+        pm = FindAnyObjectByType<Playermovement>();
         currentCooldown = CooldownDuration; // This shows that when player gets a weapon/new weapon it doesn't immediately starts shooting but the cooldown starts instead
     }
 
     
-    void Update()
+    protected virtual void Update()
     {
         currentCooldown -= Time.deltaTime;
         if(currentCooldown <= 0f) //when cooldown hits 0, attack 
@@ -24,7 +26,7 @@ public class WeaponController : MonoBehaviour
         }
     }
 //Basically when Attack gets called it loops the cooldown again why the (currentCooldwon = CooldownDuration)
-    void Attack()
+    protected virtual void Attack()
     {
         currentCooldown = CooldownDuration; 
     }

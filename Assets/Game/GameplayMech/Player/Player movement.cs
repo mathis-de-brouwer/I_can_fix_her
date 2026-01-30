@@ -11,6 +11,8 @@ public class Playermovement : MonoBehaviour
 
     Vector2 movementDirection = Vector2.zero;
 
+    public Vector2 lastMoveDirection = new Vector2(1, 0);
+
     public InputAction playerControlls;
 
     void OnEnable()
@@ -29,6 +31,12 @@ public class Playermovement : MonoBehaviour
     void Update()
     {
         movementDirection = playerControlls.ReadValue<Vector2>();
+
+        if(movementDirection != Vector2.zero)
+        {
+            lastMoveDirection = movementDirection;
+        }
+
         animator.SetFloat("Horizontal", movementDirection.x);
         animator.SetFloat("Vertical", movementDirection.y);
         animator.SetFloat("Speed", movementDirection.sqrMagnitude);
