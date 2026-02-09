@@ -867,8 +867,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapController
   referenceCamera: {fileID: 519420031}
   checkInterval: 0.5
-  terrainChunks: []
-  chunkSize: {x: 20, y: 20}
+  terrainChunks:
+  - {fileID: 8500300962903266346, guid: 1d05e8464e6fcfb45b6a34fdc588b614, type: 3}
+  - {fileID: 8500300962903266346, guid: bc66bfc0fd85a5946b91e224c247716a, type: 3}
+  - {fileID: 8500300962903266346, guid: 03667b821a731de4fb3f5968c5d94b9c, type: 3}
+  chunkSize: {x: 24, y: 20}
   deleteCulledChunks: 0
 --- !u!4 &1065116080
 Transform:
