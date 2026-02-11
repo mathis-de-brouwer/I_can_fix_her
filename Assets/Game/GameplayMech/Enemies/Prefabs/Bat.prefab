@@ -174,4 +174,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b7d88e142d3bf42aa90cb6761b764f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  moveSpeed: 2
+  enemyData: {fileID: 11400000, guid: 69f7539607b2773409aec42fbbe44e1a, type: 2}
