@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e832469c7d82c48a9cc8034681876f, type: 3}
   m_Name: Pipikaka
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
-  cardName: 
-  icon: {fileID: 0}
+  cardName: spawn bat
+  icon: {fileID: -1046172931217063085, guid: e67a456585ba97649975825d7db0e616, type: 3}
   cost: 1
   cooldown: 2
-  duration: 3
+  duration: 0
   type: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 2797907090213795397, guid: 9df3826359dfe0042a7489aec0f76b70, type: 3}
   value: 0

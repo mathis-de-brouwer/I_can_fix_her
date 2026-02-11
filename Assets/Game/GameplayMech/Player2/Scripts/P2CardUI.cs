@@ -1,33 +1,39 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class P2CardUI : MonoBehaviour
 {
     public P2Card card;
     public Image icon;
+    public TMP_Text nameText;
     public TMP_Text costText;
+    public TMP_Text durationText;
 
-    public void Setup(P2Card newCard)
+    private P2DeckManager deckManager;
+
+    public void Setup(P2Card newCard, P2DeckManager manager)
     {
         card = newCard;
-        icon.sprite = card.icon;
-        costText.text = card.cost.ToString();
-    }
+        deckManager = manager;
 
-    void Awake()
-    {
-        if (card != null)
-            Setup(card);
+        icon.sprite = card.icon;
+        nameText.text = card.cardName;
+        costText.text = card.cost.ToString();
+        durationText.text = card.duration.ToString();
     }
 
     public void OnClick()
     {
-        //Player2Controller.Instance.UseCard(card);
+        if (card == null || deckManager == null)
+            return;
+
         if (card.prefab != null)
         {
-            Vector3 spawnPos = new Vector3(0, 0, 0);
+            Vector3 spawnPos = Vector3.zero; // temp
             Instantiate(card.prefab, spawnPos, Quaternion.identity);
         }
+
+        deckManager.PlayCard(card);
     }
 }
