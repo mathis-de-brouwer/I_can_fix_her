@@ -15,6 +15,12 @@ public class P2CardUI : MonoBehaviour
         costText.text = card.cost.ToString();
     }
 
+    void Awake()
+    {
+        if (card != null)
+            Setup(card);
+    }
+
     public void OnClick()
     {
         //Player2Controller.Instance.UseCard(card);

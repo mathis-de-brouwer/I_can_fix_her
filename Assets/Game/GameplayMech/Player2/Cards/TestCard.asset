@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestCard
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
   cardName: Spawn Enemy
-  icon: {fileID: 2149611, guid: b636cf8740f2a0e4697e7f13825371d3, type: 3}
+  icon: {fileID: -1619696936, guid: b636cf8740f2a0e4697e7f13825371d3, type: 3}
   cost: 1
   cooldown: 2
   duration: 0
