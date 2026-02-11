@@ -5,7 +5,7 @@ public class ProjectileWeaponBehavior : MonoBehaviour
 {
      //Base script for projectile based weapons
 
-
+     public WeaponScriptableObject weaponData;
      protected Vector3 direction; 
      public float destroyAfterSeconds;
 
