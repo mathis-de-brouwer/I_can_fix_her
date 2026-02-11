@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74e832469c7d82c48a9cc8034681876f, type: 3}
-  m_Name: TestCard
+  m_Name: Pipikaka
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
-  cardName: Spawn Enemy
-  icon: {fileID: 2149611, guid: b636cf8740f2a0e4697e7f13825371d3, type: 3}
+  cardName: 
+  icon: {fileID: 0}
   cost: 1
   cooldown: 2
-  duration: 0
+  duration: 3
   type: 0
-  prefab: {fileID: 2797907090213795397, guid: 9df3826359dfe0042a7489aec0f76b70, type: 3}
-  value: 5
+  prefab: {fileID: 0}
+  value: 0
