@@ -18,6 +18,17 @@ public class P2Charges : MonoBehaviour
 
     public void Spend(float cost)
     {
-        currentCharges -= cost;
+        if (cost <= 0f)
+            return;
+
+        currentCharges = Mathf.Max(0f, currentCharges - cost);
+    }
+
+    public void Gain(float amount)
+    {
+        if (amount <= 0f)
+            return;
+
+        currentCharges = Mathf.Min(maxCharges, currentCharges + amount);
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class P2DeckManager : MonoBehaviour
 {
     [Header("All possible cards in the game")]
@@ -24,6 +23,12 @@ public class P2DeckManager : MonoBehaviour
     public event Action HandChanged;
 
     private System.Random _rng;
+
+    [Header("Card effects")]
+    [SerializeField] private P2CardEffectResolver effectResolver;
+
+    [Header("Charges")]
+    [SerializeField] private P2Charges charges;
 
     private void Awake()
     {
@@ -103,22 +108,53 @@ public class P2DeckManager : MonoBehaviour
         return drawnCard;
     }
 
-    public void PlayCard(P2Card card)
+    public bool CanAfford(P2Card card)
     {
+        if (card == null)
+            return false;
+
+        if (charges == null)
+            return true;
+
+        float cost = Mathf.Max(0f, card.cost);
+        return charges.CanSpend(cost);
+    }
+
+    public bool TryPlayCard(P2Card card)
+    {
+        if (card == null)
+        {
+            Debug.LogWarning("TryPlayCard called with null card.");
+            return false;
+        }
+
         if (!hand.Contains(card))
         {
             Debug.LogWarning("Tried to play a card that is not in hand.");
-            return;
+            return false;
         }
+
+        if (!CanAfford(card))
+        {
+            Debug.LogWarning($"Cannot play {card.cardName} - not enough charges (cost {card.cost:F2}).");
+            return false;
+        }
+
+        if (charges != null)
+            charges.Spend(Mathf.Max(0f, card.cost));
 
         hand.Remove(card);
         usedPile.Add(card);
 
-        DrawCard(); 
+        if (effectResolver != null)
+            effectResolver.Resolve(card);
 
-        Debug.Log($"Played card: {card.cardName}");
+        DrawCard();
+
+        Debug.Log($"Played card: {card.cardName} (cost = {card.cost:F2}).");
 
         HandChanged?.Invoke();
+        return true;
     }
 
     public bool IsDeckEmpty()

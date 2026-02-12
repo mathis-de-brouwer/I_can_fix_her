@@ -23,7 +23,10 @@ public class P2Card : ScriptableObject
     [Header("Type")]
     public CardType type;
 
+    [Header("Effect")]
+    public P2CardEffect effect;
+
     [Header("Payload")]
-    public GameObject prefab;   // used for Spawn / Trap
-    public float value;         // used for Debuff / Pressure
+    public GameObject prefab;   // used by some effects (ex. Spawn Prefab)
+    public float value;         // used by some effects (ex. Debuff / Pressure)
 }
