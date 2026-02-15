@@ -7,7 +7,7 @@ public class P2DeckManager : MonoBehaviour
     [Header("All possible cards in the game")]
     public List<P2Card> allAvailableCards = new List<P2Card>();
 
-    [Header("Match settings")]
+    [Header("Match settings (used when no session config is provided)")]
     public int startingDeckSize = 10;
     public int startingHandSize = 5;
 
@@ -21,6 +21,7 @@ public class P2DeckManager : MonoBehaviour
     public List<P2Card> usedPile = new List<P2Card>();
 
     public event Action HandChanged;
+    public event Action DeckStateChanged;
 
     private System.Random _rng;
 
@@ -38,7 +39,20 @@ public class P2DeckManager : MonoBehaviour
 
     private void Start()
     {
-        GenerateStartingDeck();
+        P2DeckBuildConfig config = P2DeckSelectionSession.Instance != null ? P2DeckSelectionSession.Instance.Config : null;
+
+        if (config != null)
+        {
+            startingDeckSize = Mathf.Max(1, config.startingDeckSize);
+            startingHandSize = Mathf.Max(1, config.startingHandSize);
+
+            GenerateStartingDeck(config);
+        }
+        else
+        {
+            GenerateStartingDeck();
+        }
+
         ShuffleDeck();
         DrawStartingHand();
     }
@@ -52,7 +66,7 @@ public class P2DeckManager : MonoBehaviour
         if (allAvailableCards == null || allAvailableCards.Count == 0)
         {
             Debug.LogError("No available cards assigned. Cannot generate deck.");
-            HandChanged?.Invoke();
+            RaiseDeckStateChanged();
             return;
         }
 
@@ -63,8 +77,68 @@ public class P2DeckManager : MonoBehaviour
         }
 
         Debug.Log($"Generated deck with {deck.Count} cards.");
+        RaiseDeckStateChanged();
+    }
 
-        HandChanged?.Invoke();
+    public void GenerateStartingDeck(P2DeckBuildConfig config)
+    {
+        deck.Clear();
+        hand.Clear();
+        usedPile.Clear();
+
+        if (config == null)
+        {
+            GenerateStartingDeck();
+            return;
+        }
+
+        switch (config.mode)
+        {
+            case P2DeckBuildMode.SeedListWithRandomDuplicates:
+                GenerateSeededDeck(config);
+                break;
+
+            case P2DeckBuildMode.RandomFromAllAvailable:
+            default:
+                GenerateStartingDeck();
+                break;
+        }
+
+        RaiseDeckStateChanged();
+    }
+
+    private void GenerateSeededDeck(P2DeckBuildConfig config)
+    {
+        int targetSize = Mathf.Max(1, config.startingDeckSize);
+
+        if (config.seedCards == null || config.seedCards.Count == 0)
+        {
+            Debug.LogWarning("Seed deck is empty. Falling back to random generation.");
+            GenerateStartingDeck();
+            return;
+        }
+
+        List<P2Card> validSeeds = new List<P2Card>();
+        for (int i = 0; i < config.seedCards.Count; i++)
+        {
+            if (config.seedCards[i] != null)
+                validSeeds.Add(config.seedCards[i]);
+        }
+
+        if (validSeeds.Count == 0)
+        {
+            Debug.LogWarning("Seed deck contains only nulls. Falling back to random generation.");
+            GenerateStartingDeck();
+            return;
+        }
+
+        for (int i = 0; i < targetSize; i++)
+        {
+            int index = _rng.Next(0, validSeeds.Count);
+            deck.Add(validSeeds[index]);
+        }
+
+        Debug.Log($"Generated seeded deck with {deck.Count} cards from {validSeeds.Count} seed cards.");
     }
 
     public void ShuffleDeck()
@@ -78,6 +152,7 @@ public class P2DeckManager : MonoBehaviour
         }
 
         Debug.Log("Deck shuffled.");
+        RaiseDeckStateChanged();
     }
 
     public void DrawStartingHand()
@@ -89,7 +164,7 @@ public class P2DeckManager : MonoBehaviour
 
         Debug.Log($"Hand drawn with {hand.Count} cards.");
 
-        HandChanged?.Invoke();
+        RaiseDeckStateChanged();
     }
 
     public P2Card DrawCard()
@@ -105,6 +180,8 @@ public class P2DeckManager : MonoBehaviour
         hand.Add(drawnCard);
 
         Debug.Log($"Drew card: {drawnCard.cardName}");
+        RaiseDeckStateChanged();
+
         return drawnCard;
     }
 
@@ -153,12 +230,18 @@ public class P2DeckManager : MonoBehaviour
 
         Debug.Log($"Played card: {card.cardName} (cost = {card.cost:F2}).");
 
-        HandChanged?.Invoke();
+        RaiseDeckStateChanged();
         return true;
     }
 
     public bool IsDeckEmpty()
     {
         return deck.Count == 0;
+    }
+
+    private void RaiseDeckStateChanged()
+    {
+        HandChanged?.Invoke();
+        DeckStateChanged?.Invoke();
     }
 }
