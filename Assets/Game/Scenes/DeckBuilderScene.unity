@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 88818381}
   - component: {fileID: 88818383}
   - component: {fileID: 88818384}
+  - component: {fileID: 88818386}
   m_Layer: 5
   m_Name: DeckBuilderRoot
   m_TagString: Untagged
@@ -268,6 +269,14 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!222 &88818386
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88818380}
+  m_CullTransparentMesh: 1
 --- !u!1 &160707901
 GameObject:
   m_ObjectHideFlags: 0
