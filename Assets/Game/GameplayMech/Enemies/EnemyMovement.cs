@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
+
+    public EnemyScriptableObject enemyData;
     Transform player;
-    public float moveSpeed;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         player = FindAnyObjectByType<Playermovement>().transform;
@@ -13,6 +14,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, moveSpeed*Time.deltaTime); // make the enemy constantly move towards to the player
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemyData.moveSpeed*Time.deltaTime); // make the enemy constantly move towards to the player
     }
 }

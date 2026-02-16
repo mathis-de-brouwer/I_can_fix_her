@@ -5,10 +5,23 @@ public class ProjectileWeaponBehavior : MonoBehaviour
 {
      //Base script for projectile based weapons
 
-
+     public WeaponScriptableObject weaponData;
      protected Vector3 direction; 
      public float destroyAfterSeconds;
 
+     //Current stats
+    protected float currentDamage;
+    protected float currentSpeed;
+    protected float currentCooldownDuration;
+    protected int currentPierce;
+
+   void Awake()
+    {
+        currentDamage = weaponData.damage;
+        currentSpeed = weaponData.speed;
+        currentCooldownDuration = weaponData.CooldownDuration;
+        currentPierce = weaponData.pierce;
+    }
     protected virtual void Start()
     {
         Destroy(gameObject, destroyAfterSeconds);
@@ -58,5 +71,15 @@ public class ProjectileWeaponBehavior : MonoBehaviour
 
         transform.localScale = scale;
         transform.rotation = Quaternion.Euler(rotation); // can't simply set the vector because can't convert
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D col) {
+        // Refference the script from the collided collider and deal damage using TakeDamage();
+        if (col.CompareTag("Enemy"))
+        {
+            EnemyStats enemy = col.GetComponent<EnemyStats>();
+            enemy.TakeDamage(currentDamage); // we use current damage instead of weapondata.damage so that if there's damage multiplier it doesn't mess up everything 
+        }
+        
     }
 }

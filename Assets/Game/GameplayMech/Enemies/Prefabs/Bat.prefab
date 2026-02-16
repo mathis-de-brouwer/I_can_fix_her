@@ -13,10 +13,14 @@ GameObject:
   - component: {fileID: 8108248495407989608}
   - component: {fileID: 87634310785936326}
   - component: {fileID: 7091718665725426272}
+<<<<<<< HEAD
   - component: {fileID: -1702690011424377843}
+=======
+  - component: {fileID: -8701153687128884105}
+>>>>>>> Bilal
   m_Layer: 0
   m_Name: Bat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,8 +179,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b7d88e142d3bf42aa90cb6761b764f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+<<<<<<< HEAD
   moveSpeed: 2
 --- !u!114 &-1702690011424377843
+=======
+  enemyData: {fileID: 11400000, guid: 69f7539607b2773409aec42fbbe44e1a, type: 2}
+--- !u!114 &-8701153687128884105
+>>>>>>> Bilal
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,6 +194,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2797907090213795397}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 509dee828bf357b43b11fdccf61d6c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ysorting
+=======
+  m_Script: {fileID: 11500000, guid: ae59aa1251d4b38499e93c6b6b7200ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
+  enemyData: {fileID: 11400000, guid: 69f7539607b2773409aec42fbbe44e1a, type: 2}
+>>>>>>> Bilal
