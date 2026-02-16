@@ -1,2 +1,28 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Unity: keep YAML assets stable and line endings consistent
+*.meta        text eol=lf
+*.unity       text eol=lf
+*.prefab      text eol=lf
+*.asset       text eol=lf
+*.mat         text eol=lf
+*.anim        text eol=lf
+*.controller  text eol=lf
+*.overrideController text eol=lf
+*.playable    text eol=lf
+*.mask        text eol=lf
+*.spriteatlas text eol=lf
+*.terrainlayer text eol=lf
+*.asmdef      text eol=lf
+*.asmref      text eol=lf
+
+# Prevent Git from trying to be clever with these
+*.png         binary
+*.jpg         binary
+*.jpeg        binary
+*.tga         binary
+*.psd         binary
+*.fbx         binary
+*.wav         binary
+*.mp3         binary
+*.ogg         binary
