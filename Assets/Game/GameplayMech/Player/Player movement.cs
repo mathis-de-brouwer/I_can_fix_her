@@ -25,7 +25,7 @@ public class Playermovement : MonoBehaviour
         playerControlls.Disable();
     }
 
-    
+    public CharacterSciptableObject characterData;
 
     // Update is called once per frame
     void Update()
@@ -44,6 +44,6 @@ public class Playermovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2 (movementDirection.x * movementSpeed, movementDirection.y * movementSpeed);
+        rb.linearVelocity = new Vector2 (movementDirection.x * characterData.MoveSpeed, movementDirection.y * characterData.MoveSpeed);
     }
 }
