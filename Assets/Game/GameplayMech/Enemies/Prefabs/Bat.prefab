@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8108248495407989608}
   - component: {fileID: 87634310785936326}
   - component: {fileID: 7091718665725426272}
-  - component: {fileID: -8701153687128884105}
   - component: {fileID: -1702690011424377843}
+  - component: {fileID: 4068351505415514550}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Enemy
@@ -177,8 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   enemyData: {fileID: 11400000, guid: 69f7539607b2773409aec42fbbe44e1a, type: 2}
---- !u!114 &-8701153687128884105
-  moveSpeed: 2
 --- !u!114 &-1702690011424377843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +190,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   enemyData: {fileID: 11400000, guid: 69f7539607b2773409aec42fbbe44e1a, type: 2}
+--- !u!114 &4068351505415514550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2797907090213795397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 509dee828bf357b43b11fdccf61d6c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ysorting
