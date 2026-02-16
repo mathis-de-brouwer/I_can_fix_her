@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1501e69fe7ce51b4485d367040b1f029, type: 3}
+  m_Name: SpawnBatAroundPlayer
+  m_EditorClassIdentifier: Assembly-CSharp::P2SpawnPrefabAroundPointCardEffect
+  spawnCount: 5
+  radius: 5
+  randomJitter: 0.25
+  randomYaw: 0
