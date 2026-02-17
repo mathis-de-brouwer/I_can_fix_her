@@ -337,6 +337,9 @@ MonoBehaviour:
   discardCountText: {fileID: 0}
   deckPile: {fileID: 351854469}
   discardPile: {fileID: 761490166}
+  cardBackSprite: {fileID: -5311209391084420540, guid: 2b86e083823dd2a459d8e153f140639c, type: 3}
+  deckStack: {fileID: 351854471}
+  discardStack: {fileID: 761490168}
   expectedMaxDeckSize: 20
   minScale: 0.9
   maxScale: 1.1
@@ -456,6 +459,8 @@ GameObject:
   m_Component:
   - component: {fileID: 351854469}
   - component: {fileID: 351854470}
+  - component: {fileID: 351854471}
+  - component: {fileID: 351854472}
   m_Layer: 5
   m_Name: DeckContent
   m_TagString: Untagged
@@ -490,6 +495,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 351854468}
   m_CullTransparentMesh: 1
+--- !u!114 &351854471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351854468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55cd8d5c75d79c849857234c940138da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::P2PileStackUI
+  container: {fileID: 351854469}
+  cardTemplate: {fileID: 4602352802653533683, guid: 2f3816de470fa1c49a06ac191eabf18a, type: 3}
+  sprite: {fileID: 0}
+  maxVisible: 8
+  offsetPerCard: {x: 10, y: 0}
+--- !u!114 &351854472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351854468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: 92
+  m_MinHeight: 162
+  m_PreferredWidth: 92
+  m_PreferredHeight: 162
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &421071086
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +592,7 @@ MonoBehaviour:
   deck: []
   hand: []
   usedPile: []
+  playResolveDelay: 0.2
   effectResolver: {fileID: 421071089}
   charges: {fileID: 421071090}
 --- !u!114 &421071089
@@ -616,11 +659,11 @@ RectTransform:
   - {fileID: 1161613891}
   m_Father: {fileID: 306971711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 250.00003, y: 100}
-  m_SizeDelta: {x: -500, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_SizeDelta: {x: 1420, y: 200}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &485319228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,14 +677,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.14901961}
+  m_Color: {r: 0.7686275, g: 0.7686275, b: 0.7686275, a: 0.09019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -939,6 +982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 761490166}
   - component: {fileID: 761490167}
+  - component: {fileID: 761490168}
   m_Layer: 5
   m_Name: DiscardContent
   m_TagString: Untagged
@@ -973,6 +1017,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761490165}
   m_CullTransparentMesh: 1
+--- !u!114 &761490168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761490165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55cd8d5c75d79c849857234c940138da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::P2PileStackUI
+  container: {fileID: 761490166}
+  cardTemplate: {fileID: 4602352802653533683, guid: 2f3816de470fa1c49a06ac191eabf18a, type: 3}
+  sprite: {fileID: 0}
+  maxVisible: 8
+  offsetPerCard: {x: 10, y: 0}
 --- !u!1 &925199395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,6 +1500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1161613891}
   - component: {fileID: 1161613892}
+  - component: {fileID: 1161613893}
   m_Layer: 5
   m_Name: HandContent
   m_TagString: Untagged
@@ -1460,11 +1522,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 485319226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.000061035156}
-  m_SizeDelta: {x: 1439, y: 200}
-  m_Pivot: {x: 1, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1161613892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1478,19 +1540,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &1161613893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161613890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &1313984373
 GameObject:
   m_ObjectHideFlags: 0

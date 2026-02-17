@@ -13,6 +13,10 @@ public class P2CardUI : MonoBehaviour
     [Header("Availability visuals")]
     [SerializeField] private float disabledAlpha = 0.45f;
 
+    [Header("Icon layout")]
+    [SerializeField] private bool forceIconStretch = true;
+    [SerializeField] private bool preserveIconAspect;
+
     private P2DeckManager deckManager;
     private Button _button;
     private CanvasGroup _canvasGroup;
@@ -22,13 +26,56 @@ public class P2CardUI : MonoBehaviour
         card = newCard;
         deckManager = manager;
 
-        icon.sprite = card.icon;
-        nameText.text = card.cardName;
-        costText.text = card.cost.ToString();
-        durationText.text = card.duration.ToString();
+        if (icon != null)
+        {
+            icon.sprite = GetCardArtSprite(card);
+            ApplyIconLayout();
+        }
+
+        if (nameText != null)
+            nameText.text = card != null ? card.cardName : string.Empty;
+
+        if (costText != null)
+            costText.text = card != null ? card.cost.ToString() : string.Empty;
+
+        if (durationText != null)
+            durationText.text = card != null ? card.duration.ToString() : string.Empty;
 
         CacheComponents();
         UpdateInteractivity();
+    }
+
+    private void ApplyIconLayout()
+    {
+        if (icon == null)
+            return;
+
+        icon.preserveAspect = preserveIconAspect;
+
+        if (!forceIconStretch)
+            return;
+
+        RectTransform rt = icon.rectTransform;
+        if (rt == null)
+            return;
+
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.localScale = Vector3.one;
+    }
+
+    private static Sprite GetCardArtSprite(P2Card c)
+    {
+        if (c == null)
+            return null;
+
+        if (c.effect != null && c.effect.CardArtOverride != null)
+            return c.effect.CardArtOverride;
+
+        return c.icon;
     }
 
     private void Awake()
@@ -55,7 +102,7 @@ public class P2CardUI : MonoBehaviour
         if (deckManager == null || card == null)
             return;
 
-        bool canPlay = deckManager.CanAfford(card);
+        bool canPlay = !deckManager.IsBusy && deckManager.CanAfford(card);
 
         if (_button != null)
             _button.interactable = canPlay;

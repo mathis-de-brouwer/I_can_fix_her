@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1501e69fe7ce51b4485d367040b1f029, type: 3}
   m_Name: SpawnBatAroundPlayer
   m_EditorClassIdentifier: Assembly-CSharp::P2SpawnPrefabAroundPointCardEffect
+  cardArtOverride: {fileID: 2692120286741797688, guid: 37012549da02b234aab5c17b6c5a668c, type: 3}
   spawnCount: 5
   radius: 5
   randomJitter: 0.25

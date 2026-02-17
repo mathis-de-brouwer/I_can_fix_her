@@ -32,17 +32,17 @@ public sealed class P2DeckBuilderCardTileUI : MonoBehaviour
         if (nameText != null)
             nameText.text = card != null ? card.cardName : "(null)";
 
-        if (icon != null)
-        {
-            icon.sprite = card != null ? card.icon : null;
-            icon.enabled = icon.sprite != null;
-        }
-
         Refresh();
     }
 
     public void Refresh()
     {
+        if (icon != null)
+        {
+            icon.sprite = GetCardArtSprite(_card);
+            icon.enabled = icon.sprite != null;
+        }
+
         bool interactable = _card != null && (_canSelect == null || _canSelect(_card));
 
         if (_button != null)
@@ -50,6 +50,17 @@ public sealed class P2DeckBuilderCardTileUI : MonoBehaviour
 
         if (canvasGroup != null)
             canvasGroup.alpha = interactable ? 1f : disabledAlpha;
+    }
+
+    private static Sprite GetCardArtSprite(P2Card c)
+    {
+        if (c == null)
+            return null;
+
+        if (c.effect != null && c.effect.CardArtOverride != null)
+            return c.effect.CardArtOverride;
+
+        return c.icon;
     }
 
     private void HandleClick()

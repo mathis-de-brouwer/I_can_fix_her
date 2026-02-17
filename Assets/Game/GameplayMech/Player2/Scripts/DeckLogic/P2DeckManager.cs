@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,16 +21,22 @@ public class P2DeckManager : MonoBehaviour
     public List<P2Card> hand = new List<P2Card>();
     public List<P2Card> usedPile = new List<P2Card>();
 
+    [Header("Play flow")]
+    [SerializeField] private float playResolveDelay = 0.2f;
+
     public event Action HandChanged;
     public event Action DeckStateChanged;
 
     private System.Random _rng;
+    private bool _isResolvingPlay;
 
     [Header("Card effects")]
     [SerializeField] private P2CardEffectResolver effectResolver;
 
     [Header("Charges")]
     [SerializeField] private P2Charges charges;
+
+    public bool IsBusy => _isResolvingPlay;
 
     private void Awake()
     {
@@ -199,6 +206,9 @@ public class P2DeckManager : MonoBehaviour
 
     public bool TryPlayCard(P2Card card)
     {
+        if (_isResolvingPlay)
+            return false;
+
         if (card == null)
         {
             Debug.LogWarning("TryPlayCard called with null card.");
@@ -217,6 +227,14 @@ public class P2DeckManager : MonoBehaviour
             return false;
         }
 
+        StartCoroutine(ResolvePlayRoutine(card));
+        return true;
+    }
+
+    private IEnumerator ResolvePlayRoutine(P2Card card)
+    {
+        _isResolvingPlay = true;
+
         if (charges != null)
             charges.Spend(Mathf.Max(0f, card.cost));
 
@@ -226,12 +244,18 @@ public class P2DeckManager : MonoBehaviour
         if (effectResolver != null)
             effectResolver.Resolve(card);
 
+        RaiseDeckStateChanged();
+
+        if (playResolveDelay > 0f)
+            yield return new WaitForSeconds(playResolveDelay);
+
         DrawCard();
 
         Debug.Log($"Played card: {card.cardName} (cost = {card.cost:F2}).");
 
         RaiseDeckStateChanged();
-        return true;
+
+        _isResolvingPlay = false;
     }
 
     public bool IsDeckEmpty()

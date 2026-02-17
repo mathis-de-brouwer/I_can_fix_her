@@ -24,11 +24,22 @@ public sealed class P2DeckBuilderSelectedSlotUI : MonoBehaviour
 
     public void SetCard(P2Card card)
     {
-        if (icon != null)
-        {
-            icon.enabled = card != null;
-            icon.sprite = card != null ? card.icon : null;
-        }
+        if (icon == null)
+            return;
+
+        icon.enabled = card != null;
+        icon.sprite = GetCardArtSprite(card);
+    }
+
+    private static Sprite GetCardArtSprite(P2Card c)
+    {
+        if (c == null)
+            return null;
+
+        if (c.effect != null && c.effect.CardArtOverride != null)
+            return c.effect.CardArtOverride;
+
+        return c.icon;
     }
 
     private void HandleClick()
