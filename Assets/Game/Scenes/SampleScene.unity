@@ -1052,9 +1052,10 @@ GameObject:
   - component: {fileID: 925199402}
   - component: {fileID: 925199404}
   - component: {fileID: 925199405}
+  - component: {fileID: 925199406}
   m_Layer: 0
   m_Name: Adderall
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1355,10 +1356,23 @@ MonoBehaviour:
   experience: 0
   level: 1
   experienceCap: 0
+  invincibilityDuration: 1
   levelRanges:
   - startlevel: 0
     endlevel: 0
     experienceCapIncrease: 0
+--- !u!114 &925199406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925199395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e48bc07ac326740ab286d848bd0022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCollector
 --- !u!1 &1065116078
 GameObject:
   m_ObjectHideFlags: 0
