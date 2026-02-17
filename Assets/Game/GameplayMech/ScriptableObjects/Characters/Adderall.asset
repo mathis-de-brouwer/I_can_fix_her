@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Adderall
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSciptableObject
   startingWeapon: {fileID: 0}
-  maxHealth: 0
+  maxHealth: 100
   recovery: 0
   movementSpeed: 5
   might: 0
