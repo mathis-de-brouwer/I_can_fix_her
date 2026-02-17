@@ -52,6 +52,8 @@ public class PlayerStats : MonoBehaviour
         {
             isInvincible = false;
         }
+
+        Recovery();
     }
 
     public void IncreaseExperience(int amount)
@@ -111,6 +113,13 @@ public class PlayerStats : MonoBehaviour
         currentProjectileSpeed = characterData.ProjectileSpeed;
     }
 
+    void Recovery()
+    {
+        if(currentHealth < characterData.Maxhealth)
+        {
+            currentHealth += currentRecovery * Time.deltaTime;
+        }
+    }
 
 }
 
