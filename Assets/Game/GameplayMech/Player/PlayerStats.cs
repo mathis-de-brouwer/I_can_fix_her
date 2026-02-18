@@ -8,11 +8,12 @@ public class PlayerStats : MonoBehaviour
 
     //current stats
 
-    float currentHealth;
-    float currentRecovery;
-    float currentMovementSpeed;
-    float currentMight;
-    float currentProjectileSpeed;
+    public float currentHealth;
+    public float currentRecovery;
+    public float currentMovementSpeed;
+    public float currentMight;
+    public float currentProjectileSpeed;
+    public float currentMagnet;
 
     //Experience and level of the player
     [Header("Experience/level")]
@@ -111,6 +112,7 @@ public class PlayerStats : MonoBehaviour
         currentMight = characterData.Might;
         currentMovementSpeed = characterData.MoveSpeed;
         currentProjectileSpeed = characterData.ProjectileSpeed;
+        currentMagnet = characterData.Magnet;
     }
 
     void Recovery()
@@ -118,6 +120,12 @@ public class PlayerStats : MonoBehaviour
         if(currentHealth < characterData.Maxhealth)
         {
             currentHealth += currentRecovery * Time.deltaTime;
+        
+            // makes sure that the health of the player doesn't go over the maximum
+            if( currentHealth > characterData.Maxhealth)
+            {
+                currentHealth = characterData.Maxhealth;
+            }
         }
     }
 
