@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74e832469c7d82c48a9cc8034681876f, type: 3}
-  m_Name: New P2 Card
+  m_Name: Trap
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
-  cardName: circlespawn
-  icon: {fileID: 154875213106398224, guid: bbc6e198c919ced42913528407b13139, type: 3}
-  cost: 2
-  cooldown: 0
-  duration: 0
-  type: 0
-  effect: {fileID: 11400000, guid: 5e0289c2609ca0b4283a0c94479acb52, type: 2}
-  prefab: {fileID: 2797907090213795397, guid: 9df3826359dfe0042a7489aec0f76b70, type: 3}
+  cardName: 
+  icon: {fileID: 0}
+  cost: 5
+  duration: 3
+  effect: {fileID: 11400000, guid: 3defea6ee39236a469d5350d0428d654, type: 2}
+  prefab: {fileID: 0}
   value: 0

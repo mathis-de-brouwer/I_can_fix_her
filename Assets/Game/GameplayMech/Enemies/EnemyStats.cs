@@ -21,14 +21,16 @@ public class EnemyStats : MonoBehaviour
     {
         currentHealth -= dmg;
 
-        if(currentHealth <= 0)
-        {
+        if (currentHealth <= 0)
             Kill();
-        }
     }
 
     public void Kill()
     {
+        DropRateManager dropManager = GetComponent<DropRateManager>();
+        if (dropManager != null)
+            dropManager.TriggerDrop();
+
         Destroy(gameObject);
     }
 

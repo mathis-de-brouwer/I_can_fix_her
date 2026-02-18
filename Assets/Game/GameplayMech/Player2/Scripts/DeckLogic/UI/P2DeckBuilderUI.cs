@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public sealed class P2DeckBuilderUI : MonoBehaviour
 {
     [Header("Data")]
-    [SerializeField] private P2DeckManager deckManagerSource;
+    [SerializeField] private P2CardDatabase cardDatabase;
     [SerializeField] private int requiredSeedCount = 5;
 
     [Header("Config")]
@@ -38,7 +38,7 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
 
     private void BuildAvailableList()
     {
-        if (availableCardsContent == null || availableCardTilePrefab == null || deckManagerSource == null)
+        if (availableCardsContent == null || availableCardTilePrefab == null || cardDatabase == null)
             return;
 
         for (int i = availableCardsContent.childCount - 1; i >= 0; i--)
@@ -46,11 +46,9 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
 
         _tiles.Clear();
 
-        List<P2Card> cards = deckManagerSource.allAvailableCards;
+        List<P2Card> cards = cardDatabase.cards;
         if (cards == null)
             return;
-
-        Debug.Log($"DeckBuilder: content={(availableCardsContent != null)}, prefab={(availableCardTilePrefab != null)}, deckSource={(deckManagerSource != null)}, cardCount={(deckManagerSource != null && deckManagerSource.allAvailableCards != null ? deckManagerSource.allAvailableCards.Count : -1)}");
 
         for (int i = 0; i < cards.Count; i++)
         {
@@ -111,18 +109,15 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
 
     private void RefreshAll()
     {
-        // slots
         for (int i = 0; i < _slots.Count; i++)
         {
             P2Card card = i < _selected.Count ? _selected[i] : null;
             _slots[i].SetCard(card);
         }
 
-        // tiles
         for (int i = 0; i < _tiles.Count; i++)
             _tiles[i].Refresh();
 
-        // play button
         if (playButton != null)
             playButton.interactable = _selected.Count == requiredSeedCount;
     }

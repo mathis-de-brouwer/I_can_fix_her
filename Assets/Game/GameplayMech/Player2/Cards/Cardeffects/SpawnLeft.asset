@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f86cfaceb431b054bbc559d7cf3b563c, type: 3}
+  m_Name: SpawnLeft
+  m_EditorClassIdentifier: Assembly-CSharp::P2SpawnWaveDirectionalCardEffect
+  cardArtOverride: {fileID: -5204347026916508440, guid: a40df4e177596944697858043d34e803, type: 3}
+  spawnDirection: 0
+  waveSize: 10
+  spawnInterval: 0.3
+  edgeOffset: 8
+  spread: 3
+  spawnTable:
+  - prefab: {fileID: 2797907090213795397, guid: 9df3826359dfe0042a7489aec0f76b70, type: 3}
+    weight: 1
+  - prefab: {fileID: 2797907090213795397, guid: 5d65f9ac93367a1468ab2e3a4c5338e7, type: 3}
+    weight: 5

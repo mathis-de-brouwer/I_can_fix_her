@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791e80ebf05ee5a4490c10164141c28f, type: 3}
+  m_Name: DOubleMonsters
+  m_EditorClassIdentifier: Assembly-CSharp::P2DoubleMonstersCardEffect
+  cardArtOverride: {fileID: 9161557333855047427, guid: 8a4e07036d1658a47adbfed8c1829bec, type: 3}
+  doubleCount: 3
+  spawnOffset: 0.6

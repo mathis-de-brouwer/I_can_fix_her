@@ -582,10 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5760e22801b654cac194da9652c2dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P2DeckManager
-  allAvailableCards:
-  - {fileID: 11400000, guid: b510c0c93d2046e4bb7c4000f4df526e, type: 2}
-  - {fileID: 11400000, guid: 7a02c3298e454eb4d81fc97452d04e9e, type: 2}
-  - {fileID: 11400000, guid: 53ff9a2d007b7b547a24c5355b5b6495, type: 2}
+  cardDatabase: {fileID: 11400000, guid: 4b60e5ef81eab4e46a941b8c5a04e44c, type: 2}
   startingDeckSize: 10
   startingHandSize: 3
   seed: 0
@@ -624,7 +621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::P2Charges
   maxCharges: 10
   currentCharges: 10
-  regenRate: 1
+  regenRate: 0.5
 --- !u!1 &485319225
 GameObject:
   m_ObjectHideFlags: 0

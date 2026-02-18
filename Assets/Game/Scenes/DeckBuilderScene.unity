@@ -119,67 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &56620879
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 56620880}
-  - component: {fileID: 56620881}
-  m_Layer: 5
-  m_Name: P2DeckDataHost
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &56620880
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56620879}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.013550135, y: 0.013550135, z: 0.013550135}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &56620881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56620879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea5760e22801b654cac194da9652c2dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::P2DeckManager
-  allAvailableCards:
-  - {fileID: 11400000, guid: 7a02c3298e454eb4d81fc97452d04e9e, type: 2}
-  - {fileID: 11400000, guid: 53ff9a2d007b7b547a24c5355b5b6495, type: 2}
-  - {fileID: 11400000, guid: b510c0c93d2046e4bb7c4000f4df526e, type: 2}
-  startingDeckSize: 10
-  startingHandSize: 5
-  seed: 0
-  deck: []
-  hand: []
-  usedPile: []
-  playResolveDelay: 0.2
-  effectResolver: {fileID: 0}
-  charges: {fileID: 0}
 --- !u!1 &88818380
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8311f57e0caa848a1da2913cd943fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P2DeckBuilderUI
-  deckManagerSource: {fileID: 56620881}
+  cardDatabase: {fileID: 11400000, guid: 4b60e5ef81eab4e46a941b8c5a04e44c, type: 2}
   requiredSeedCount: 3
   startingDeckSize: 10
   startingHandSize: 3
@@ -454,17 +393,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
   m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
+    m_Left: 50
+    m_Right: 50
+    m_Top: 50
+    m_Bottom: 50
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 92, y: 162}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 1
-  m_ConstraintCount: 3
+  m_ConstraintCount: 9
 --- !u!114 &543000368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1077,8 +1016,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 4147161632131219233, guid: b0a9f34183079eb4fa62935adadc57f9, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1272,8 +1211,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294936454
+  m_fontColor: {r: 0.5235849, g: 0.5300264, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1690,6 +1629,8 @@ GameObject:
   - component: {fileID: 1880327170}
   - component: {fileID: 1880327169}
   - component: {fileID: 1880327168}
+  - component: {fileID: 1880327173}
+  - component: {fileID: 1880327172}
   m_Layer: 5
   m_Name: UIcanvas
   m_TagString: Untagged
@@ -1780,6 +1721,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1880327172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880327167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 4147161632131219233, guid: b0a9f34183079eb4fa62935adadc57f9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1880327173
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880327167}
+  m_CullTransparentMesh: 1
 --- !u!1 &2133450659
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,4 +2036,3 @@ SceneRoots:
   - {fileID: 1291222890}
   - {fileID: 1880327171}
   - {fileID: 698153627}
-  - {fileID: 56620880}

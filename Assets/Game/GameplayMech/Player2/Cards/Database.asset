@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca2272eacecfb247811b340c16ede5b, type: 3}
+  m_Name: Database
+  m_EditorClassIdentifier: Assembly-CSharp::P2CardDatabase
+  cards:
+  - {fileID: 11400000, guid: 41ab3c10ad2ea724ca18ca3b5f90d92a, type: 2}
+  - {fileID: 11400000, guid: 53ff9a2d007b7b547a24c5355b5b6495, type: 2}
+  - {fileID: 11400000, guid: 7a02c3298e454eb4d81fc97452d04e9e, type: 2}
+  - {fileID: 11400000, guid: b510c0c93d2046e4bb7c4000f4df526e, type: 2}
+  - {fileID: 11400000, guid: c9dc50e10768e8c42bea85aae18ff48a, type: 2}

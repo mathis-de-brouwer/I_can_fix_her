@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class P2DeckManager : MonoBehaviour
 {
-    [Header("All possible cards in the game")]
-    public List<P2Card> allAvailableCards = new List<P2Card>();
+    [Header("Card Database")]
+    [SerializeField] private P2CardDatabase cardDatabase;
 
     [Header("Match settings (used when no session config is provided)")]
     public int startingDeckSize = 10;
@@ -37,6 +37,8 @@ public class P2DeckManager : MonoBehaviour
     [SerializeField] private P2Charges charges;
 
     public bool IsBusy => _isResolvingPlay;
+
+    public List<P2Card> allAvailableCards => cardDatabase != null ? cardDatabase.cards : new List<P2Card>();
 
     private void Awake()
     {
@@ -118,24 +120,21 @@ public class P2DeckManager : MonoBehaviour
     {
         int targetSize = Mathf.Max(1, config.startingDeckSize);
 
-        if (config.seedCards == null || config.seedCards.Count == 0)
-        {
-            Debug.LogWarning("Seed deck is empty. Falling back to random generation.");
-            GenerateStartingDeck();
-            return;
-        }
-
         List<P2Card> validSeeds = new List<P2Card>();
-        for (int i = 0; i < config.seedCards.Count; i++)
+
+        if (config.seedCards != null)
         {
-            if (config.seedCards[i] != null)
-                validSeeds.Add(config.seedCards[i]);
+            for (int i = 0; i < config.seedCards.Count; i++)
+            {
+                if (config.seedCards[i] != null)
+                    validSeeds.Add(config.seedCards[i]);
+            }
         }
 
         if (validSeeds.Count == 0)
         {
-            Debug.LogWarning("Seed deck contains only nulls. Falling back to random generation.");
-            GenerateStartingDeck();
+            Debug.LogError("Seeded deck has no valid cards. Deck will be empty.");
+            RaiseDeckStateChanged();
             return;
         }
 
@@ -170,7 +169,6 @@ public class P2DeckManager : MonoBehaviour
         }
 
         Debug.Log($"Hand drawn with {hand.Count} cards.");
-
         RaiseDeckStateChanged();
     }
 

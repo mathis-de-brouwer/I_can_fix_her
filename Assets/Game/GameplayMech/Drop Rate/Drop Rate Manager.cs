@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class DropRateManager : MonoBehaviour
 {
@@ -10,33 +9,33 @@ public class DropRateManager : MonoBehaviour
     {
         public string name;
         public GameObject itemPrefab;
-        public float dropRate;
+        [Range(0f, 100f)] public float dropRate;
     }
 
-    public List<Drops>drops;
+    public List<Drops> drops;
 
-
-    void OnDestroy()
+    /// <summary>
+    /// Called by EnemyStats.Kill() when the enemy actually dies during gameplay.
+    /// Do NOT use OnDestroy for spawning — it also fires on scene unload.
+    /// </summary>
+    public void TriggerDrop()
     {
-        float randomNumber = UnityEngine.Random.Range(0f,100f);
+        if (drops == null || drops.Count == 0)
+            return;
+
+        float randomNumber = Random.Range(0f, 100f);
         List<Drops> possibleDrops = new List<Drops>();
 
-        foreach(Drops rate in drops)
+        foreach (Drops rate in drops)
         {
-            if(randomNumber <= rate.dropRate)
-            {
+            if (randomNumber <= rate.dropRate)
                 possibleDrops.Add(rate);
-
-                 
-            }
         }
-        //Checks if there are multiple drops that have a 100%/very high chance of dropping and is picking one of them to drop
-        if(possibleDrops.Count > 0)
-        {
-            Drops drops = possibleDrops[UnityEngine.Random.Range(0, possibleDrops.Count)];
-            Instantiate(drops.itemPrefab, transform.position, Quaternion.identity);
-        } 
 
-         
+        if (possibleDrops.Count > 0)
+        {
+            Drops chosen = possibleDrops[Random.Range(0, possibleDrops.Count)];
+            Instantiate(chosen.itemPrefab, transform.position, Quaternion.identity);
+        }
     }
 }
