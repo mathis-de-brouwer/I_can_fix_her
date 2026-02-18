@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::P2CardDatabase
   cards:
   - {fileID: 11400000, guid: 41ab3c10ad2ea724ca18ca3b5f90d92a, type: 2}
-  - {fileID: 11400000, guid: 53ff9a2d007b7b547a24c5355b5b6495, type: 2}
+  - {fileID: 11400000, guid: 0e96a3a044a49cb49b9031acf0ba23f0, type: 2}
   - {fileID: 11400000, guid: 7a02c3298e454eb4d81fc97452d04e9e, type: 2}
-  - {fileID: 11400000, guid: b510c0c93d2046e4bb7c4000f4df526e, type: 2}
+  - {fileID: 11400000, guid: 71bf07d570aef354daa2999451fe04a7, type: 2}
   - {fileID: 11400000, guid: c9dc50e10768e8c42bea85aae18ff48a, type: 2}
