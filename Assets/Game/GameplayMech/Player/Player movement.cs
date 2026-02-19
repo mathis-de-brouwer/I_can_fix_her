@@ -27,6 +27,9 @@ public class Playermovement : MonoBehaviour
 
     public CharacterSciptableObject characterData;
 
+    // New: optional reference to PlayerStats so movement uses the runtime modified speed
+    public PlayerStats playerStats;
+
     // Update is called once per frame
     void Update()
     {
@@ -44,6 +47,10 @@ public class Playermovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2 (movementDirection.x * characterData.MoveSpeed, movementDirection.y * characterData.MoveSpeed);
+        // Use runtime playerStats.currentMovementSpeed if assigned (so passive items/bonuses apply).
+        float speed = (playerStats != null) ? playerStats.currentMovementSpeed : characterData.MoveSpeed;
+
+        // Use Rigidbody2D.linearVelocity to match project's Unity API
+        rb.linearVelocity = new Vector2(movementDirection.x * speed, movementDirection.y * speed);
     }
 }

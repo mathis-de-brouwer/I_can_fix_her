@@ -22,6 +22,11 @@ public class ProjectileWeaponBehavior : MonoBehaviour
         currentCooldownDuration = weaponData.CooldownDuration;
         currentPierce = weaponData.pierce;
     }
+
+    public float GetCurrentDamage()
+    {
+        return currentDamage *= FindAnyObjectByType<PlayerStats>().currentMight; // this way if there's a damage multiplier it doesn't mess up the base damage of the weapon
+    } 
     protected virtual void Start()
     {
         Destroy(gameObject, destroyAfterSeconds);
@@ -78,8 +83,25 @@ public class ProjectileWeaponBehavior : MonoBehaviour
         if (col.CompareTag("Enemy"))
         {
             EnemyStats enemy = col.GetComponent<EnemyStats>();
-            enemy.TakeDamage(currentDamage); // we use current damage instead of weapondata.damage so that if there's damage multiplier it doesn't mess up everything 
+            enemy.TakeDamage(GetCurrentDamage()); // we use current damage instead of weapondata.damage so that if there's damage multiplier it doesn't mess up everything 
+            ReducePierce();
         }
-        
+        // else if (col.CompareTag("Prop"))
+        // {
+        //     if(col.gameObject.TryGetComponent(out BreakableProps breakable))
+        //     {
+        //         breakable.TakeDamage(GetCurrentDamage());
+        //         ReducePierce();
+        //     }
+        // }
+    }
+
+    void ReducePierce() //Destroy once the pierce reaches 0
+    {
+        currentPierce--;
+        if(currentPierce <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
