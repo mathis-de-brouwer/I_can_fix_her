@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
     public CharacterSciptableObject characterData;
+    public Slider healthSlider; // Reference to the UI slider for health display
 
 
     //current stats
@@ -14,6 +16,7 @@ public class PlayerStats : MonoBehaviour
     public float currentMight;
     public float currentProjectileSpeed;
     public float currentMagnet;
+
 
     //Experience and level of the player
     [Header("Experience/level")]
@@ -46,6 +49,9 @@ public class PlayerStats : MonoBehaviour
     {
         //initializing the experience cap as the first experience cap increase
         experienceCap = levelRanges[0].experienceCapIncrease;
+
+        healthSlider.maxValue = characterData.Maxhealth;
+        healthSlider.value = currentHealth;
     }
     public void Update()
     {
@@ -93,6 +99,7 @@ public class PlayerStats : MonoBehaviour
         if(!isInvincible)
         {
             currentHealth -= dmg;
+            healthSlider.value = currentHealth;
             invincibilityTimer = invincibilityDuration;
             isInvincible = true;
 
@@ -161,6 +168,7 @@ public class PlayerStats : MonoBehaviour
         if(currentHealth < characterData.Maxhealth)
         {
             currentHealth += currentRecovery * Time.deltaTime;
+            healthSlider.value = currentHealth;
         
             // makes sure that the health of the player doesn't go over the maximum
             if( currentHealth > characterData.Maxhealth)
