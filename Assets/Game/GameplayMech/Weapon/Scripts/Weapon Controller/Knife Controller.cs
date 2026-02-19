@@ -13,7 +13,7 @@ public class KnifeController : WeaponController
         base.Attack();
         GameObject spawnedKnife = Instantiate(weaponData.Prefab);
         spawnedKnife.transform.position = transform.position; // Makes the knife spawn at the same position as the parent layer aka the player
-        spawnedKnife.GetComponent<KnifeBehavior>().DirectionChecker(pm.lastMoveDirection); // this reference and set the direction the knife will go
+        spawnedKnife.GetComponent<KnifeBehavior>().DirectionChecker(GetAimDirection()); // this reference and set the direction the knife will go
     }
 
 }

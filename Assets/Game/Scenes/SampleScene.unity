@@ -1124,6 +1124,7 @@ GameObject:
   - component: {fileID: 925199398}
   - component: {fileID: 925199397}
   - component: {fileID: 925199396}
+  - component: {fileID: 925199407}
   - component: {fileID: 925199400}
   - component: {fileID: 925199401}
   - component: {fileID: 925199399}
@@ -1329,8 +1330,6 @@ MonoBehaviour:
   dashDuration: 0.15
   dashCooldown: 1
   dashInvincibilityDuration: 0.3
-  playerLayer: 0
-  enemyLayer: 4
   characterData: {fileID: 11400000, guid: f3985951b1e9c3d45be2b0349dc5c48d, type: 2}
   playerStats: {fileID: 925199405}
 --- !u!50 &925199400
@@ -1510,6 +1509,96 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   passiveItemLevels: 000000000000000000000000000000000000000000000000
+--- !u!114 &925199407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925199395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7153fa0df18754aabd01b7737723aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AimController
+  aimAction:
+    m_Name: Aim
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8e034e1b-2a51-4fb1-8702-acf805685711
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  aimUp:
+    m_Name: Aim Up
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2177de8d-7e41-4348-8beb-78246046e336
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 984a6105-32a8-40d6-b486-d35c489e0390
+      m_Path: <Keyboard>/upArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Aim Up
+      m_Flags: 0
+    m_Flags: 0
+  aimDown:
+    m_Name: Aim Down
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1f742f47-37be-42ff-9161-49f21569814a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: e5b1def6-8985-4f7c-8590-939a62878ef3
+      m_Path: <Keyboard>/downArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Aim Down
+      m_Flags: 0
+    m_Flags: 0
+  aimLeft:
+    m_Name: Aim Left
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 195d9937-b09d-452d-9119-d7da3d349521
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 821fc837-c9cc-44bd-aabf-5423d3618355
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Aim Left
+      m_Flags: 0
+    m_Flags: 0
+  aimRight:
+    m_Name: Aim Right
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8e812cf8-2083-4b48-89d5-82349dbefee7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d056cc34-5fa4-49cd-97a5-66aeb5e93664
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Aim Right
+      m_Flags: 0
+    m_Flags: 0
+  playerMovement: {fileID: 0}
 --- !u!1 &1065116078
 GameObject:
   m_ObjectHideFlags: 0
