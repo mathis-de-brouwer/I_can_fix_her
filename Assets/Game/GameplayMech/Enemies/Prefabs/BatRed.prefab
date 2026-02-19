@@ -193,7 +193,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 774ee6bb063fec944ab7263da5ab9158, type: 2}
   hitFlashColor: {r: 0.31278923, g: 0.32332554, b: 0.6698113, a: 1}
   hitFlashDuration: 0.1
-  staggerDuration: 0.15
+  staggerDuration: 0.3
   knockbackForce: 4
 --- !u!114 &4068351505415514550
 MonoBehaviour:
