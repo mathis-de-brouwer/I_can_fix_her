@@ -1319,7 +1319,7 @@ MonoBehaviour:
       m_Flags: 4
     - m_Name: 
       m_Id: 0f444b2e-d503-41ba-a905-5431dd491701
-      m_Path: <Keyboard>/#(U)
+      m_Path: <Keyboard>/leftShift
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -1598,7 +1598,7 @@ MonoBehaviour:
       m_Action: Aim Right
       m_Flags: 0
     m_Flags: 0
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 925199399}
 --- !u!1 &1065116078
 GameObject:
   m_ObjectHideFlags: 0
