@@ -170,5 +170,14 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Grants invincibility for a given duration (used by the dash).
+    /// Uses Mathf.Max so it never cuts short an existing I-frame window.
+    /// </summary>
+    public void StartInvincibility(float duration)
+    {
+        isInvincible = true;
+        invincibilityTimer = Mathf.Max(invincibilityTimer, duration);
+    }
 }
 

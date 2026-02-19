@@ -180,8 +180,9 @@ public class P2DeckManager : MonoBehaviour
             return null;
         }
 
-        P2Card drawnCard = deck[0];
-        deck.RemoveAt(0);
+        int last = deck.Count - 1;
+        P2Card drawnCard = deck[last];
+        deck.RemoveAt(last);
         hand.Add(drawnCard);
 
         Debug.Log($"Drew card: {drawnCard.cardName}");

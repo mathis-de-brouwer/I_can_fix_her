@@ -25,7 +25,7 @@ public class ProjectileWeaponBehavior : MonoBehaviour
 
     public float GetCurrentDamage()
     {
-        return currentDamage *= FindAnyObjectByType<PlayerStats>().currentMight; // this way if there's a damage multiplier it doesn't mess up the base damage of the weapon
+        return currentDamage * FindAnyObjectByType<PlayerStats>().currentMight;
     } 
     protected virtual void Start()
     {
@@ -79,21 +79,13 @@ public class ProjectileWeaponBehavior : MonoBehaviour
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D col) {
-        // Refference the script from the collided collider and deal damage using TakeDamage();
         if (col.CompareTag("Enemy"))
         {
             EnemyStats enemy = col.GetComponent<EnemyStats>();
-            enemy.TakeDamage(GetCurrentDamage()); // we use current damage instead of weapondata.damage so that if there's damage multiplier it doesn't mess up everything 
+            Vector2 hitDir = (col.transform.position - transform.position).normalized;
+            enemy.TakeDamage(GetCurrentDamage(), hitDir);
             ReducePierce();
         }
-        // else if (col.CompareTag("Prop"))
-        // {
-        //     if(col.gameObject.TryGetComponent(out BreakableProps breakable))
-        //     {
-        //         breakable.TakeDamage(GetCurrentDamage());
-        //         ReducePierce();
-        //     }
-        // }
     }
 
     void ReducePierce() //Destroy once the pierce reaches 0

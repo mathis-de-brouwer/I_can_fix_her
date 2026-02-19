@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7018339479314916868}
   - component: {fileID: 8714880461305423004}
   - component: {fileID: 9205001308282512122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: baseTilesTopDOwn_338
   m_TagString: Untagged
   m_Icon: {fileID: 0}

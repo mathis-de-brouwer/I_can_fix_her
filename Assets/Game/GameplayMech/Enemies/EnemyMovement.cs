@@ -1,19 +1,33 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(EnemyStats))]
+public class EnemyMovement : MonoBehaviour
 {
+    Transform _player;
+    Rigidbody2D _rb;
+    EnemyStats _stats;
 
-    public EnemyScriptableObject enemyData;
-    Transform player;
+    void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _stats = GetComponent<EnemyStats>();
+    }
 
     void Start()
     {
-        player = FindAnyObjectByType<Playermovement>().transform;
+        Playermovement playerMovement = FindAnyObjectByType<Playermovement>();
+        if (playerMovement != null)
+            _player = playerMovement.transform;
+        else
+            Debug.LogWarning("EnemyMovement: No Playermovement found in scene.");
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemyData.moveSpeed*Time.deltaTime); // make the enemy constantly move towards to the player
+        if (_player == null || _stats.IsStaggered()) return;
+
+        Vector2 dir = ((Vector2)_player.position - _rb.position).normalized;
+        _rb.linearVelocity = dir * _stats.GetMoveSpeed();
     }
 }

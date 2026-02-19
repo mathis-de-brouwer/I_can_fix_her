@@ -658,7 +658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0}
   m_SizeDelta: {x: 1420, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &485319228
@@ -1249,6 +1249,7 @@ MonoBehaviour:
   rb: {fileID: 925199400}
   movementSpeed: 5
   animator: {fileID: 925199402}
+  spriteRenderer: {fileID: 925199397}
   lastMoveDirection: {x: 1, y: 0}
   playerControlls:
     m_Name: Player Controlls
@@ -1299,6 +1300,37 @@ MonoBehaviour:
       m_Action: Player Controlls
       m_Flags: 8
     m_Flags: 0
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e62aee07-3e7a-4c52-ba3c-39a06b2692b3
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: One Modifier
+      m_Id: c3f89728-0574-41fc-8573-54dffbd10c54
+      m_Path: OneModifier
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
+      m_Flags: 4
+    - m_Name: 
+      m_Id: 0f444b2e-d503-41ba-a905-5431dd491701
+      m_Path: <Keyboard>/#(U)
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
+      m_Flags: 0
+    m_Flags: 0
+  dashSpeed: 20
+  dashDuration: 0.15
+  dashCooldown: 1
+  dashInvincibilityDuration: 0.3
+  playerLayer: 0
+  enemyLayer: 4
   characterData: {fileID: 11400000, guid: f3985951b1e9c3d45be2b0349dc5c48d, type: 2}
   playerStats: {fileID: 925199405}
 --- !u!50 &925199400
@@ -1450,8 +1482,6 @@ MonoBehaviour:
     experienceCapIncrease: 0
   weaponIndex: 0
   passiveItemIndex: 0
-  firstPassiveItem: {fileID: 149397951995052163, guid: 0a096b1fb5049984abc7cec383c355a0, type: 3}
-  secondPassiveItem: {fileID: 2493217695765593761, guid: c281760131a15764b9dc2a28b7dcda6b, type: 3}
 --- !u!114 &925199406
 MonoBehaviour:
   m_ObjectHideFlags: 0
