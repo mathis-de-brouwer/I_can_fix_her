@@ -38,6 +38,10 @@ public class PlayerStats : MonoBehaviour
 
     public List<LevelRange> levelRanges;
 
+    InventoryManager inventory;
+    public int weaponIndex; 
+    public int passiveItemIndex;
+
     void Start()
     {
         //initializing the experience cap as the first experience cap increase
@@ -105,14 +109,51 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Killed the player");
     }
 
+    //public GameObject firstPassiveItem, secondPassiveItem;
     void Awake()
     {
+        inventory = GetComponent<InventoryManager>();
+
         currentHealth = characterData.Maxhealth;
         currentRecovery = characterData.Recovery;
         currentMight = characterData.Might;
         currentMovementSpeed = characterData.MoveSpeed;
         currentProjectileSpeed = characterData.ProjectileSpeed;
         currentMagnet = characterData.Magnet;
+
+        // SpawnPassiveItem(firstPassiveItem);
+        // SpawnPassiveItem(secondPassiveItem);
+
+    }
+
+    public void SpawnWeapon ( GameObject weapon)
+    {
+        if(weaponIndex >= inventory.WeaponSlots.Count - 1)
+        {
+            Debug.LogWarning("No more weapon slots available!");
+            return;
+        }
+
+        GameObject spawnedWeapon = Instantiate(weapon, transform.position, Quaternion.identity);
+        spawnedWeapon.transform.SetParent(transform); //set the weapon to be a child of the player 
+        inventory.AddWeapon(weaponIndex, spawnedWeapon.GetComponent<WeaponController>()); //add the weapon to the inventory manager's list of weapons
+
+        weaponIndex++;
+    }
+
+        public void SpawnPassiveItem ( GameObject passiveItem)
+    {
+        if(passiveItemIndex >= inventory.PassiveItemSlots.Count - 1)
+        {
+            Debug.LogWarning("No more passive item slots available!");
+            return;
+        }
+        
+        GameObject spawnedPassiveItem = Instantiate(passiveItem, transform.position, Quaternion.identity);
+        spawnedPassiveItem.transform.SetParent(transform); //set the weapon to be a child of the player 
+        inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItems>()); //add the passive item to the inventory manager's list of weapons
+
+        passiveItemIndex++;
     }
 
     void Recovery()
