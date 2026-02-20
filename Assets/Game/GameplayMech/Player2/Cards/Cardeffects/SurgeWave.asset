@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c8b0cef69c2aa542a53d0fd0993cfe7, type: 3}
+  m_Name: SurgeWave
+  m_EditorClassIdentifier: Assembly-CSharp::P2SpawnSurgeCardEffect
+  cardArtOverride: {fileID: 8683432716641835370, guid: d8a3f9afd7f464b49957ac00cc21e656, type: 3}
+  waveSize: 50
+  totalDuration: 5
+  spawnRadius: 8
+  randomJitter: 0.5
+  spawnTable:
+  - prefab: {fileID: 2797907090213795397, guid: 9df3826359dfe0042a7489aec0f76b70, type: 3}
+    weight: 10
+  - prefab: {fileID: 2797907090213795397, guid: 5d65f9ac93367a1468ab2e3a4c5338e7, type: 3}
+    weight: 2

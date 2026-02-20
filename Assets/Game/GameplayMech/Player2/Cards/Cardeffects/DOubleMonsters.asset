@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DOubleMonsters
   m_EditorClassIdentifier: Assembly-CSharp::P2DoubleMonstersCardEffect
   cardArtOverride: {fileID: 9161557333855047427, guid: 8a4e07036d1658a47adbfed8c1829bec, type: 3}
-  doubleCount: 3
-  spawnOffset: 0.6
+  doubleCount: 6
+  spawnOffset: 5
