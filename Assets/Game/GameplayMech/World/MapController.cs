@@ -12,10 +12,33 @@ public class MapController : MonoBehaviour
     public Vector2 chunkSize = new Vector2(20f, 20f);
     public bool deleteCulledChunks = false;
 
+    [Header("Chunk Groups")]
+    [Tooltip("Multi-chunk structures that can appear on the map.")]
+    public ChunkGroupDefinition[] chunkGroups;
+
+    [Tooltip("0-1 chance that any given free coord tries to place a group instead of a random chunk.")]
+    [Range(0f, 1f)]
+    public float groupSpawnChance = 0.15f;
+
+    // Internal
+
     private readonly Dictionary<Vector2Int, PropRandom> _spawnedChunks = new Dictionary<Vector2Int, PropRandom>();
 
     private Vector3 _lastCameraPosition;
     private float _cullDistanceSqr;
+
+    private readonly Dictionary<ChunkGroupDefinition, int> _groupInstanceCount = new Dictionary<ChunkGroupDefinition, int>();
+    private readonly HashSet<string> _activeFlags = new HashSet<string>();
+
+    // Public API
+
+    /// <summary>Unlock a flag so flag-gated chunk groups become eligible.</summary>
+    public void SetFlag(string flag) => _activeFlags.Add(flag);
+
+    /// <summary>Remove a flag.</summary>
+    public void ClearFlag(string flag) => _activeFlags.Remove(flag);
+
+    // Unity
 
     private void Start()
     {
@@ -27,14 +50,15 @@ public class MapController : MonoBehaviour
 
         RecalculateCullDistance();
         SpawnChunksAroundCamera(force: true);
-
         StartCoroutine(HandleMapCheck());
     }
 
     private void Reset()
-    {       
+    {
         referenceCamera = Camera.main;
     }
+
+    // Map check coroutine
 
     private IEnumerator HandleMapCheck()
     {
@@ -54,9 +78,10 @@ public class MapController : MonoBehaviour
         }
     }
 
+    // Cull distance
+
     private void RecalculateCullDistance()
     {
-        // Rough but stable: based on camera world size + chunk size.
         Vector2 minPoint = referenceCamera.ViewportToWorldPoint(referenceCamera.rect.min);
         Vector2 maxPoint = referenceCamera.ViewportToWorldPoint(referenceCamera.rect.max);
         Vector2 viewSize = maxPoint - minPoint;
@@ -64,11 +89,10 @@ public class MapController : MonoBehaviour
         _cullDistanceSqr = Mathf.Max(viewSize.sqrMagnitude, chunkSize.sqrMagnitude) * 3f;
     }
 
+    // Spawning
+
     private void SpawnChunksAroundCamera(bool force)
     {
-        Vector2 camPos = referenceCamera.transform.position;
-
-        // Determine how many chunks are needed to cover the viewport + 1 border.
         Vector2 minPoint = referenceCamera.ViewportToWorldPoint(referenceCamera.rect.min);
         Vector2 maxPoint = referenceCamera.ViewportToWorldPoint(referenceCamera.rect.max);
 
@@ -81,49 +105,125 @@ public class MapController : MonoBehaviour
             {
                 Vector2Int coord = new Vector2Int(x, y);
 
-                if (!force && _spawnedChunks.ContainsKey(coord))
-                    continue;
-
                 if (_spawnedChunks.ContainsKey(coord))
                     continue;
 
-                Vector3 worldPos = ChunkCoordToWorld(coord);
-                PropRandom chunk = SpawnChunk(worldPos);
-                if (chunk != null)
-                    _spawnedChunks.Add(coord, chunk);
+                // Try a group first; fall back to a single chunk.
+                if (!TrySpawnGroupAt(coord))
+                {
+                    PropRandom chunk = SpawnChunk(ChunkCoordToWorld(coord));
+                    if (chunk != null)
+                        _spawnedChunks.Add(coord, chunk);
+                }
             }
         }
     }
 
+    // Chunk groups
+
+    private bool TrySpawnGroupAt(Vector2Int anchorCoord)
+    {
+        if (chunkGroups == null || chunkGroups.Length == 0)
+            return false;
+
+        if (Random.value > groupSpawnChance)
+            return false;
+
+        List<ChunkGroupDefinition> eligible = new List<ChunkGroupDefinition>();
+        foreach (ChunkGroupDefinition group in chunkGroups)
+        {
+            if (!IsGroupEligible(group))
+                continue;
+
+            if (!GroupFitsAt(group, anchorCoord))
+                continue;
+
+            eligible.Add(group);
+        }
+
+        if (eligible.Count == 0)
+            return false;
+
+        ChunkGroupDefinition chosen = eligible[Random.Range(0, eligible.Count)];
+        SpawnGroup(chosen, anchorCoord);
+        return true;
+    }
+
+    private bool IsGroupEligible(ChunkGroupDefinition group)
+    {
+        if (group == null || group.entries == null || group.entries.Length == 0)
+            return false;
+
+        if (!string.IsNullOrEmpty(group.requiredFlag) && !_activeFlags.Contains(group.requiredFlag))
+            return false;
+
+        if (group.maxInstances >= 0)
+        {
+            _groupInstanceCount.TryGetValue(group, out int count);
+            if (count >= group.maxInstances)
+                return false;
+        }
+
+        return true;
+    }
+
+    private bool GroupFitsAt(ChunkGroupDefinition group, Vector2Int anchor)
+    {
+        foreach (ChunkGroupDefinition.ChunkEntry entry in group.entries)
+        {
+            if (_spawnedChunks.ContainsKey(anchor + entry.gridOffset))
+                return false;
+        }
+        return true;
+    }
+
+    private void SpawnGroup(ChunkGroupDefinition group, Vector2Int anchor)
+    {
+        foreach (ChunkGroupDefinition.ChunkEntry entry in group.entries)
+        {
+            Vector2Int coord = anchor + entry.gridOffset;
+            PropRandom chunk = Instantiate(entry.prefab, transform);
+            chunk.transform.position = ChunkCoordToWorld(coord);
+            _spawnedChunks.Add(coord, chunk);
+        }
+
+        if (!_groupInstanceCount.ContainsKey(group))
+            _groupInstanceCount[group] = 0;
+        _groupInstanceCount[group]++;
+    }
+
+    // Helpers
+
+    private PropRandom SpawnChunk(Vector3 worldPos)
+    {
+        if (terrainChunks == null || terrainChunks.Length < 1)
+            return null;
+
+        PropRandom chunk = Instantiate(terrainChunks[Random.Range(0, terrainChunks.Length)], transform);
+        chunk.transform.position = worldPos;
+        return chunk;
+    }
+
     private Vector2Int WorldToChunkCoord(Vector2 worldPos)
     {
-        int x = Mathf.RoundToInt(worldPos.x / chunkSize.x);
-        int y = Mathf.RoundToInt(worldPos.y / chunkSize.y);
-        return new Vector2Int(x, y);
+        return new Vector2Int(
+            Mathf.RoundToInt(worldPos.x / chunkSize.x),
+            Mathf.RoundToInt(worldPos.y / chunkSize.y));
     }
+
+    private Vector2Int WorldToChunkCoord(Vector3 worldPos) =>
+        WorldToChunkCoord(new Vector2(worldPos.x, worldPos.y));
 
     private Vector3 ChunkCoordToWorld(Vector2Int coord)
     {
         return new Vector3(coord.x * chunkSize.x, coord.y * chunkSize.y, transform.position.z);
     }
 
-    private PropRandom SpawnChunk(Vector3 spawnPosition, int variant = -1)
-    {
-        if (terrainChunks == null || terrainChunks.Length < 1)
-            return null;
-
-        int rand = variant < 0 ? Random.Range(0, terrainChunks.Length) : variant;
-        PropRandom chunk = Instantiate(terrainChunks[rand], transform);
-        chunk.transform.position = spawnPosition;
-        return chunk;
-    }
+    // Culling
 
     private void CullChunks()
     {
         Vector3 camPos = referenceCamera.transform.position;
-
-        // Iterate dictionary values (no need to rely on transform children)
-        // If you want deletion, collect keys to remove.
         List<Vector2Int> toRemove = deleteCulledChunks ? new List<Vector2Int>() : null;
 
         foreach (KeyValuePair<Vector2Int, PropRandom> kvp in _spawnedChunks)

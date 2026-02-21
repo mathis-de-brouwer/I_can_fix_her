@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class Ysorting : MonoBehaviour
 {
+    [Tooltip("Vertical offset in world units from this object's pivot used as the sort origin. " +
+             "Use a negative value to push the sort point toward the base of tall sprites.")]
+    public float sortingOriginOffset = 0f;
 
-    private SpriteRenderer sr;
+    private SpriteRenderer _sr;
 
-    void Awake()
+    private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
+        _sr = GetComponent<SpriteRenderer>();
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        sr.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
+        _sr.sortingOrder = Mathf.RoundToInt(-(transform.position.y + sortingOriginOffset) * 100);
     }
 }
