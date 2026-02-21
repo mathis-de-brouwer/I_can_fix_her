@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: fae99a9883984e44f823c5af7950e8e8
+guid: 1beddce34c77e0746bba788800eb78cf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8430375337406659125
-    second: treswaying_0
+      213: 8542855541418632613
+    second: pinkbrush1_0
   - first:
-      213: 3072122985903877470
-    second: treswaying_1
+      213: 6829462081730136244
+    second: pinkbrush1_1
   - first:
-      213: -6362155251788203478
-    second: treswaying_2
+      213: 2767388150705293875
+    second: pinkbrush1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,67 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: treswaying_0
+      name: pinkbrush1_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 4
         y: 0
-        width: 80
-        height: 112
+        width: 34
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 7b4928b63bfebaa4d937ca3f0dd1b57d
-      internalID: 499093137
+      spriteID: 5a52cb95ad15e8670800000000000000
+      internalID: 8542855541418632613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treswaying_1
+      name: pinkbrush1_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 47
         y: 0
-        width: 79
-        height: 112
+        width: 34
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9d74ec593a4304443b4920c7ef37d4ec
-      internalID: 23602887
+      spriteID: 4b8468c449f17ce50800000000000000
+      internalID: 6829462081730136244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treswaying_2
+      name: pinkbrush1_2
       rect:
         serializedVersion: 2
-        x: 185
+        x: 88
         y: 0
-        width: 80
-        height: 112
+        width: 35
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 59c16a767a01cbc4bbff138041f3dab3
-      internalID: 487951189
+      spriteID: 33a0a6e5cdcb76620800000000000000
+      internalID: 2767388150705293875
       vertices: []
       indices: 
       edges: []
@@ -175,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 85ce2e59ea195794987f896975f95356
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -183,13 +183,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":80.0,"y":112.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      treswaying_0: 499093137
-      treswaying_1: 23602887
-      treswaying_2: 487951189
+      pinkbrush1_0: 8542855541418632613
+      pinkbrush1_1: 6829462081730136244
+      pinkbrush1_2: 2767388150705293875
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
