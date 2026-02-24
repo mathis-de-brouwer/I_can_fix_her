@@ -36,6 +36,11 @@ public class P2DeckManager : MonoBehaviour
     [Header("Charges")]
     [SerializeField] private P2Charges charges;
 
+    [Header("Game Result")]
+    [SerializeField] private GameObject gameResultPrefab; // same prefab as PlayerStats
+
+    private bool _gameStarted = false;
+
     public bool IsBusy => _isResolvingPlay;
 
     public List<P2Card> allAvailableCards => cardDatabase != null ? cardDatabase.cards : new List<P2Card>();
@@ -64,6 +69,13 @@ public class P2DeckManager : MonoBehaviour
 
         ShuffleDeck();
         DrawStartingHand();
+        StartCoroutine(EnableGameStartedNextFrame());
+    }
+
+    private IEnumerator EnableGameStartedNextFrame()
+    {
+        yield return null;
+        _gameStarted = true;
     }
 
     public void GenerateStartingDeck()
@@ -266,5 +278,19 @@ public class P2DeckManager : MonoBehaviour
     {
         HandChanged?.Invoke();
         DeckStateChanged?.Invoke();
+        CheckDeckEmpty();
+    }
+
+    private void CheckDeckEmpty()
+    {
+        if (!_gameStarted) return;
+        if (deck.Count == 0 && hand.Count == 0)
+        {
+            if (gameResultPrefab != null)
+            {
+                GameObject instance = Instantiate(gameResultPrefab);
+                instance.GetComponent<GameResultScreenUI>().Setup(GameResultScreenUI.Winner.P1);
+            }
+        }
     }
 }

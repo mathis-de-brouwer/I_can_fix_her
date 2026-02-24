@@ -207,8 +207,8 @@ public class MapController : MonoBehaviour
     private Vector2Int WorldToChunkCoord(Vector2 worldPos)
     {
         return new Vector2Int(
-            Mathf.RoundToInt(worldPos.x / chunkSize.x),
-            Mathf.RoundToInt(worldPos.y / chunkSize.y));
+            Mathf.FloorToInt(worldPos.x / chunkSize.x),
+            Mathf.FloorToInt(worldPos.y / chunkSize.y));
     }
 
     private Vector2Int WorldToChunkCoord(Vector3 worldPos) =>

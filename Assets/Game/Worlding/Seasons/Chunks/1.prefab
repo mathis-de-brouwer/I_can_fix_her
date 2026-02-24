@@ -78,13 +78,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PropRandom
   propSpawnPoint:
-  - {fileID: 7604579466320269046, guid: e41af6523ff440946a368f9c5281de0a, type: 3}
-  - {fileID: 6153055766125098938, guid: e41af6523ff440946a368f9c5281de0a, type: 3}
-  - {fileID: 7972375808341104647, guid: e41af6523ff440946a368f9c5281de0a, type: 3}
-  - {fileID: 183105817560658803, guid: e41af6523ff440946a368f9c5281de0a, type: 3}
-  - {fileID: 4307765550984520912, guid: e41af6523ff440946a368f9c5281de0a, type: 3}
-  - {fileID: 4936227499555832549, guid: e41af6523ff440946a368f9c5281de0a, type: 3}
-  - {fileID: 7171190331952321635, guid: e41af6523ff440946a368f9c5281de0a, type: 3}
+  - {fileID: 7604579466320269046}
+  - {fileID: 6153055766125098938}
+  - {fileID: 7972375808341104647}
+  - {fileID: 183105817560658803}
+  - {fileID: 4307765550984520912}
+  - {fileID: 4936227499555832549}
+  - {fileID: 7171190331952321635}
   propPrefab:
   - {fileID: 8996677118004415785, guid: 66765ad3d43f88a43bf696bf2aa2d26c, type: 3}
   - {fileID: 8996677118004415785, guid: 2eb0f701be5ae3a40ba26dcfd409024a, type: 3}

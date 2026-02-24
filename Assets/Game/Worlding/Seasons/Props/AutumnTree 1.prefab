@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 4}
+  m_Size: {x: 5, y: 7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -128,8 +128,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0013172328, y: -1.1199569}
-  m_Size: {x: 0.96700436, y: 3.2695687}
+  m_Offset: {x: -0.0013172328, y: -1.7011254}
+  m_Size: {x: 0.96700436, y: 2.1072316}
   m_Direction: 0
 --- !u!114 &6161165036175093197
 MonoBehaviour:
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509dee828bf357b43b11fdccf61d6c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ysorting
-  sortingOriginOffset: -1.6
+  sortingOriginOffset: -2.5
 --- !u!95 &-1348429267214046381
 Animator:
   serializedVersion: 7

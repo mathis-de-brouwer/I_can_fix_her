@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,10 +6,11 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     public CharacterSciptableObject characterData;
-    public Slider healthSlider; // Reference to the UI slider for health display
+    public Slider healthSlider;
 
-
-    //current stats
+    [Header("Hurt / Death")]
+    public Animator animator;
+    public GameObject gameResultPrefab; // Drag the GameResult prefab here
 
     public float currentHealth;
     public float currentRecovery;
@@ -17,49 +19,62 @@ public class PlayerStats : MonoBehaviour
     public float currentProjectileSpeed;
     public float currentMagnet;
 
-
-    //Experience and level of the player
     [Header("Experience/level")]
     public int experience = 0;
     public int level = 1;
     public int experienceCap;
 
-    //Class for defining a level range and the corresponding experience cap increase for that range
     [System.Serializable]
     public class LevelRange
     {
-        public int startlevel; 
+        public int startlevel;
         public int endlevel;
         public int experienceCapIncrease;
     }
 
-    //I-Frames
     [Header("I-Frames")]
     public float invincibilityDuration;
     float invincibilityTimer;
-    bool isInvincible; 
+    bool isInvincible;
+
+    bool isDead = false;
 
     public List<LevelRange> levelRanges;
 
     InventoryManager inventory;
-    public int weaponIndex; 
+    public int weaponIndex;
     public int passiveItemIndex;
+
+    void Awake()
+    {
+        inventory = GetComponent<InventoryManager>();
+
+        currentHealth = characterData.Maxhealth;
+        currentRecovery = characterData.Recovery;
+        currentMight = characterData.Might;
+        currentMovementSpeed = characterData.MoveSpeed;
+        currentProjectileSpeed = characterData.ProjectileSpeed;
+        currentMagnet = characterData.Magnet;
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
+    }
 
     void Start()
     {
-        //initializing the experience cap as the first experience cap increase
         experienceCap = levelRanges[0].experienceCapIncrease;
 
         healthSlider.maxValue = characterData.Maxhealth;
         healthSlider.value = currentHealth;
     }
+
     public void Update()
     {
-        if(invincibilityTimer > 0)
+        if (invincibilityTimer > 0)
         {
             invincibilityTimer -= Time.deltaTime;
-
-        }else if (isInvincible)
+        }
+        else if (isInvincible)
         {
             isInvincible = false;
         }
@@ -75,15 +90,15 @@ public class PlayerStats : MonoBehaviour
 
     void LevelUpChecker()
     {
-        if(experience >= experienceCap)
+        if (experience >= experienceCap)
         {
             level++;
             experience -= experienceCap;
 
             int experienceCapIncrease = 0;
-            foreach(LevelRange range in levelRanges)
+            foreach (LevelRange range in levelRanges)
             {
-                if(level >= range.startlevel && level <= range.endlevel)
+                if (level >= range.startlevel && level <= range.endlevel)
                 {
                     experienceCapIncrease = range.experienceCapIncrease;
                     break;
@@ -95,97 +110,103 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
-        //this is if the player isn't currently invincible, reduce health and start invincibility 
-        if(!isInvincible)
+        if (isDead) return;
+
+        if (!isInvincible)
         {
             currentHealth -= dmg;
             healthSlider.value = currentHealth;
             invincibilityTimer = invincibilityDuration;
             isInvincible = true;
 
-        if(currentHealth <= 0)
-        {
-            Kill();
+            if (currentHealth <= 0)
+            {
+                Kill();
+            }
+            else
+            {
+                if (animator != null)
+                    animator.SetTrigger("Hurt");
+            }
         }
-        }
-        
     }
 
     public void Kill()
     {
-        Debug.Log("Killed the player");
+        if (isDead) return;
+        isDead = true;
+
+        if (animator != null)
+            animator.SetTrigger("Die");
+
+        Playermovement movement = GetComponent<Playermovement>();
+        if (movement != null)
+            movement.enabled = false;
+
+        StartCoroutine(ShowDeathScreen(1f));
     }
 
-    //public GameObject firstPassiveItem, secondPassiveItem;
-    void Awake()
+    IEnumerator ShowDeathScreen(float delay)
     {
-        inventory = GetComponent<InventoryManager>();
+        yield return new WaitForSecondsRealtime(delay);
 
-        currentHealth = characterData.Maxhealth;
-        currentRecovery = characterData.Recovery;
-        currentMight = characterData.Might;
-        currentMovementSpeed = characterData.MoveSpeed;
-        currentProjectileSpeed = characterData.ProjectileSpeed;
-        currentMagnet = characterData.Magnet;
-
-        // SpawnPassiveItem(firstPassiveItem);
-        // SpawnPassiveItem(secondPassiveItem);
-
+        if (gameResultPrefab != null)
+        {
+            GameObject instance = Instantiate(gameResultPrefab);
+            instance.GetComponent<GameResultScreenUI>().Setup(GameResultScreenUI.Winner.P2);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerStats: gameResultPrefab is not assigned!");
+        }
     }
 
-    public void SpawnWeapon ( GameObject weapon)
+    public void StartInvincibility(float duration)
     {
-        if(weaponIndex >= inventory.WeaponSlots.Count - 1)
+        isInvincible = true;
+        invincibilityTimer = Mathf.Max(invincibilityTimer, duration);
+    }
+
+    public void SpawnWeapon(GameObject weapon)
+    {
+        if (weaponIndex >= inventory.WeaponSlots.Count - 1)
         {
             Debug.LogWarning("No more weapon slots available!");
             return;
         }
 
         GameObject spawnedWeapon = Instantiate(weapon, transform.position, Quaternion.identity);
-        spawnedWeapon.transform.SetParent(transform); //set the weapon to be a child of the player 
-        inventory.AddWeapon(weaponIndex, spawnedWeapon.GetComponent<WeaponController>()); //add the weapon to the inventory manager's list of weapons
-
+        spawnedWeapon.transform.SetParent(transform);
+        inventory.AddWeapon(weaponIndex, spawnedWeapon.GetComponent<WeaponController>());
         weaponIndex++;
     }
 
-        public void SpawnPassiveItem ( GameObject passiveItem)
+    public void SpawnPassiveItem(GameObject passiveItem)
     {
-        if(passiveItemIndex >= inventory.PassiveItemSlots.Count - 1)
+        if (passiveItemIndex >= inventory.PassiveItemSlots.Count - 1)
         {
             Debug.LogWarning("No more passive item slots available!");
             return;
         }
-        
-        GameObject spawnedPassiveItem = Instantiate(passiveItem, transform.position, Quaternion.identity);
-        spawnedPassiveItem.transform.SetParent(transform); //set the weapon to be a child of the player 
-        inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItems>()); //add the passive item to the inventory manager's list of weapons
 
+        GameObject spawnedPassiveItem = Instantiate(passiveItem, transform.position, Quaternion.identity);
+        spawnedPassiveItem.transform.SetParent(transform);
+        inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItems>());
         passiveItemIndex++;
     }
 
     void Recovery()
     {
-        if(currentHealth < characterData.Maxhealth)
+        if (isDead) return;
+
+        if (currentHealth < characterData.Maxhealth)
         {
             currentHealth += currentRecovery * Time.deltaTime;
             healthSlider.value = currentHealth;
-        
-            // makes sure that the health of the player doesn't go over the maximum
-            if( currentHealth > characterData.Maxhealth)
-            {
-                currentHealth = characterData.Maxhealth;
-            }
-        }
-    }
 
-    /// <summary>
-    /// Grants invincibility for a given duration (used by the dash).
-    /// Uses Mathf.Max so it never cuts short an existing I-frame window.
-    /// </summary>
-    public void StartInvincibility(float duration)
-    {
-        isInvincible = true;
-        invincibilityTimer = Mathf.Max(invincibilityTimer, duration);
+            if (currentHealth > characterData.Maxhealth)
+                currentHealth = characterData.Maxhealth;
+        }
     }
 }
 

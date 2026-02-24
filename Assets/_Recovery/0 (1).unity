@@ -652,7 +652,6 @@ MonoBehaviour:
   playResolveDelay: 0.2
   effectResolver: {fileID: 421071089}
   charges: {fileID: 421071090}
-  gameResultPrefab: {fileID: 5704826936650097207, guid: ea8435265e3fca54abd404e961981e0e, type: 3}
 --- !u!114 &421071089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abbfae6b2b37224c8e6b8e8067c2057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
+  startingHealth: 5
 --- !u!114 &925199404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,8 +1527,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   characterData: {fileID: 11400000, guid: f3985951b1e9c3d45be2b0349dc5c48d, type: 2}
   healthSlider: {fileID: 1749037746}
-  animator: {fileID: 925199402}
-  gameResultPrefab: {fileID: 5704826936650097207, guid: ea8435265e3fca54abd404e961981e0e, type: 3}
   currentHealth: 0
   currentRecovery: 0
   currentMovementSpeed: 0
@@ -2293,7 +2291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 3.8160973, y: 0}
+  m_AnchoredPosition: {x: 3.816101, y: 0}
   m_SizeDelta: {x: -0.3677, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1853572335
