@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: 8269f787e3993904abe160b7cc51db71
+guid: d725474a8d2b0004fbc3390aeb4966e2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8430375337406659125
-    second: treswaying_0
+      213: -2367537162483459653
+    second: noleaves_0
   - first:
-      213: 3072122985903877470
-    second: treswaying_1
+      213: 8326865213563703912
+    second: noleaves_1
   - first:
-      213: -6362155251788203478
-    second: treswaying_2
+      213: 8250003667723002374
+    second: noleaves_2
+  - first:
+      213: -8055804388827902414
+    second: noleaves_3
+  - first:
+      213: -7738977012856584845
+    second: noleaves_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,7 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: treswaying_0
+      name: noleaves_0
       rect:
         serializedVersion: 2
         x: 5
@@ -119,41 +125,19 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 7b4928b63bfebaa4d937ca3f0dd1b57d
-      internalID: 499093137
+      spriteID: bb913a59e71d42fd0800000000000000
+      internalID: -2367537162483459653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: treswaying_1
+      name: noleaves_1
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
-        width: 79
-        height: 112
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9d74ec593a4304443b4920c7ef37d4ec
-      internalID: 23602887
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: treswaying_2
-      rect:
-        serializedVersion: 2
-        x: 185
+        x: 94
         y: 0
         width: 80
         height: 112
@@ -163,10 +147,76 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 59c16a767a01cbc4bbff138041f3dab3
-      internalID: 487951189
+      spriteID: 862950b4bc7fe8370800000000000000
+      internalID: 8326865213563703912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noleaves_2
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 0
+        width: 80
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 602ac4a10a6ed7270800000000000000
+      internalID: 8250003667723002374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noleaves_3
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 0
+        width: 80
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23e41eff698043090800000000000000
+      internalID: -8055804388827902414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noleaves_4
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 0
+        width: 80
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37505cfd861a99490800000000000000
+      internalID: -7738977012856584845
       vertices: []
       indices: 
       edges: []
@@ -175,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 85ce2e59ea195794987f896975f95356
+    spriteID: 83a99df7d4c13fa47b00f1117834f74d
     internalID: 0
     vertices: []
     indices: 
@@ -183,13 +233,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":80.0,"y":112.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      treswaying_0: 499093137
-      treswaying_1: 23602887
-      treswaying_2: 487951189
+      noleaves_0: -2367537162483459653
+      noleaves_1: 8326865213563703912
+      noleaves_2: 8250003667723002374
+      noleaves_3: -8055804388827902414
+      noleaves_4: -7738977012856584845
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
