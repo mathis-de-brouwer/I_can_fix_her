@@ -475,6 +475,54 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &395505134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 395505136}
+  - component: {fileID: 395505135}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &395505135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395505134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65db843ddefdbb44684b14dcf758d9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelUpRewardManager
+  levelsPerReward: 3
+  passiveItemDatabase: {fileID: 11400000, guid: e354b8681d57989439a7e201b0f47614, type: 2}
+  cardDatabase: {fileID: 11400000, guid: 4b60e5ef81eab4e46a941b8c5a04e44c, type: 2}
+  levelUpRewardScreenPrefab: {fileID: 5704826936650097207, guid: 59f242b9dab5a02409489a3477df3455, type: 3}
+--- !u!4 &395505136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395505134}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 715.42645, y: 444.59583, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &411739261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2497,3 +2545,4 @@ SceneRoots:
   - {fileID: 306971711}
   - {fileID: 1065116080}
   - {fileID: 421071087}
+  - {fileID: 395505136}

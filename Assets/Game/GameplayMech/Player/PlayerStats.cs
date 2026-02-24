@@ -105,6 +105,9 @@ public class PlayerStats : MonoBehaviour
                 }
             }
             experienceCap += experienceCapIncrease;
+
+            if (LevelUpRewardManager.Instance != null)
+                LevelUpRewardManager.Instance.NotifyLevelUp(level);
         }
     }
 

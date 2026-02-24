@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cfcb2dedcccbbe4893bf8bde0458c0d, type: 3}
-  m_Name: WingsPassiveItem
+  m_Name: HollowHeart
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
-  icon: {fileID: -1227103267, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
+  icon: {fileID: -6246353911552833297, guid: b83f7b26ec48ad144b7b79789c7b3862, type: 3}
   itemName: 
-  multiplier: 50
+  multiplier: 5
   level: 0
   nextLevelPrefab: {fileID: 0}

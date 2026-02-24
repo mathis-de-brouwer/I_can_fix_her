@@ -293,4 +293,13 @@ public class P2DeckManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>Adds a card directly to the deck (used by the level-up reward system).</summary>
+    public void AddCardToDeck(P2Card card)
+    {
+        if (card == null) return;
+        deck.Add(card);
+        Debug.Log($"Added card to deck: {card.cardName} (deck size: {deck.Count})");
+        RaiseDeckStateChanged();
+    }
 }

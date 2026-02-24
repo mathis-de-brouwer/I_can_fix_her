@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfcb2dedcccbbe4893bf8bde0458c0d, type: 3}
   m_Name: SpinachPassiveItem
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
+  icon: {fileID: 1187507397, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
+  itemName: 
   multiplier: 100
+  level: 0
+  nextLevelPrefab: {fileID: 0}
