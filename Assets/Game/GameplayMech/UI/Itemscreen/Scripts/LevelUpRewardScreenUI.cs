@@ -2,10 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Instantiated at runtime by <see cref="LevelUpRewardManager"/>.
-/// Owns both choice panels and destroys itself once both players have chosen.
-/// </summary>
 public class LevelUpRewardScreenUI : MonoBehaviour
 {
     [Header("P1 - left panel")]
@@ -17,7 +13,6 @@ public class LevelUpRewardScreenUI : MonoBehaviour
     bool _p1Done;
     bool _p2Done;
 
-    /// <summary>Called by <see cref="LevelUpRewardManager"/> right after Instantiate().</summary>
     public void Setup(List<GameObject> p1Offers, List<P2Card> p2Offers,
                       Action<GameObject> onP1Chose, Action<P2Card> onP2Chose)
     {
@@ -29,7 +24,6 @@ public class LevelUpRewardScreenUI : MonoBehaviour
 
         p1ChoiceUI.Show(p1Offers, prefab =>
         {
-            Debug.Log("P1 confirmed item choice.");
             onP1Chose?.Invoke(prefab);
             _p1Done = true;
             TryClose();
@@ -37,7 +31,6 @@ public class LevelUpRewardScreenUI : MonoBehaviour
 
         p2ChoiceUI.Show(p2Offers, card =>
         {
-            Debug.Log("P2 confirmed card choice.");
             onP2Chose?.Invoke(card);
             _p2Done = true;
             TryClose();
@@ -46,12 +39,14 @@ public class LevelUpRewardScreenUI : MonoBehaviour
 
     void TryClose()
     {
-        Debug.Log($"TryClose — P1: {_p1Done}, P2: {_p2Done}");
-
         if (!_p1Done || !_p2Done)
             return;
 
-        Time.timeScale = 1f;
+        if (LevelUpRewardManager.Instance != null)
+            LevelUpRewardManager.Instance.OnRewardScreenClosed();
+        else
+            Time.timeScale = 1f;
+
         Destroy(gameObject);
     }
 }

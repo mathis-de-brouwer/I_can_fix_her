@@ -11,7 +11,7 @@ public class Playermovement : MonoBehaviour
     Vector2 movementDirection = Vector2.zero;
 
     public Vector2 lastMoveDirection = new Vector2(1, 0);
-    float lastHorizontalDirection = 1f; // 1 = right, -1 = left
+    float lastHorizontalDirection = 1f;
 
     public InputAction playerControlls;
 
@@ -22,12 +22,13 @@ public class Playermovement : MonoBehaviour
     public float dashCooldown = 1f;
     public float dashInvincibilityDuration = 0.3f;
 
+    public bool InputLocked { get; set; }
+
     bool isDashing;
     float dashTimer;
     float dashCooldownTimer;
     Vector2 dashDirection;
 
-    // Resolved once in Awake — no Inspector fields needed
     int _playerLayer;
     int _enemyLayer;
 
@@ -53,40 +54,33 @@ public class Playermovement : MonoBehaviour
     }
 
     public CharacterSciptableObject characterData;
-
-    // Optional reference to PlayerStats so movement uses the runtime modified speed
     public PlayerStats playerStats;
 
     void Update()
     {
+        if (InputLocked)
+        {
+            movementDirection = Vector2.zero;
+            animator.SetFloat("Speed", 0f);
+            return;
+        }
+
         movementDirection = playerControlls.ReadValue<Vector2>();
 
         if(movementDirection != Vector2.zero)
-        {
             lastMoveDirection = movementDirection;
-        }
 
-        // Only update last horizontal when there is actual horizontal input
         if(movementDirection.x != 0)
-        {
             lastHorizontalDirection = Mathf.Sign(movementDirection.x);
-        }
 
         animator.SetFloat("Speed", movementDirection.sqrMagnitude);
 
-        // Update facing — always based on lastHorizontalDirection
         if(!isDashing && spriteRenderer != null && movementDirection != Vector2.zero)
-        {
             spriteRenderer.flipX = lastHorizontalDirection < 0;
-        }
 
-        // Tick cooldown
         if(dashCooldownTimer > 0)
-        {
             dashCooldownTimer -= Time.deltaTime;
-        }
 
-        // Tick active dash
         if(isDashing)
         {
             dashTimer -= Time.deltaTime;
@@ -97,15 +91,18 @@ public class Playermovement : MonoBehaviour
             }
         }
 
-        // Dash input
         if(dashAction.WasPressedThisFrame() && dashCooldownTimer <= 0 && !isDashing)
-        {
             StartDash();
-        }
     }
 
     void FixedUpdate()
     {
+        if (InputLocked)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if(isDashing)
         {
             rb.linearVelocity = dashDirection * dashSpeed;
@@ -124,21 +121,16 @@ public class Playermovement : MonoBehaviour
 
         Physics2D.IgnoreLayerCollision(_playerLayer, _enemyLayer, true);
 
-        // Dash in the direction the player is moving, or facing if standing still
         dashDirection = (movementDirection != Vector2.zero) ? movementDirection.normalized : lastMoveDirection.normalized;
 
-        // Flip sprite to match dash direction using lastHorizontalDirection as fallback
         if(spriteRenderer != null)
         {
             float horizontalSign = dashDirection.x != 0 ? Mathf.Sign(dashDirection.x) : lastHorizontalDirection;
             spriteRenderer.flipX = horizontalSign < 0;
         }
 
-        // Grant I-frames for the dash window
         if(playerStats != null)
-        {
             playerStats.StartInvincibility(dashInvincibilityDuration);
-        }
 
         animator.SetTrigger("Dash");
     }

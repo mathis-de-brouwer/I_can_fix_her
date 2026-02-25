@@ -1,10 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Listens for P1 level-ups and instantiates the reward screen prefab every
-/// <see cref="levelsPerReward"/> levels. Mirrors the GameResultScreenUI pattern.
-/// </summary>
 public class LevelUpRewardManager : MonoBehaviour
 {
     public static LevelUpRewardManager Instance { get; private set; }
@@ -33,7 +29,6 @@ public class LevelUpRewardManager : MonoBehaviour
         Instance = this;
     }
 
-    /// <summary>Called by <see cref="PlayerStats"/> after every level-up.</summary>
     public void NotifyLevelUp(int newLevel)
     {
         if (_rewardActive)
@@ -48,6 +43,9 @@ public class LevelUpRewardManager : MonoBehaviour
     void ShowRewardScreen()
     {
         _rewardActive = true;
+
+        SetP1GameplayInputEnabled(false);
+
         Time.timeScale = 0f;
 
         List<GameObject> p1Offers = PickRandom(passiveItemDatabase.passiveItemPrefabs, 3);
@@ -79,6 +77,46 @@ public class LevelUpRewardManager : MonoBehaviour
             deck.AddCardToDeck(card);
             deck.AddCardToDeck(card); // ×2 copies
         }
+    }
+
+    void SetP1GameplayInputEnabled(bool enabled)
+    {
+        Playermovement movement = FindAnyObjectByType<Playermovement>();
+        if (movement != null)
+        {
+            movement.InputLocked = !enabled;
+
+            if (enabled) movement.playerControlls.Enable();
+            else movement.playerControlls.Disable();
+
+            if (enabled) movement.dashAction.Enable();
+            else movement.dashAction.Disable();
+        }
+
+        AimController aim = FindAnyObjectByType<AimController>();
+        if (aim != null)
+        {
+            if (enabled) aim.aimAction.Enable();
+            else aim.aimAction.Disable();
+
+            if (enabled) aim.aimUp.Enable();
+            else aim.aimUp.Disable();
+
+            if (enabled) aim.aimDown.Enable();
+            else aim.aimDown.Disable();
+
+            if (enabled) aim.aimLeft.Enable();
+            else aim.aimLeft.Disable();
+
+            if (enabled) aim.aimRight.Enable();
+            else aim.aimRight.Disable();
+        }
+    }
+
+    public void OnRewardScreenClosed()
+    {
+        Time.timeScale = 1f;
+        SetP1GameplayInputEnabled(true);
     }
 
     static List<T> PickRandom<T>(List<T> source, int count)

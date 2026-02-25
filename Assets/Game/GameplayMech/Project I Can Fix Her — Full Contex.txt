@@ -1,0 +1,118 @@
+Project: I Can Fix Her — Full Context Analysis
+Genre & concept
+A local 2-player asymmetric PvP game. The two players have completely different gameplay loops that work against each other in real time on the same machine:
+•	P1 (the Survivor) — plays like Vampire Survivors: top-down 2D, moves around an infinite procedurally generated world, auto-attacks enemies, gains XP, levels up, gets stronger through passive items
+•	P2 (the Antagonist) — plays like Slay the Spire: manages a hand of cards, spends charges to play them, using card effects to make P1's life harder
+•	Win condition: P1 dies → P2 wins. P2's deck runs out → P1 wins
+---
+P1 — The Survivor system
+CharacterSciptableObject (SO)
+  └── base stats: maxHealth, recovery, moveSpeed, might, projectileSpeed, magnet
+        └── loaded into PlayerStats on Awake as currentX fields
+
+Playermovement
+  ├── WASD/stick input via InputAction
+  ├── dash system (cooldown, I-frames, layer ignore during dash)
+  └── reads playerStats.currentMovementSpeed at runtime
+
+AimController
+  ├── right stick (gamepad) or IJKL (keyboard)
+  └── exposes AimDirection — falls back to lastMoveDirection when no aim input
+
+WeaponController (base)
+  ├── auto-fires on cooldown, reads AimController.AimDirection
+  └── ProjectileWeaponBehavior — spawns projectiles, handles pierce, deals damage
+        └── damage = weaponData.Damage * playerStats.currentMight
+
+InventoryManager
+  ├── WeaponSlots[6] — weapon prefabs parented to player
+  └── PassiveItemSlots[6] — passive item prefabs parented to player
+
+PassiveItems (base MonoBehaviour on prefabs)
+  └── subclasses override ApplyModifier() on Start():
+        WingPassiveItem    → currentMovementSpeed *= 1 + multiplier/100
+        SpinachPassiveItem → currentMight         *= 1 + multiplier/100
+        HollowHeartPassiveItem → currentHealth    *= 1 + multiplier/100
+
+PlayerStats
+  ├── TakeDamage() — I-frame system, triggers death
+  ├── Recovery() — passive HP regen over time
+  ├── IncreaseExperience() → LevelUpChecker() → NotifyLevelUp()
+  └── Kill() → coroutine → GameResultScreenUI.Setup(Winner.P2)
+
+---
+P2 — The Antagonist system
+
+P2DeckSelectionSession (DontDestroyOnLoad singleton)
+  └── carries P2DeckBuildConfig from menu scene → gameplay scene
+
+P2DeckManager
+  ├── deck / hand / usedPile — List<P2Card>
+  ├── P2Charges — float resource, regenerates over time, spent to play cards
+  ├── TryPlayCard() → ResolvePlayRoutine() → P2CardEffectResolver.Resolve()
+  └── deck empty + hand empty → GameResultScreenUI.Setup(Winner.P1)
+
+P2Card (ScriptableObject)
+  ├── cost (charges), duration, value, prefab
+  └── effect (P2CardEffect SO) — defines what the card does
+
+P2CardEffect subclasses:
+  ├── P2DoubleMonstersCardEffect  — duplicates N random live enemies
+  └── P2SpawnWaveDirectionalCardEffect — spawns a wave of enemies from one direction toward P1
+
+P2CardEffectResolver
+  └── builds P2CardEffectContext (spawnPoint, charges, target = P1 transform) → card.effect.Resolve()
+
+P2DeckVisualUI
+  └── listens to DeckStateChanged event → updates deck/discard count display in real time
+
+---
+The world
+MapController
+  └── infinite procedural chunk-based world — spawns/culls terrain chunks around the camera
+
+Ysorting
+  └── dynamic sortingOrder based on Y position — gives pseudo-depth to 2D sprites
+
+EnemyStats
+  ├── health, damage, knockback, hit flash, stagger
+  ├── OnCollisionStay2D → PlayerStats.TakeDamage()
+  └── Kill() → DropRateManager.TriggerDrop() → spawns XP gem / items at death position
+
+DropRateManager
+  └── weighted random drop table per enemy — drops prefabs (XP gems etc.) at enemy position
+
+---
+The level-up reward system 
+LevelUpRewardManager (scene singleton)
+  └── every 3 P1 levels → Instantiate(LevelUpRewardScreen prefab) → Time.timeScale = 0
+
+LevelUpRewardScreenUI (root of prefab)
+  ├── P1ItemChoiceUI → 3× P1ItemOptionUI
+  │     click → dims others → SpawnPassiveItem → ApplyModifier() permanently buffs P1
+  └── P2CardChoiceUI → 3× P2CardOptionUI
+        click → dims others → AddCardToDeck(card) ×2 → strengthens P2's deck
+
+Both must choose → Time.timeScale = 1 → prefab destroyed → game resumes
+
+---
+Scene flow
+
+MainMenu / DeckBuilder scene
+  └── P2DeckBuilderUI → player selects seed cards → P2DeckSelectionSession.SetConfig()
+        └── SceneManager.LoadScene("Gameplay")
+
+Gameplay scene
+  ├── P1: Playermovement + PlayerStats + InventoryManager + AimController + WeaponController(s)
+  ├── P2: P2DeckManager + P2Charges + P2CardEffectResolver + P2DeckVisualUI + hand UI
+  ├── World: MapController + enemy spawners + DropRateManager on enemies
+  └── Game Over: GameResultScreenUI prefab instantiated by either PlayerStats or P2DeckManager
+
+---
+Key asymmetry
+P1 plays a real-time action game and has no direct control over P2. P2 plays a resource management card game and has no health bar — their only way to lose is running out of cards. Every card P2 plays costs charges and draws one replacement, making deck composition and charge timing the core P2 skill expression. The level-up system is the only moment of cooperation — both players pause together, both gain power, then the fight continues.
+
+
+
+
+

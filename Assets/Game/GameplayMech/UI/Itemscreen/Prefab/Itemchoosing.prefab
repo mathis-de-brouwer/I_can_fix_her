@@ -138,8 +138,8 @@ MonoBehaviour:
   nameText: {fileID: 0}
   multiplierText: {fileID: 0}
   button: {fileID: 8730122769898131570}
-  canvasGroup: {fileID: 0}
   disabledAlpha: 0.45
+  selectedIconScale: 1.15
 --- !u!1 &3206972252260411947
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,8 +278,8 @@ MonoBehaviour:
   nameText: {fileID: 0}
   multiplierText: {fileID: 0}
   button: {fileID: 1412501457406736561}
-  canvasGroup: {fileID: 0}
   disabledAlpha: 0.45
+  selectedIconScale: 1.15
 --- !u!1 &4248482605935989960
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 8561100334339297382}
   - component: {fileID: 1248376732812259639}
   - component: {fileID: 3700511126896250537}
+  - component: {fileID: 5270240470623300013}
   m_Layer: 5
   m_Name: P1result
   m_TagString: Untagged
@@ -541,11 +542,11 @@ RectTransform:
   - {fileID: 3921492059875275273}
   m_Father: {fileID: 8060317210439775717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 920}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 960, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8561100334339297382
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -601,7 +602,68 @@ MonoBehaviour:
   - {fileID: 5804175543121898300}
   - {fileID: 1842947114968034881}
   - {fileID: 1184905379250110049}
-  confirmButton: {fileID: 0}
+--- !u!114 &5270240470623300013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5599296704435188513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac27d15faa6b8849b7af66ac2e51e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::P1ItemChoiceNavigator
+  navigateAction:
+    m_Name: Navigate
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 73897208-1878-4556-8142-b037719b2825
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 53437549-248d-4183-9886-463b685ac866
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Navigate
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: cb856834-6bd6-425c-a584-9e1c599bb96a
+      m_Path: <Gamepad>/leftStick/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Navigate
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: dd0305c1-c6a3-43ab-9034-2900b10c1a0a
+      m_Path: <Gamepad>/leftStick/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Navigate
+      m_Flags: 8
+    m_Flags: 0
+  confirmAction:
+    m_Name: Confirm
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: eca27240-8dc9-468d-ba93-39d7ab9a2f9f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: b20d2ac0-ba85-4b0e-b6a5-e53c2190613c
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Confirm
+      m_Flags: 0
+    m_Flags: 0
 --- !u!1 &5704826936650097207
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,11 +834,11 @@ RectTransform:
   - {fileID: 3166097372816866673}
   m_Father: {fileID: 8060317210439775717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 920}
-  m_Pivot: {x: 1, y: 1}
+  m_SizeDelta: {x: 960, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &4712314230291994774
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -832,7 +894,6 @@ MonoBehaviour:
   - {fileID: 5671314640744869045}
   - {fileID: 7689813454753255226}
   - {fileID: 6060218599893555894}
-  confirmButton: {fileID: 0}
 --- !u!1 &6320137554007606792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,8 +1107,8 @@ MonoBehaviour:
   nameText: {fileID: 0}
   multiplierText: {fileID: 0}
   button: {fileID: 2872047301949865528}
-  canvasGroup: {fileID: 0}
   disabledAlpha: 0.45
+  selectedIconScale: 1.15
 --- !u!1 &7209357592244758932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,7 +1408,6 @@ MonoBehaviour:
   nameText: {fileID: 0}
   costText: {fileID: 0}
   button: {fileID: 2856755214768960942}
-  canvasGroup: {fileID: 0}
   disabledAlpha: 0.45
 --- !u!1001 &5154536259547453005
 PrefabInstance:
@@ -1482,7 +1542,6 @@ MonoBehaviour:
   nameText: {fileID: 0}
   costText: {fileID: 0}
   button: {fileID: 5428036612293252016}
-  canvasGroup: {fileID: 0}
   disabledAlpha: 0.45
 --- !u!224 &4538411760811772366 stripped
 RectTransform:
@@ -1633,7 +1692,6 @@ MonoBehaviour:
   nameText: {fileID: 0}
   costText: {fileID: 0}
   button: {fileID: 6800386167463356175}
-  canvasGroup: {fileID: 0}
   disabledAlpha: 0.45
 --- !u!224 &3166097372816866673 stripped
 RectTransform:

@@ -3,10 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Single selectable passive item slot inside <see cref="P1ItemChoiceUI"/>.
-/// Reads display data from the prefab's <see cref="PassiveItems"/> component.
-/// </summary>
 public class P1ItemOptionUI : MonoBehaviour
 {
     [SerializeField] private Image icon;
@@ -16,10 +12,21 @@ public class P1ItemOptionUI : MonoBehaviour
 
     [SerializeField] private float disabledAlpha = 0.45f;
 
+    [Header("Controller Selection Scale")]
+    [SerializeField] private float selectedIconScale = 1.15f;
+
     GameObject _prefab;
     Action<GameObject> _onClicked;
 
+    Vector3 _iconBaseScale;
+
     public GameObject Prefab => _prefab;
+
+    void Awake()
+    {
+        if (icon != null)
+            _iconBaseScale = icon.rectTransform.localScale;
+    }
 
     public void Setup(GameObject prefab, Action<GameObject> onClicked)
     {
@@ -28,6 +35,7 @@ public class P1ItemOptionUI : MonoBehaviour
 
         gameObject.SetActive(true);
         SetDimmed(false);
+        SetSelected(false);
 
         PassiveItems passive = prefab.GetComponent<PassiveItems>();
         PassiveItemsScriptableObjects data = passive != null ? passive.passiveItemsData : null;
@@ -48,6 +56,13 @@ public class P1ItemOptionUI : MonoBehaviour
         }
     }
 
+    public void SetMouseInputEnabled(bool enabled)
+    {
+        // Disables pointer clicks. Controller can still trigger via SimulateClick().
+        if (button != null)
+            button.interactable = enabled;
+    }
+
     public void SetDimmed(bool dimmed)
     {
         if (icon != null)
@@ -56,6 +71,22 @@ public class P1ItemOptionUI : MonoBehaviour
             c.a = dimmed ? disabledAlpha : 1f;
             icon.color = c;
         }
+    }
+
+    public void SetSelected(bool selected)
+    {
+        if (icon == null) return;
+
+        Vector3 scale = _iconBaseScale;
+        if (selected)
+            scale *= selectedIconScale;
+
+        icon.rectTransform.localScale = scale;
+    }
+
+    public void SimulateClick()
+    {
+        OnClick();
     }
 
     void OnClick()
