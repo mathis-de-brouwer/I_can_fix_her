@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65db843ddefdbb44684b14dcf758d9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpRewardManager
-  levelsPerReward: 3
+  levelsPerReward: 5
   passiveItemDatabase: {fileID: 11400000, guid: e354b8681d57989439a7e201b0f47614, type: 2}
   cardDatabase: {fileID: 11400000, guid: 4b60e5ef81eab4e46a941b8c5a04e44c, type: 2}
   levelUpRewardScreenPrefab: {fileID: 5704826936650097207, guid: 59f242b9dab5a02409489a3477df3455, type: 3}
@@ -1634,6 +1634,8 @@ MonoBehaviour:
   experience: 0
   level: 1
   experienceCap: 0
+  experienceCapGrowthFactor: 1.33
+  experienceCapFlatBonusPerLevel: 0
   invincibilityDuration: 1
   levelRanges:
   - startlevel: 0

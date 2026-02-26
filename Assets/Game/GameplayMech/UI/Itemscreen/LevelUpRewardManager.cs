@@ -65,8 +65,6 @@ public class LevelUpRewardManager : MonoBehaviour
         PlayerStats p1 = FindAnyObjectByType<PlayerStats>();
         if (p1 != null)
             p1.SpawnPassiveItem(passivePrefab);
-
-        _rewardActive = false;
     }
 
     void OnP2Chose(P2Card card)
@@ -117,6 +115,7 @@ public class LevelUpRewardManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SetP1GameplayInputEnabled(true);
+        _rewardActive = false;
     }
 
     static List<T> PickRandom<T>(List<T> source, int count)
