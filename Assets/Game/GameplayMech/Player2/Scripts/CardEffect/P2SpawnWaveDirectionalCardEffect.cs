@@ -49,15 +49,19 @@ public sealed class P2SpawnWaveDirectionalCardEffect : P2CardEffect
                        : context.spawnPoint != null ? context.spawnPoint.position
                        : Vector3.zero;
 
-        Vector3 dir  = DirectionToVector(spawnDirection);
+        Vector3 dir = DirectionToVector(spawnDirection);
         Vector3 perp = new Vector3(-dir.y, dir.x, 0f);
 
-        int count = Mathf.Max(1, waveSize);
+        float magnitudeMult = 1f;
+        if (card != null && card.scaleMagnitudeWithTime && context.timeScaling != null)
+            magnitudeMult = context.timeScaling.GetMagnitudeMultiplier(context.elapsedSeconds);
+
+        int count = Mathf.Max(1, Mathf.CeilToInt(waveSize * magnitudeMult));
         Debug.Log($"{nameof(P2SpawnWaveDirectionalCardEffect)}: Spawning {count} from {spawnDirection}.");
 
         for (int i = 0; i < count; i++)
         {
-            GameObject prefab = SpawnTable.IsValid(spawnTable)  
+            GameObject prefab = SpawnTable.IsValid(spawnTable)
                 ? SpawnTable.Pick(spawnTable)
                 : card?.prefab;
 
@@ -76,11 +80,11 @@ public sealed class P2SpawnWaveDirectionalCardEffect : P2CardEffect
     {
         switch (dir)
         {
-            case P2SpawnDirection.Left:  return Vector3.left;
+            case P2SpawnDirection.Left: return Vector3.left;
             case P2SpawnDirection.Right: return Vector3.right;
-            case P2SpawnDirection.Up:    return Vector3.up;
-            case P2SpawnDirection.Down:  return Vector3.down;
-            default:                     return Vector3.left;
+            case P2SpawnDirection.Up: return Vector3.up;
+            case P2SpawnDirection.Down: return Vector3.down;
+            default: return Vector3.left;
         }
     }
 }

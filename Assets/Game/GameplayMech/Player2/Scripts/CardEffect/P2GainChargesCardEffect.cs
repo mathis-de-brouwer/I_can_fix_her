@@ -14,6 +14,12 @@ public sealed class P2GainChargesCardEffect : P2CardEffect
         float gainAmount = useCardValue && card != null ? card.value : amount;
         gainAmount = Mathf.Max(0f, gainAmount);
 
+        float magnitudeMult = 1f;
+        if (card != null && card.scaleMagnitudeWithTime && context.timeScaling != null)
+            magnitudeMult = context.timeScaling.GetMagnitudeMultiplier(context.elapsedSeconds);
+
+        gainAmount *= magnitudeMult;
+
         context.charges.Gain(gainAmount);
     }
 }

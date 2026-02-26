@@ -45,6 +45,7 @@ public class P2CardEffectResolver : MonoBehaviour
         _context.coroutineRunner = this;
         _context.target = targetPlayer != null ? targetPlayer.transform : null;
         _context.elapsedSeconds = matchClock != null ? matchClock.ElapsedSeconds : 0f;
+        _context.timeScaling = timeScaling;
 
         card.effect.Resolve(card, _context);
     }

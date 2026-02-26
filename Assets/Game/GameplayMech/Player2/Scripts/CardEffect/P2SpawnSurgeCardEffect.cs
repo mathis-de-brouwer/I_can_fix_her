@@ -37,7 +37,11 @@ public sealed class P2SpawnSurgeCardEffect : P2CardEffect
 
     private IEnumerator SurgeRoutine(P2Card card, P2CardEffectContext context)
     {
-        int count = Mathf.Max(1, waveSize);
+        float magnitudeMult = 1f;
+        if (card != null && card.scaleMagnitudeWithTime && context.timeScaling != null)
+            magnitudeMult = context.timeScaling.GetMagnitudeMultiplier(context.elapsedSeconds);
+
+        int count = Mathf.Max(1, Mathf.CeilToInt(waveSize * magnitudeMult));
         float interval = totalDuration / count;
 
         Debug.Log($"{nameof(P2SpawnSurgeCardEffect)}: Surging {count} enemies over {totalDuration}s (every {interval:F2}s).");
@@ -55,7 +59,7 @@ public sealed class P2SpawnSurgeCardEffect : P2CardEffect
                                : Vector3.zero;
 
                 float angle = Random.Range(0f, Mathf.PI * 2f);
-                float dist  = spawnRadius + Random.Range(-randomJitter, randomJitter);
+                float dist = spawnRadius + Random.Range(-randomJitter, randomJitter);
                 Vector3 pos = origin + new Vector3(Mathf.Cos(angle) * dist, Mathf.Sin(angle) * dist, 0f);
 
                 Instantiate(prefab, pos, Quaternion.identity);

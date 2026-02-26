@@ -52,7 +52,11 @@ public sealed class P2SpawnPrefabAroundPointCardEffect : P2CardEffect
             centerSource = "zero";
         }
 
-        int count = Mathf.Max(1, spawnCount);
+        float magnitudeMult = 1f;
+        if (card.scaleMagnitudeWithTime && context != null && context.timeScaling != null)
+            magnitudeMult = context.timeScaling.GetMagnitudeMultiplier(context.elapsedSeconds);
+
+        int count = Mathf.Max(1, Mathf.CeilToInt(spawnCount * magnitudeMult));
         Debug.Log($"{nameof(P2SpawnPrefabAroundPointCardEffect)}: Spawning {count}x for '{card.cardName}' around {centerSource} at {center}.");
 
         for (int i = 0; i < count; i++)

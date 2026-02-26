@@ -30,23 +30,25 @@ public sealed class P2PlaceTrapsAroundPlayerCardEffect : P2CardEffect
             return;
         }
 
-        // Place around the player (context.target), fall back to spawnPoint
         Vector3 center = context?.target != null ? context.target.position
                        : context?.spawnPoint != null ? context.spawnPoint.position
                        : Vector3.zero;
 
-        int count = Mathf.Max(1, trapCount);
+        float magnitudeMult = 1f;
+        if (card.scaleMagnitudeWithTime && context != null && context.timeScaling != null)
+            magnitudeMult = context.timeScaling.GetMagnitudeMultiplier(context.elapsedSeconds);
+
+        int count = Mathf.Max(1, Mathf.CeilToInt(trapCount * magnitudeMult));
         Debug.Log($"{nameof(P2PlaceTrapsAroundPlayerCardEffect)}: Placing {count} traps around {center}.");
 
         for (int i = 0; i < count; i++)
         {
             float angle = Random.Range(0f, Mathf.PI * 2f);
-            float dist  = Random.Range(minRadius, maxRadius);
+            float dist = Random.Range(minRadius, maxRadius);
             Vector3 pos = center + new Vector3(Mathf.Cos(angle) * dist, Mathf.Sin(angle) * dist, 0f);
 
             GameObject trap = Instantiate(prefab, pos, Quaternion.identity);
 
-            // Push card.value into the trap's damage if it was set
             if (card.value > 0f)
             {
                 P2DamageTrapBehaviour behaviour = trap.GetComponent<P2DamageTrapBehaviour>();

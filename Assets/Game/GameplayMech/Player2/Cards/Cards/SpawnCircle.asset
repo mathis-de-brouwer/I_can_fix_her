@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: SpawnCircle
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
   cardName: circlespawn
-  icon: {fileID: 154875213106398224, guid: bbc6e198c919ced42913528407b13139, type: 3}
+  icon: {fileID: 0}
   cost: 2
   duration: 0
   effect: {fileID: 11400000, guid: 5e0289c2609ca0b4283a0c94479acb52, type: 2}
   prefab: {fileID: 0}
   value: 0
+  scaleCostWithTime: 1
+  scaleMagnitudeWithTime: 1

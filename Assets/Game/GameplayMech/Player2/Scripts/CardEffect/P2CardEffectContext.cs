@@ -10,4 +10,6 @@ public sealed class P2CardEffectContext
     public Transform target;
 
     public float elapsedSeconds;
+
+    public P2TimeScalingConfig timeScaling;
 }

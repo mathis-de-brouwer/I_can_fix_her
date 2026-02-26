@@ -20,7 +20,12 @@ public sealed class P2DoubleMonstersCardEffect : P2CardEffect
             return;
         }
 
-        // Fisher-Yates shuffle into a temporary list so we pick randomly without repeats
+        float magnitudeMult = 1f;
+        if (card != null && card.scaleMagnitudeWithTime && context != null && context.timeScaling != null)
+            magnitudeMult = context.timeScaling.GetMagnitudeMultiplier(context.elapsedSeconds);
+
+        int targetCount = Mathf.Max(1, Mathf.CeilToInt(doubleCount * magnitudeMult));
+
         List<EnemyStats> pool = new List<EnemyStats>(all);
         for (int i = pool.Count - 1; i > 0; i--)
         {
@@ -30,7 +35,7 @@ public sealed class P2DoubleMonstersCardEffect : P2CardEffect
             pool[j] = tmp;
         }
 
-        int count = Mathf.Min(doubleCount, pool.Count);
+        int count = Mathf.Min(targetCount, pool.Count);
         Debug.Log($"{nameof(P2DoubleMonstersCardEffect)}: Doubling {count} of {pool.Count} enemies.");
 
         for (int i = 0; i < count; i++)
