@@ -8,6 +8,21 @@ public class InventoryManager : MonoBehaviour
     public List<PassiveItems> PassiveItemSlots = new List<PassiveItems>(6);
     public int[] passiveItemLevels = new int[6];
 
+    void Awake()
+    {
+        EnsureSlotListSize(WeaponSlots, weaponLevels.Length);
+        EnsureSlotListSize(PassiveItemSlots, passiveItemLevels.Length);
+    }
+
+    static void EnsureSlotListSize<T>(List<T> list, int size) where T : class
+    {
+        if (list == null)
+            return;
+
+        while (list.Count < size)
+            list.Add(null);
+    }
+
     public void AddWeapon(int slotIndex, WeaponController weapon)
     {
         if (weapon == null)

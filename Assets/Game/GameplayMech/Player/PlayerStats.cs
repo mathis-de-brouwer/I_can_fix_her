@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,9 +74,87 @@ public class PlayerStats : MonoBehaviour
 
         healthSlider.maxValue = characterData.Maxhealth;
         healthSlider.value = currentHealth;
+
+        RegisterStartingInventory();
     }
 
-    public void Update()
+    void RegisterStartingInventory()
+    {
+        if (inventory == null)
+            return;
+
+        // Register starting weapons (children under the player).
+        WeaponController[] weapons = GetComponentsInChildren<WeaponController>(true);
+
+        int weaponSlot = 0;
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            WeaponController wc = weapons[i];
+            if (wc == null || wc.weaponData == null)
+                continue;
+
+            // Don't double-register the same weapon controller.
+            if (inventory.WeaponSlots.Contains(wc))
+                continue;
+
+            // Find next empty slot.
+            while (weaponSlot < inventory.WeaponSlots.Count && inventory.WeaponSlots[weaponSlot] != null)
+                weaponSlot++;
+
+            if (weaponSlot >= inventory.WeaponSlots.Count)
+                break;
+
+            inventory.AddWeapon(weaponSlot, wc);
+            weaponSlot++;
+        }
+
+        weaponIndex = FindFirstEmptyWeaponSlotIndex();
+
+        // Register starting passives (optional; same idea).
+        PassiveItems[] passives = GetComponentsInChildren<PassiveItems>(true);
+
+        int passiveSlot = 0;
+        for (int i = 0; i < passives.Length; i++)
+        {
+            PassiveItems pi = passives[i];
+            if (pi == null || pi.passiveItemsData == null)
+                continue;
+
+            if (inventory.PassiveItemSlots.Contains(pi))
+                continue;
+
+            while (passiveSlot < inventory.PassiveItemSlots.Count && inventory.PassiveItemSlots[passiveSlot] != null)
+                passiveSlot++;
+
+            if (passiveSlot >= inventory.PassiveItemSlots.Count)
+                break;
+
+            inventory.AddPassiveItem(passiveSlot, pi);
+            passiveSlot++;
+        }
+
+        passiveItemIndex = FindFirstEmptyPassiveSlotIndex();
+    }
+
+    int FindFirstEmptyWeaponSlotIndex()
+    {
+        for (int i = 0; i < inventory.WeaponSlots.Count; i++)
+            if (inventory.WeaponSlots[i] == null)
+                return i;
+
+        return inventory.WeaponSlots.Count;
+    }
+
+    int FindFirstEmptyPassiveSlotIndex()
+    {
+        for (int i = 0; i < inventory.PassiveItemSlots.Count; i++)
+            if (inventory.PassiveItemSlots[i] == null)
+                return i;
+
+        return inventory.PassiveItemSlots.Count;
+    }
+
+    void Update()
     {
         if (invincibilityTimer > 0)
         {
