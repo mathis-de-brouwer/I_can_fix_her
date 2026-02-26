@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PassiveItemsScriptableObjects", menuName = "ScriptableObjects/Passive Item")]
 public class PassiveItemsScriptableObjects : ScriptableObject
 {
+    [Header("Identity")]
+    [SerializeField] PassiveItemsScriptableObjects baseItem;
+    public PassiveItemsScriptableObjects BaseItem => baseItem != null ? baseItem : this;
+
     [Header("Visuals")]
     [SerializeField] private Sprite icon;
     public Sprite Icon => icon;
@@ -19,6 +23,6 @@ public class PassiveItemsScriptableObjects : ScriptableObject
     public int Level { get => level; private set => level = value; }
 
     [SerializeField]
-    GameObject nextLevelPrefab; // the prefab of the next level i.e what the weapon becomes at the next level. Not to be confused with the prefab to be spawned at the next level.
+    GameObject nextLevelPrefab;
     public GameObject NextLevelPrefab { get => nextLevelPrefab; private set => nextLevelPrefab = value; }
 }

@@ -13,8 +13,8 @@ public class LevelUpRewardScreenUI : MonoBehaviour
     bool _p1Done;
     bool _p2Done;
 
-    public void Setup(List<GameObject> p1Offers, List<P2Card> p2Offers,
-                      Action<GameObject> onP1Chose, Action<P2Card> onP2Chose)
+    public void Setup(List<P1RewardOffer> p1Offers, List<P2Card> p2Offers,
+                      Action<P1RewardOffer> onP1Chose, Action<P2Card> onP2Chose)
     {
         _p1Done = false;
         _p2Done = false;
@@ -22,9 +22,9 @@ public class LevelUpRewardScreenUI : MonoBehaviour
         if (p1ChoiceUI == null) Debug.LogError("LevelUpRewardScreenUI: p1ChoiceUI is not assigned!");
         if (p2ChoiceUI == null) Debug.LogError("LevelUpRewardScreenUI: p2ChoiceUI is not assigned!");
 
-        p1ChoiceUI.Show(p1Offers, prefab =>
+        p1ChoiceUI.Show(p1Offers, offer =>
         {
-            onP1Chose?.Invoke(prefab);
+            onP1Chose?.Invoke(offer);
             _p1Done = true;
             TryClose();
         });

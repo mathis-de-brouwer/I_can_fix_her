@@ -9,7 +9,7 @@ public class P1ItemChoiceUI : MonoBehaviour
 
     P1ItemChoiceNavigator _navigator;
 
-    Action<GameObject> _onChose;
+    Action<P1RewardOffer> _onChose;
     bool _confirmed;
 
     public IReadOnlyList<P1ItemOptionUI> OptionSlots => optionSlots;
@@ -19,7 +19,7 @@ public class P1ItemChoiceUI : MonoBehaviour
         _navigator = GetComponent<P1ItemChoiceNavigator>();
     }
 
-    public void Show(List<GameObject> offers, Action<GameObject> onChose)
+    public void Show(List<P1RewardOffer> offers, Action<P1RewardOffer> onChose)
     {
         _onChose = onChose;
         _confirmed = false;
@@ -48,7 +48,7 @@ public class P1ItemChoiceUI : MonoBehaviour
         panel.SetActive(false);
     }
 
-    void OnOptionClicked(GameObject prefab)
+    void OnOptionClicked(P1RewardOffer offer)
     {
         if (_confirmed)
             return;
@@ -56,9 +56,9 @@ public class P1ItemChoiceUI : MonoBehaviour
         _confirmed = true;
 
         for (int i = 0; i < optionSlots.Count; i++)
-            optionSlots[i].SetDimmed(optionSlots[i].Prefab != prefab);
+            optionSlots[i].SetDimmed(optionSlots[i].Offer != offer);
 
         _navigator?.Deactivate();
-        _onChose?.Invoke(prefab);
+        _onChose?.Invoke(offer);
     }
 }

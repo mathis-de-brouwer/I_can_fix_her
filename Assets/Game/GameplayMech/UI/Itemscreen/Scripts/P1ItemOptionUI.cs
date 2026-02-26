@@ -15,12 +15,12 @@ public class P1ItemOptionUI : MonoBehaviour
     [Header("Controller Selection Scale")]
     [SerializeField] private float selectedIconScale = 1.15f;
 
-    GameObject _prefab;
-    Action<GameObject> _onClicked;
+    P1RewardOffer _offer;
+    Action<P1RewardOffer> _onClicked;
 
     Vector3 _iconBaseScale;
 
-    public GameObject Prefab => _prefab;
+    public P1RewardOffer Offer => _offer;
 
     void Awake()
     {
@@ -28,37 +28,121 @@ public class P1ItemOptionUI : MonoBehaviour
             _iconBaseScale = icon.rectTransform.localScale;
     }
 
-    public void Setup(GameObject prefab, Action<GameObject> onClicked)
+    public void Setup(P1RewardOffer offer, Action<P1RewardOffer> onClicked)
     {
-        _prefab = prefab;
+        _offer = offer;
         _onClicked = onClicked;
 
         gameObject.SetActive(true);
         SetDimmed(false);
         SetSelected(false);
 
-        PassiveItems passive = prefab.GetComponent<PassiveItems>();
-        PassiveItemsScriptableObjects data = passive != null ? passive.passiveItemsData : null;
+        ApplyVisuals(offer);
 
-        if (icon != null)
-            icon.sprite = data != null ? data.Icon : null;
-
-        if (nameText != null)
-            nameText.text = data != null && !string.IsNullOrEmpty(data.ItemName) ? data.ItemName : prefab.name;
-
-        if (multiplierText != null)
-            multiplierText.text = data != null ? $"x{data.Multiplier}" : string.Empty;
+        bool valid = offer != null && offer.Prefab != null;
 
         if (button != null)
         {
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OnClick);
+            button.interactable = valid;
         }
+
+        if (!valid)
+            SetDimmed(true);
+    }
+
+    void ApplyVisuals(P1RewardOffer offer)
+    {
+        Sprite offerIcon = null;
+        string offerName = offer?.Prefab != null ? offer.Prefab.name : "Unknown";
+        string offerDetails = string.Empty;
+
+        if (offer == null)
+        {
+            SetVisuals(null, "Unknown", string.Empty);
+            return;
+        }
+
+        switch (offer.Type)
+        {
+            case P1RewardOfferType.NewPassive:
+            {
+                PassiveItems passive = offer.Prefab != null ? offer.Prefab.GetComponent<PassiveItems>() : null;
+                PassiveItemsScriptableObjects data = passive != null ? passive.passiveItemsData : null;
+
+                offerIcon = data != null ? data.Icon : null;
+                offerName = data != null && !string.IsNullOrEmpty(data.ItemName) ? data.ItemName : offerName;
+                offerDetails = data != null ? $"x{data.Multiplier}" : string.Empty;
+                break;
+            }
+
+            case P1RewardOfferType.NewWeapon:
+            {
+                WeaponController wc = offer.Prefab != null ? offer.Prefab.GetComponent<WeaponController>() : null;
+                WeaponScriptableObject data = wc != null ? wc.weaponData : null;
+
+                offerIcon = data != null ? data.Icon : null;
+                offerName = data != null && !string.IsNullOrEmpty(data.WeaponName) ? data.WeaponName : (data != null ? data.name : offerName);
+                offerDetails = data != null ? $"Lv {data.Level}" : string.Empty;
+                break;
+            }
+
+            case P1RewardOfferType.WeaponUpgrade:
+            {
+                WeaponController wc = offer.Prefab != null ? offer.Prefab.GetComponent<WeaponController>() : null;
+                WeaponScriptableObject data = wc != null ? wc.weaponData : null;
+
+                offerIcon = data != null ? data.Icon : null;
+
+                string baseName = data != null && !string.IsNullOrEmpty(data.WeaponName) ? data.WeaponName : (data != null ? data.name : "Weapon");
+                offerName = $"Upgrade: {baseName}";
+
+                if (data != null && data.NextLevelPrefab != null)
+                {
+                    WeaponController nextWc = data.NextLevelPrefab.GetComponent<WeaponController>();
+                    WeaponScriptableObject nextData = nextWc != null ? nextWc.weaponData : null;
+                    offerDetails = nextData != null ? $"-> Lv {nextData.Level}" : "-> Next";
+                }
+                else
+                {
+                    offerDetails = "Max";
+                }
+
+                break;
+            }
+
+            case P1RewardOfferType.PassiveUpgrade:
+                {
+                    PassiveItems passive = offer.Prefab != null ? offer.Prefab.GetComponent<PassiveItems>() : null;
+                    PassiveItemsScriptableObjects data = passive != null ? passive.passiveItemsData : null;
+
+                    offerIcon = data != null ? data.Icon : null;
+
+                    string baseName = data != null && !string.IsNullOrEmpty(data.ItemName) ? data.ItemName : offerName;
+                    offerName = $"Upgrade: {baseName}";
+                    offerDetails = data != null && data.NextLevelPrefab != null ? "-> Next" : "Max";
+                    break;
+                }
+        }
+
+        SetVisuals(offerIcon, offerName, offerDetails);
+    }
+
+    void SetVisuals(Sprite sprite, string title, string details)
+    {
+        if (icon != null)
+            icon.sprite = sprite;
+
+        if (nameText != null)
+            nameText.text = title ?? string.Empty;
+
+        if (multiplierText != null)
+            multiplierText.text = details ?? string.Empty;
     }
 
     public void SetMouseInputEnabled(bool enabled)
     {
-        // Disables pointer clicks. Controller can still trigger via SimulateClick().
         if (button != null)
             button.interactable = enabled;
     }
@@ -91,6 +175,6 @@ public class P1ItemOptionUI : MonoBehaviour
 
     void OnClick()
     {
-        _onClicked?.Invoke(_prefab);
+        _onClicked?.Invoke(_offer);
     }
 }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfcb2dedcccbbe4893bf8bde0458c0d, type: 3}
   m_Name: HollowHeart
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
-  icon: {fileID: -6246353911552833297, guid: b83f7b26ec48ad144b7b79789c7b3862, type: 3}
+  baseItem: {fileID: 0}
+  icon: {fileID: 1718622858283614200, guid: 10d53ec97a1ad2e498ed83155dab765d, type: 3}
   itemName: 
   multiplier: 5
   level: 0

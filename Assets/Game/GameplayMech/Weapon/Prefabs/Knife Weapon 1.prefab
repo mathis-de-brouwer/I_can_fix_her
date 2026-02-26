@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1640132445063703228}
   - component: {fileID: 7255977207459371032}
   m_Layer: 0
-  m_Name: Knife Weapon
+  m_Name: Knife Weapon 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9a22c7fb8804647b00c8cde4369dc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KnifeController
-  weaponData: {fileID: 11400000, guid: 169c0363c2fefce438d9d15dca8f94e5, type: 2}
+  weaponData: {fileID: 11400000, guid: ad644ed7ea72c754cb830a227335338a, type: 2}

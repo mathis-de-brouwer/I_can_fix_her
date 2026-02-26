@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cfcb2dedcccbbe4893bf8bde0458c0d, type: 3}
-  m_Name: SpinachPassiveItem
+  m_Name: WingsPassiveItem 1
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
-  baseItem: {fileID: 0}
-  icon: {fileID: 1187507397, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
+  baseItem: {fileID: 11400000, guid: f5af0a1f3a52b1c488ccd03f1597c61d, type: 2}
+  icon: {fileID: -2094737778, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
   itemName: 
-  multiplier: 20
+  multiplier: 15
   level: 0
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 149397951995052163, guid: a06e7fc4f1d1e514f90402ce6975b709, type: 3}
