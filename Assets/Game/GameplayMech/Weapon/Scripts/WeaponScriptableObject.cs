@@ -1,4 +1,5 @@
-    using UnityEngine;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "WeaponScriptableObject", menuName = "ScriptableObjects/Weapon")]
 public class WeaponScriptableObject : ScriptableObject
@@ -10,6 +11,7 @@ public class WeaponScriptableObject : ScriptableObject
     [SerializeField] string weaponName;
     public string WeaponName => weaponName;
 
+    [Header("Flying Prefabs")]
     [SerializeField]
     GameObject prefab;
     public GameObject Prefab { get => prefab; private set => prefab = value; }
@@ -35,6 +37,7 @@ public class WeaponScriptableObject : ScriptableObject
     int level; //not meant to be modified in the game (inspector only)
     public int Level { get => level; private set => level = value; }
 
+    [Header("Upgrades")]
     [SerializeField]
     GameObject nextLevelPrefab; // the prefab of the next level i.e what the weapon becomes at the next level.
     public GameObject NextLevelPrefab { get => nextLevelPrefab; private set => nextLevelPrefab = value; }

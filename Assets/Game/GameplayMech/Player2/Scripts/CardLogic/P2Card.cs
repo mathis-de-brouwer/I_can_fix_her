@@ -22,4 +22,8 @@ public class P2Card : ScriptableObject
     [Tooltip("Generic scalar read by effects that need a magnitude: damage amount, buff multiplier, charge gain, etc. " +
              "What it means depends on the effect assigned above.")]
     public float value;
+
+    [Header("Time scaling (optional)")]
+    public bool scaleCostWithTime = true;
+    public bool scaleMagnitudeWithTime = true;
 }

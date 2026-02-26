@@ -36,6 +36,11 @@ public class P2DeckManager : MonoBehaviour
     [Header("Charges")]
     [SerializeField] private P2Charges charges;
 
+    [Header("Time scaling")]
+    [SerializeField] private P2MatchClock matchClock;
+    [SerializeField] private P2TimeScalingConfig timeScaling;
+    [SerializeField] private float minScaledCost = 0.1f;
+
     [Header("Game Result")]
     [SerializeField] private GameObject gameResultPrefab; // same prefab as PlayerStats
 
@@ -49,6 +54,35 @@ public class P2DeckManager : MonoBehaviour
     {
         int actualSeed = seed != 0 ? seed : Environment.TickCount;
         _rng = new System.Random(actualSeed);
+
+        if (matchClock == null)
+            matchClock = FindAnyObjectByType<P2MatchClock>();
+
+        if (timeScaling == null && effectResolver != null)
+            timeScaling = effectResolver.TimeScaling;
+    }
+
+    public float GetScaledCost(P2Card card)
+    {
+        if (card == null)
+            return 0f;
+
+        float baseCost = Mathf.Max(0f, card.cost);
+
+        if (!card.scaleCostWithTime)
+            return baseCost;
+
+        if (timeScaling == null)
+            return baseCost;
+
+        float t = matchClock != null ? matchClock.ElapsedSeconds : 0f;
+        float multiplier = timeScaling.GetCostMultiplier(t);
+
+        float scaled = baseCost * multiplier;
+        if (scaled > 0f)
+            scaled = Mathf.Max(minScaledCost, scaled);
+
+        return scaled;
     }
 
     private void Start()
@@ -211,7 +245,7 @@ public class P2DeckManager : MonoBehaviour
         if (charges == null)
             return true;
 
-        float cost = Mathf.Max(0f, card.cost);
+        float cost = GetScaledCost(card);
         return charges.CanSpend(cost);
     }
 
@@ -232,9 +266,11 @@ public class P2DeckManager : MonoBehaviour
             return false;
         }
 
+        float cost = GetScaledCost(card);
+
         if (!CanAfford(card))
         {
-            Debug.LogWarning($"Cannot play {card.cardName} - not enough charges (cost {card.cost:F2}).");
+            Debug.LogWarning($"Cannot play {card.cardName} - not enough charges (cost {cost:F2}).");
             return false;
         }
 
@@ -246,8 +282,10 @@ public class P2DeckManager : MonoBehaviour
     {
         _isResolvingPlay = true;
 
+        float cost = GetScaledCost(card);
+
         if (charges != null)
-            charges.Spend(Mathf.Max(0f, card.cost));
+            charges.Spend(cost);
 
         hand.Remove(card);
         usedPile.Add(card);
@@ -262,7 +300,7 @@ public class P2DeckManager : MonoBehaviour
 
         DrawCard();
 
-        Debug.Log($"Played card: {card.cardName} (cost = {card.cost:F2}).");
+        Debug.Log($"Played card: {card.cardName} (cost = {cost:F2}).");
 
         RaiseDeckStateChanged();
 

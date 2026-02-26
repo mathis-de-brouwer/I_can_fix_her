@@ -1,11 +1,15 @@
-Project: I Can Fix Her — Full Context Analysis
+Project: I Can Fix Her — Full Context Analysis (Updated)
+
 Genre & concept
 A local 2-player asymmetric PvP game. The two players have completely different gameplay loops that work against each other in real time on the same machine:
-•	P1 (the Survivor) — plays like Vampire Survivors: top-down 2D, moves around an infinite procedurally generated world, auto-attacks enemies, gains XP, levels up, gets stronger through passive items
-•	P2 (the Antagonist) — plays like Slay the Spire: manages a hand of cards, spends charges to play them, using card effects to make P1's life harder
-•	Win condition: P1 dies -> P2 wins. P2's deck runs out -> P1 wins
+• P1 (the Survivor) — plays like Vampire Survivors: top-down 2D, moves around an infinite procedurally generated world, auto-attacks enemies, gains XP, levels up, gets stronger through passive items and weapons
+• P2 (the Antagonist) — plays like Slay the Spire: manages a hand of cards, spends charges to play them, using card effects to make P1's life harder
+• Win condition: P1 dies -> P2 wins. P2's deck runs out -> P1 wins
+
 ---
+
 P1 — The Survivor system
+
 CharacterSciptableObject (SO)
   └── base stats: maxHealth, recovery, moveSpeed, might, projectileSpeed, magnet
         └── loaded into PlayerStats on Awake as currentX fields
@@ -19,28 +23,65 @@ AimController
   ├── right stick (gamepad) or IJKL (keyboard)
   └── exposes AimDirection — falls back to lastMoveDirection when no aim input
 
+Weapon system (important prefab split)
+Weapons are represented by TWO kinds of prefabs:
+1) Weapon Controller Prefab (equipped under the player)
+   ├── has a WeaponController subclass (e.g. KnifeController : WeaponController)
+   ├── has weaponData assigned (WeaponScriptableObject)
+   └── lives as a child of the player and auto-fires on cooldown
+
+2) Projectile Prefab (spawned when attacking)
+   ├── referenced by WeaponScriptableObject.Prefab
+   ├── has projectile behavior scripts (e.g. KnifeBehavior)
+   └── does NOT contain WeaponController
+
 WeaponController (base)
-  ├── auto-fires on cooldown, reads AimController.AimDirection
-  └── ProjectileWeaponBehavior — spawns projectiles, handles pierce, deals damage
-        └── damage = weaponData.Damage * playerStats.currentMight
+  ├── auto-fires on cooldown
+  ├── reads AimController.AimDirection via GetAimDirection()
+  └── derived controllers override Attack() to spawn projectiles (weaponData.Prefab)
+
+WeaponScriptableObject (data)
+  ├── Visuals: Icon, WeaponName
+  ├── Stats: Damage, Speed, CooldownDuration, Pierce, Level
+  ├── Prefab: projectile prefab
+  └── NextLevelPrefab: the NEXT *controller prefab* (for inventory upgrades)
+
+Passive items
+PassiveItems (base MonoBehaviour on prefabs)
+  ├── holds passiveItemsData (PassiveItemsScriptableObjects)
+  └── Start() calls ApplyModifier() once (permanent modifier applied immediately)
+
+PassiveItemsScriptableObjects (data)
+  ├── Visuals: Icon, ItemName
+  ├── Stats: Multiplier, Level
+  ├── Identity: BaseItem (used to treat multiple levels as one item line)
+  └── NextLevelPrefab: next passive prefab for upgrades
 
 InventoryManager
-  ├── WeaponSlots[6] — weapon prefabs parented to player
-  └── PassiveItemSlots[6] — passive item prefabs parented to player
-
-PassiveItems (base MonoBehaviour on prefabs)
-  └── subclasses override ApplyModifier() on Start():
-        WingPassiveItem    -> currentMovementSpeed *= 1 + multiplier/100
-        SpinachPassiveItem -> currentMight         *= 1 + multiplier/100
-        HollowHeartPassiveItem -> currentHealth    *= 1 + multiplier/100
+  ├── WeaponSlots[6] : List<WeaponController>
+  ├── PassiveItemSlots[6] : List<PassiveItems>
+  ├── weaponLevels[6], passiveItemLevels[6]
+  ├── Awake() ensures slot lists have real Count==6 (capacity != count)
+  ├── AddWeapon(slot, weapon) validates WeaponController + weaponData
+  ├── LevelUpWeapon(slot) replaces controller prefab with weaponData.NextLevelPrefab
+  └── LevelUpPassiveItem(slot) replaces passive prefab with passiveItemsData.NextLevelPrefab
 
 PlayerStats
-  ├── TakeDamage() — I-frame system, triggers death
-  ├── Recovery() — passive HP regen over time
-  ├── IncreaseExperience() -> LevelUpChecker() -> NotifyLevelUp()
-  └── Kill() -> coroutine -> GameResultScreenUI.Setup(Winner.P2)
+  ├── IncreaseExperience() -> LevelUpChecker() -> NotifyLevelUp(level)
+  ├── XP progression uses a scaling function (growth factor + flat bonus per level) to increase experienceCap
+  ├── RegisterStartingInventory():
+  │     - scans child WeaponControllers/PassiveItems at runtime
+  │     - registers them into InventoryManager slot lists
+  │     - sets weaponIndex/passiveItemIndex to next empty slot
+  ├── SpawnWeapon(controllerPrefab):
+  │     - instantiates controller prefab as child of player
+  │     - registers into first free slot index (tracked by weaponIndex)
+  └── SpawnPassiveItem(passivePrefab):
+        - instantiates passive item prefab as child of player
+        - registers into first free slot index (tracked by passiveItemIndex)
 
 ---
+
 P2 — The Antagonist system
 
 P2DeckSelectionSession (DontDestroyOnLoad singleton)
@@ -67,9 +108,13 @@ P2DeckVisualUI
   └── listens to DeckStateChanged event -> updates deck/discard count display in real time
 
 ---
+
 The world
+
 MapController
   └── infinite procedural chunk-based world — spawns/culls terrain chunks around the camera
+  └── spawns both terrain chunks and chunk groups
+  └── NOTE: repeated console logs about "AnimationEvent has no function name specified" are caused by animation clips on spawned props (e.g. AutumnTree) containing a blank Animation Event.
 
 Ysorting
   └── dynamic sortingOrder based on Y position — gives pseudo-depth to 2D sprites
@@ -83,19 +128,51 @@ DropRateManager
   └── weighted random drop table per enemy — drops prefabs (XP gems etc.) at enemy position
 
 ---
-The level-up reward system 
+
+Level-up reward system (updated: mixed weapon/passive/upgrade offers)
+
 LevelUpRewardManager (scene singleton)
-  └── every 3 P1 levels -> Instantiate(LevelUpRewardScreen prefab) -> Time.timeScale = 0
+  └── fires every N P1 levels (levelsPerReward)
+  └── pauses the game:
+       - disables P1 gameplay inputs
+       - Time.timeScale = 0
+  └── spawns reward UI prefab (LevelUpRewardScreen)
+  └── P1 offers are generated as a mix (3 slots):
+       - NewPassive (spawn passive prefab)
+       - NewWeapon (spawn weapon controller prefab)
+       - PassiveUpgrade (upgrade a specific passive slot)
+       - WeaponUpgrade (upgrade a specific weapon slot)
+  └── Offer generation is inventory-aware:
+       - computes upgradeable slots by checking NextLevelPrefab != null
+       - filters new items by excluding items already owned (by data reference)
+       - debug logging available via debugOffers toggle
 
-LevelUpRewardScreenUI (root of prefab)
-  ├── P1ItemChoiceUI -> 3× P1ItemOptionUI
-  │     click -> dims others -> SpawnPassiveItem -> ApplyModifier() permanently buffs P1
-  └── P2CardChoiceUI -> 3× P2CardOptionUI
-        click -> dims others -> AddCardToDeck(card) ×2 -> strengthens P2's deck
+P1RewardOffer (unified offer model)
+  ├── Type: NewPassive / NewWeapon / PassiveUpgrade / WeaponUpgrade
+  ├── Prefab: display prefab (for new offers, this is the prefab to spawn;
+  │           for upgrades, this is the currently equipped object for UI display)
+  └── SlotIndex: for upgrades
 
-Both must choose -> Time.timeScale = 1 -> prefab destroyed -> game resumes
+LevelUpRewardScreenUI
+  ├── left panel: P1ItemChoiceUI (controller navigation)
+  ├── right panel: P2CardChoiceUI
+  └── screen closes only when BOTH players have confirmed:
+       - On close: LevelUpRewardManager.OnRewardScreenClosed()
+       - resumes time and restores inputs
+       - destroys the reward screen prefab
+
+P1ItemChoiceUI / P1ItemOptionUI
+  ├── displays offers based on type:
+       - passives use PassiveItemsScriptableObjects (icon/name/multiplier)
+       - weapons use WeaponScriptableObject (icon/weaponName/level)
+       - upgrades show Upgrade: <name> and next level info when possible
+  └── locks confirmation so only one P1 selection is accepted
+
+P2CardChoiceUI
+  └── should lock confirmation after first click (prevents multi-select)
 
 ---
+
 Scene flow
 
 MainMenu / DeckBuilder scene
@@ -109,8 +186,12 @@ Gameplay scene
   └── Game Over: GameResultScreenUI prefab instantiated by either PlayerStats or P2DeckManager
 
 ---
+
 Key asymmetry
-P1 plays a real-time action game and has no direct control over P2. P2 plays a resource management card game and has no health bar — their only way to lose is running out of cards. Every card P2 plays costs charges and draws one replacement, making deck composition and charge timing the core P2 skill expression. The level-up system is the only moment of cooperation — both players pause together, both gain power, then the fight continues.
+P1 plays a real-time action game and has no direct control over P2.
+P2 plays a resource management card game and has no health bar — their only way to lose is running out of cards.
+Every card P2 plays costs charges and draws one replacement, making deck composition and charge timing the core P2 skill expression.
+The level-up system is the only moment of cooperation — both players pause together, both gain power, then the fight continues
 
 
 
