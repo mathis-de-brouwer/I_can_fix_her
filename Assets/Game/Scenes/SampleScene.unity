@@ -706,6 +706,9 @@ MonoBehaviour:
   playResolveDelay: 0.2
   effectResolver: {fileID: 421071089}
   charges: {fileID: 421071090}
+  matchClock: {fileID: 1217737599}
+  timeScaling: {fileID: 11400000, guid: 02ffa90420c93c347848ea4e77333299, type: 2}
+  minScaledCost: 0.1
   gameResultPrefab: {fileID: 5704826936650097207, guid: ea8435265e3fca54abd404e961981e0e, type: 3}
 --- !u!114 &421071089
 MonoBehaviour:
@@ -720,7 +723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::P2CardEffectResolver
   defaultSpawnPoint: {fileID: 925199398}
-  charges: {fileID: 0}
+  charges: {fileID: 421071090}
   targetPlayer: {fileID: 925199399}
   matchClock: {fileID: 1217737599}
   timeScaling: {fileID: 11400000, guid: 02ffa90420c93c347848ea4e77333299, type: 2}

@@ -20,6 +20,8 @@ public sealed class P2GainChargesCardEffect : P2CardEffect
 
         gainAmount *= magnitudeMult;
 
+        Debug.Log($"GainCharges: +{gainAmount:F2} (before={context.charges.currentCharges:F2}, max={context.charges.maxCharges:F2})");
+
         context.charges.Gain(gainAmount);
     }
 }
