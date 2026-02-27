@@ -75,6 +75,9 @@ public class EnemyStats : MonoBehaviour
 
     public void Kill()
     {
+        if (MatchStats.Instance != null)
+            MatchStats.Instance.RegisterMonsterKilled();
+
         DropRateManager dropManager = GetComponent<DropRateManager>();
         if (dropManager != null)
             dropManager.TriggerDrop();

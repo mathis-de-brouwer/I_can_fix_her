@@ -203,6 +203,9 @@ public class PlayerStats : MonoBehaviour
 
         if (!isInvincible)
         {
+            if (MatchStats.Instance != null)
+                MatchStats.Instance.RegisterDamageToP1(dmg);
+
             currentHealth -= dmg;
             healthSlider.value = currentHealth;
             invincibilityTimer = invincibilityDuration;
