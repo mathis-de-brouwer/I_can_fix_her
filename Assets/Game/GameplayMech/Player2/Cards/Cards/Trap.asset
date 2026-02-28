@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e832469c7d82c48a9cc8034681876f, type: 3}
   m_Name: Trap
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
-  cardName: 
+  cardName: The World
+  description: Make a certain amount of Traps spwan around the Player
   icon: {fileID: 0}
   cost: 5
   duration: 3
   effect: {fileID: 11400000, guid: 3defea6ee39236a469d5350d0428d654, type: 2}
   prefab: {fileID: 0}
   value: 0
+  scaleCostWithTime: 1
+  scaleMagnitudeWithTime: 1

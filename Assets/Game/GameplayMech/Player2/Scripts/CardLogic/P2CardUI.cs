@@ -20,6 +20,7 @@ public class P2CardUI : MonoBehaviour
     private P2DeckManager deckManager;
     private Button _button;
     private CanvasGroup _canvasGroup;
+    private HoverTooltipSource _tooltipSource;
 
     public void Setup(P2Card newCard, P2DeckManager manager)
     {
@@ -42,6 +43,10 @@ public class P2CardUI : MonoBehaviour
             durationText.text = card != null ? card.duration.ToString() : string.Empty;
 
         CacheComponents();
+
+        if (_tooltipSource != null && card != null)
+            _tooltipSource.SetContent(GetCardArtSprite(card), card.cardName, card.description);
+
         UpdateInteractivity();
     }
 
@@ -95,6 +100,9 @@ public class P2CardUI : MonoBehaviour
 
         if (_canvasGroup == null)
             _canvasGroup = GetComponent<CanvasGroup>();
+
+        if (_tooltipSource == null)
+            _tooltipSource = GetComponent<HoverTooltipSource>();
     }
 
     private void UpdateInteractivity()

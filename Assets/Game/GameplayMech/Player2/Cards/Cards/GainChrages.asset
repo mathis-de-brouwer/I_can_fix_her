@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e832469c7d82c48a9cc8034681876f, type: 3}
   m_Name: GainChrages
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
-  cardName: Gaincharges
+  cardName: Temperance
+  description: Gain charges
   icon: {fileID: 0}
   cost: 1
   duration: 3

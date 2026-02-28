@@ -16,6 +16,8 @@ public class P2CardOptionUI : MonoBehaviour
     P2Card _card;
     Action<P2Card> _onClicked;
 
+    HoverTooltipSource _tooltipSource;
+
     public P2Card Card => _card;
 
     public void Setup(P2Card card, Action<P2Card> onClicked)
@@ -26,16 +28,24 @@ public class P2CardOptionUI : MonoBehaviour
         gameObject.SetActive(true);
         SetDimmed(false);
 
+        if (_tooltipSource == null)
+            _tooltipSource = GetComponent<HoverTooltipSource>();
+
+        Sprite art = card != null && card.effect != null && card.effect.CardArtOverride != null
+            ? card.effect.CardArtOverride
+            : card != null ? card.icon : null;
+
         if (icon != null)
-            icon.sprite = card.effect != null && card.effect.CardArtOverride != null
-                ? card.effect.CardArtOverride
-                : card.icon;
+            icon.sprite = art;
 
         if (nameText != null)
-            nameText.text = card.cardName;
+            nameText.text = card != null ? card.cardName : string.Empty;
 
         if (costText != null)
-            costText.text = card.cost.ToString();
+            costText.text = card != null ? card.cost.ToString() : string.Empty;
+
+        if (_tooltipSource != null && card != null)
+            _tooltipSource.SetContent(art, card.cardName, card.description);
 
         if (button != null)
         {

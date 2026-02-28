@@ -501,6 +501,7 @@ GameObject:
   - component: {fileID: 221629588825382039}
   - component: {fileID: 5288874666714679973}
   - component: {fileID: 8664557686397314554}
+  - component: {fileID: 797488163991931712}
   m_Layer: 5
   m_Name: P2_CardButton
   m_TagString: Untagged
@@ -677,6 +678,26 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &797488163991931712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5179006034384967012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f31ca93b31dc214aa9c352b637f21d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverTooltipSource
+  icon: {fileID: 0}
+  title: 
+  body: 
+  showOnPointerHover: 0
+  showOnSelect: 0
+  showOnRightClick: 1
+  rightClickToggles: 1
+  debugLogs: 1
 --- !u!1 &6130759936801383577
 GameObject:
   m_ObjectHideFlags: 0

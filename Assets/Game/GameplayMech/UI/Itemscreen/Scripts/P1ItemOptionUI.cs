@@ -177,4 +177,48 @@ public class P1ItemOptionUI : MonoBehaviour
     {
         _onClicked?.Invoke(_offer);
     }
+
+    public bool TryBuildTooltip(out Sprite iconSprite, out string title, out string body)
+    {
+        iconSprite = null;
+        title = string.Empty;
+        body = string.Empty;
+
+        if (_offer == null || _offer.Prefab == null)
+            return false;
+
+        switch (_offer.Type)
+        {
+            case P1RewardOfferType.NewPassive:
+            case P1RewardOfferType.PassiveUpgrade:
+            {
+                PassiveItems passive = _offer.Prefab.GetComponent<PassiveItems>();
+                PassiveItemsScriptableObjects data = passive != null ? passive.passiveItemsData : null;
+                if (data == null)
+                    return false;
+
+                iconSprite = data.Icon;
+                title = !string.IsNullOrEmpty(data.ItemName) ? data.ItemName : data.name;
+                body = data.Description;
+                return true;
+            }
+
+            case P1RewardOfferType.NewWeapon:
+            case P1RewardOfferType.WeaponUpgrade:
+            {
+                WeaponController wc = _offer.Prefab.GetComponent<WeaponController>();
+                WeaponScriptableObject data = wc != null ? wc.weaponData : null;
+                if (data == null)
+                    return false;
+
+                iconSprite = data.Icon;
+                title = !string.IsNullOrEmpty(data.WeaponName) ? data.WeaponName : data.name;
+                body = data.Description;
+                return true;
+            }
+
+            default:
+                return false;
+        }
+    }
 }

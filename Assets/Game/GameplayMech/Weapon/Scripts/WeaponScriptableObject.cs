@@ -11,6 +11,10 @@ public class WeaponScriptableObject : ScriptableObject
     [SerializeField] string weaponName;
     public string WeaponName => weaponName;
 
+    [TextArea(2, 6)]
+    [SerializeField] string description;
+    public string Description => description;
+
     [Header("Flying Prefabs")]
     [SerializeField]
     GameObject prefab;

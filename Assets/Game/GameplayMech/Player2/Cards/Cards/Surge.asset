@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e832469c7d82c48a9cc8034681876f, type: 3}
   m_Name: Surge
   m_EditorClassIdentifier: Assembly-CSharp::P2Card
-  cardName: 
+  cardName: The Devil
+  description: Make a surge of Monsters spawn fAll around the Player
   icon: {fileID: 0}
   cost: 6
   duration: 0
   effect: {fileID: 11400000, guid: 9f1eac15bf4cc4b42a51b04833058f58, type: 2}
   prefab: {fileID: 0}
   value: 0
+  scaleCostWithTime: 1
+  scaleMagnitudeWithTime: 1

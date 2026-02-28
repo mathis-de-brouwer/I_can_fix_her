@@ -6,6 +6,9 @@ public class P2Card : ScriptableObject
     [Header("Info")]
     public string cardName;
 
+    [TextArea(2, 6)]
+    public string description;
+
     public Sprite icon;
 
     [Header("Cost & Timing")]

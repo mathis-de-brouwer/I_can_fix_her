@@ -14,6 +14,10 @@ public class PassiveItemsScriptableObjects : ScriptableObject
     [SerializeField] private string itemName;
     public string ItemName => itemName;
 
+    [TextArea(2, 6)]
+    [SerializeField] private string description;
+    public string Description => description;
+
     [SerializeField]
     float multiplier;
     public float Multiplier { get => multiplier; private set => multiplier = value; }

@@ -664,6 +664,24 @@ MonoBehaviour:
       m_Action: Confirm
       m_Flags: 0
     m_Flags: 0
+  tooltipAction:
+    m_Name: Tooltip
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b6c612cd-0eb5-4cdd-aeb5-81062c9f05dc
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 8cce6072-8cd4-41d7-b96f-2849ad7273a5
+      m_Path: <Gamepad>/buttonNorth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Tooltip
+      m_Flags: 0
+    m_Flags: 0
+  navigateThreshold: 0.5
 --- !u!1 &5704826936650097207
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class P1ItemChoiceNavigator : MonoBehaviour
     [Header("Input Actions")]
     public InputAction navigateAction; // float (AxisComposite) or Vector2 (Stick/Dpad)
     public InputAction confirmAction;
+    public InputAction tooltipAction;
 
     [Header("Navigation")]
     [SerializeField] private float navigateThreshold = 0.5f;
@@ -17,6 +18,8 @@ public class P1ItemChoiceNavigator : MonoBehaviour
     bool _active;
     bool _navigateHeld;
 
+    bool _tooltipVisible;
+
     void Awake()
     {
         _choiceUI = GetComponent<P1ItemChoiceUI>();
@@ -26,16 +29,20 @@ public class P1ItemChoiceNavigator : MonoBehaviour
     {
         navigateAction.Enable();
         confirmAction.Enable();
+        tooltipAction.Enable();
 
         confirmAction.performed += OnConfirmPerformed;
+        tooltipAction.performed += OnTooltipPerformed;
     }
 
     void OnDisable()
     {
         confirmAction.performed -= OnConfirmPerformed;
+        tooltipAction.performed -= OnTooltipPerformed;
 
         navigateAction.Disable();
         confirmAction.Disable();
+        tooltipAction.Disable();
     }
 
     public void Activate()
@@ -43,12 +50,18 @@ public class P1ItemChoiceNavigator : MonoBehaviour
         _active = true;
         _selectedActiveIndex = 0;
         _navigateHeld = false;
+        _tooltipVisible = false;
+
+        TooltipController.Instance?.Hide();
         RefreshSelection();
     }
 
     public void Deactivate()
     {
         _active = false;
+        _tooltipVisible = false;
+
+        TooltipController.Instance?.Hide();
         ClearSelection();
     }
 
@@ -71,6 +84,7 @@ public class P1ItemChoiceNavigator : MonoBehaviour
                 _selectedActiveIndex = WrapIndex(_selectedActiveIndex, activeCount);
 
                 RefreshSelection();
+                RefreshTooltipIfVisible();
             }
         }
         else
@@ -85,6 +99,42 @@ public class P1ItemChoiceNavigator : MonoBehaviour
 
         P1ItemOptionUI slot = GetActiveSlot(_selectedActiveIndex);
         slot?.SimulateClick();
+    }
+
+    void OnTooltipPerformed(InputAction.CallbackContext context)
+    {
+        if (!_active) return;
+
+        _tooltipVisible = !_tooltipVisible;
+
+        if (!_tooltipVisible)
+        {
+            TooltipController.Instance?.Hide();
+            return;
+        }
+
+        ShowTooltipForSelected();
+    }
+
+    void RefreshTooltipIfVisible()
+    {
+        if (!_tooltipVisible)
+            return;
+
+        ShowTooltipForSelected();
+    }
+
+    void ShowTooltipForSelected()
+    {
+        P1ItemOptionUI slot = GetActiveSlot(_selectedActiveIndex);
+        if (slot == null)
+            return;
+
+        if (!slot.TryBuildTooltip(out Sprite icon, out string title, out string body))
+            return;
+
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(null, slot.transform.position);
+        TooltipController.Instance?.Show(icon, title, body, screenPos);
     }
 
     static int WrapIndex(int index, int count)
