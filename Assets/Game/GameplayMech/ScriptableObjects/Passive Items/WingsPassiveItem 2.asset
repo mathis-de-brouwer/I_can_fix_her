@@ -15,6 +15,7 @@ MonoBehaviour:
   baseItem: {fileID: 11400000, guid: f5af0a1f3a52b1c488ccd03f1597c61d, type: 2}
   icon: {fileID: -2094737778, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
   itemName: 
+  description: increases your movement speed
   multiplier: 20
   level: 0
   nextLevelPrefab: {fileID: 0}

@@ -15,6 +15,7 @@ MonoBehaviour:
   baseItem: {fileID: 11400000}
   icon: {fileID: 1187507397, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
   itemName: 
+  description: Increases the damage your weapons deal
   multiplier: 20
   level: 0
   nextLevelPrefab: {fileID: 0}

@@ -53,6 +53,8 @@ public class PlayerStats : MonoBehaviour
     public int weaponIndex;
     public int passiveItemIndex;
 
+    private ShieldBehavior _activeShield;
+
     void Awake()
     {
         inventory = GetComponent<InventoryManager>();
@@ -199,6 +201,12 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
+        if (_activeShield != null && _activeShield.IsShieldActive())
+        {
+            dmg = _activeShield.AbsorbDamage(dmg);
+            if (dmg <= 0f) return; // shield absorbed everything
+        }
+
         if (isDead) return;
 
         if (!isInvincible)
@@ -285,6 +293,11 @@ public class PlayerStats : MonoBehaviour
         spawnedPassiveItem.transform.SetParent(transform);
         inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItems>());
         passiveItemIndex++;
+    }
+
+    public void SetShield(ShieldBehavior shield)
+    {
+        _activeShield = shield;
     }
 
     void Recovery()
