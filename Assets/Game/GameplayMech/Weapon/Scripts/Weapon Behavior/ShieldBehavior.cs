@@ -17,11 +17,14 @@ public class ShieldBehavior : MonoBehaviour
 
     void Start()
     {
-        if (shieldSprite == null)
-            shieldSprite = GetComponent<SpriteRenderer>();
+        EnsureSpriteReference();
 
         _currentHealth = maxShieldHealth;
         _shieldActive = true;
+
+        if (shieldSprite != null)
+            shieldSprite.enabled = true;
+
         UpdateVisual();
     }
 
@@ -32,9 +35,7 @@ public class ShieldBehavior : MonoBehaviour
             _cooldownTimer -= Time.deltaTime;
 
             if (_cooldownTimer <= 0f)
-            {
                 ReactivateShield();
-            }
         }
 
         // Follow player
@@ -49,20 +50,20 @@ public class ShieldBehavior : MonoBehaviour
     /// </summary>
     public float AbsorbDamage(float incomingDamage)
     {
-        if (!_shieldActive) return incomingDamage;
+        if (!_shieldActive)
+            return incomingDamage;
 
         _currentHealth -= incomingDamage;
 
         if (_currentHealth <= 0f)
         {
-            float leftover = Mathf.Abs(_currentHealth); // damage that bleeds through
+            float leftover = Mathf.Abs(_currentHealth);
             BreakShield();
             return leftover;
         }
 
-        Debug.Log($"Shield absorbed {incomingDamage} damage. Shield HP: {_currentHealth}/{maxShieldHealth}");
         UpdateVisual();
-        return 0f; // all damage absorbed
+        return 0f;
     }
 
     void BreakShield()
@@ -70,10 +71,9 @@ public class ShieldBehavior : MonoBehaviour
         _shieldActive = false;
         _cooldownTimer = shieldCooldown;
 
+        EnsureSpriteReference();
         if (shieldSprite != null)
             shieldSprite.enabled = false;
-
-        Debug.Log($"Shield broken! Recharging in {shieldCooldown}s.");
     }
 
     void ReactivateShield()
@@ -81,10 +81,14 @@ public class ShieldBehavior : MonoBehaviour
         _shieldActive = true;
         _currentHealth = maxShieldHealth;
 
+        EnsureSpriteReference();
         if (shieldSprite != null)
+        {
             shieldSprite.enabled = true;
+            shieldSprite.color = fullHealthColor;
+        }
 
-        Debug.Log("Shield recharged!");
+        transform.localScale = Vector3.one;
         UpdateVisual();
     }
 
@@ -92,13 +96,26 @@ public class ShieldBehavior : MonoBehaviour
 
     void UpdateVisual()
     {
-        if (shieldSprite == null) return;
+        EnsureSpriteReference();
+        if (shieldSprite == null)
+            return;
 
         float healthPercent = _currentHealth / maxShieldHealth;
         shieldSprite.color = Color.Lerp(lowHealthColor, fullHealthColor, healthPercent);
 
-        // Scale down slightly as health decreases for extra feedback
-        float scale = Mathf.Lerp(0.8f, 1f, healthPercent);
+        float scale = Mathf.Lerp(4f, 4.1f, healthPercent);
         transform.localScale = Vector3.one * scale;
+    }
+
+    void EnsureSpriteReference()
+    {
+        if (shieldSprite != null)
+            return;
+
+        shieldSprite = GetComponent<SpriteRenderer>();
+        if (shieldSprite != null)
+            return;
+
+        shieldSprite = GetComponentInChildren<SpriteRenderer>(true);
     }
 }

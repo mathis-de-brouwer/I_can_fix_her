@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
   baseItem: {fileID: 11400000}
   icon: {fileID: 1718622858283614200, guid: 10d53ec97a1ad2e498ed83155dab765d, type: 3}
-  itemName: 
+  itemName: Hollow Heart
+  description: Regens your health faster
   multiplier: 5
   level: 0
   nextLevelPrefab: {fileID: 0}

@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObject
   icon: {fileID: -752201445, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
   weaponName: 
+  description: A knife flying through your ennemies
   prefab: {fileID: 6807994539994310721, guid: 0fb72f92f10b4ef4e97ec45ac972548a, type: 3}
   damage: 10
   speed: 20
-  cooldownDuration: 3
-  pierce: 2
+  cooldownDuration: 1
+  pierce: 5
   level: 2
   nextLevelPrefab: {fileID: 0}
