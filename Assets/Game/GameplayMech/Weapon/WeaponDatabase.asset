@@ -15,5 +15,5 @@ MonoBehaviour:
   weaponPrefabs:
   - {fileID: 4386680800323226713, guid: 1f3c432793197064e9f4a4d6f2d57213, type: 3}
   - {fileID: 4386680800323226713, guid: 5383f537d38e0c94daf1b9d849ffb40f, type: 3}
-  - {fileID: 5776035500426996723, guid: 359ea9ec98a8d134faea12f576b0009d, type: 3}
-  - {fileID: 5104805768424443778, guid: b019b5496aec9594ab58d2439b52175e, type: 3}
+  - {fileID: 4386680800323226713, guid: 3e8750cfcd20d3e4aa4b2be98466c3b1, type: 3}
+  - {fileID: 4386680800323226713, guid: ed2cb04f140cc8949b18cae4547dfff0, type: 3}
