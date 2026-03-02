@@ -25,12 +25,12 @@ public class PlayerStats : MonoBehaviour
     public int level = 1;
     public int experienceCap;
 
-    [Header("Experience curve")]
-    [Tooltip("Experience cap scaling applied after each level-up. Example: 1.15 = +15% per level.")]
-    [SerializeField] float experienceCapGrowthFactor = 1.15f;
+    //[Header("Experience curve")]
+    //[Tooltip("Experience cap scaling applied after each level-up. Example: 1.15 = +15% per level.")]
+    //[SerializeField] float experienceCapGrowthFactor = 1.15f;
 
-    [Tooltip("Flat bonus added after applying the growth factor each level-up.")]
-    [SerializeField] int experienceCapFlatBonusPerLevel = 0;
+    //[Tooltip("Flat bonus added after applying the growth factor each level-up.")]
+    //[SerializeField] int experienceCapFlatBonusPerLevel = 0;
 
     [System.Serializable]
     public class LevelRange
@@ -192,11 +192,25 @@ public class PlayerStats : MonoBehaviour
 
     int CalculateNextExperienceCap(int currentCap)
     {
-        float clampedFactor = Mathf.Max(1f, experienceCapGrowthFactor);
-        int next = Mathf.CeilToInt((currentCap * clampedFactor) + experienceCapFlatBonusPerLevel);
+        int increase = 0;
 
-        // Ensure the cap always increases by at least 1 to avoid accidental stalls.
-        return Mathf.Max(currentCap + 1, next);
+        for (int i = 0; i < levelRanges.Count; i++)
+        {
+            LevelRange range = levelRanges[i];
+            if (level >= range.startlevel && level <= range.endlevel)
+            {
+                increase = range.experienceCapIncrease;
+                break;
+            }
+        }
+
+        if (increase <= 0)
+        {
+            // Fallback so the cap always increases (in case ranges are misconfigured).
+            increase = 1;
+        }
+
+        return currentCap + increase;
     }
 
     public void TakeDamage(float dmg)

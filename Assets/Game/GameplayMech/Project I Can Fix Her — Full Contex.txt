@@ -233,25 +233,49 @@ P2CardChoiceUI
 
 ---
 
-Scene flow
+UI Tooltips (updated: tooltip “channels” / multiple controllers)
 
-MainMenu / DeckBuilder scene
-  └── P2DeckBuilderUI -> player selects seed cards -> P2DeckSelectionSession.SetConfig()
-        └── SceneManager.LoadScene("Gameplay")
+Goal
+  Allow multiple independent tooltips at the same time (e.g., Level-up screen:
+  P1 inspect tooltip on the left, P2 inspect tooltip on the right) without UI cross-talk.
 
-Gameplay scene
-  ├── P1: Playermovement + PlayerStats + InventoryManager + AimController + WeaponController(s)
-  ├── P2: P2DeckManager + P2Charges + P2CardEffectResolver + P2DeckVisualUI + hand UI
-  ├── World: MapController + enemy spawners + DropRateManager on enemies
-  └── Game Over: GameResultScreenUI prefab instantiated by either PlayerStats or P2DeckManager
+Core idea
+  Tooltip routing is now controller-based:
+  - UI elements can optionally reference a specific TooltipController (“channel”).
+  - If no specific controller is assigned, they fall back to TooltipController.Instance
+    (legacy/default behavior).
 
----
+Key components
+  TooltipController (MonoBehaviour)
+    - No longer enforces a single instance by destroying duplicates.
+    - First TooltipController that Awakes becomes TooltipController.Instance (default).
+    - Multiple TooltipControllers can coexist in the same scene/prefab and be targeted directly.
 
-Key asymmetry
-P1 plays a real-time action game and has no direct control over P2.
-P2 plays a resource management card game and has no health bar — their only way to lose is running out of cards (now extended with a Final Boss “last stand”).
-Every card P2 plays costs charges and draws one replacement, making deck composition and charge timing the core P2 skill expression.
-The level-up system is the only moment of cooperation — both players pause together, both gain power, then the fight continues
+  HoverTooltipSource (MonoBehaviour)
+    - Has an optional TooltipController reference (Routing).
+    - Exposes SetController(TooltipController).
+    - Uses the injected controller when provided, otherwise uses TooltipController.Instance.
+
+  P1 item picker tooltips (controller inspect)
+    - P1ItemOptionUI now has a serialized TooltipController reference for the P1 channel.
+    - P1ItemChoiceNavigator shows/hides tooltips using the selected option’s assigned controller
+      (fallback: TooltipController.Instance).
+
+  P2 card picker tooltips (hover/right-click)
+    - P2CardOptionUI now has a serialized TooltipController reference for the P2 channel.
+    - On Setup(), it injects that controller into HoverTooltipSource via SetController().
+
+Files changed for tooltip channels
+  ├── CHANGED: Assets/Game/GameplayMech/UI/Tooltip/Scripts/TooltipController.cs
+  │     - removed “destroy duplicate singleton” behavior; first instance becomes default only
+  ├── CHANGED: Assets/Game/GameplayMech/UI/Tooltip/Scripts/HoverTooltipSource.cs
+  │     - added optional routing controller + SetController(); fallback to Instance remains
+  ├── CHANGED: Assets/Game/GameplayMech/UI/Itemscreen/Scripts/P1ItemOptionUI.cs
+  │     - added TooltipController reference (P1 channel) exposed via property
+  ├── CHANGED: Assets/Game/GameplayMech/UI/Itemscreen/Scripts/P1ItemChoiceNavigator.cs
+  │     - routes P1 inspect tooltip to the selected option’s TooltipController
+  └── CHANGED: Assets/Game/GameplayMech/UI/Itemscreen/Scripts/P2CardOptionUI.cs
+        - added TooltipController reference (P2 channel) and injects it into HoverTooltipSource
 
 
 
