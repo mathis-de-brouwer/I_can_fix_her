@@ -6,6 +6,8 @@ using UnityEngine.UI;
 /// <summary>Single selectable card slot inside <see cref="P2CardChoiceUI"/>.</summary>
 public class P2CardOptionUI : MonoBehaviour
 {
+    [SerializeField] private TooltipController tooltipController;
+
     [SerializeField] private Image icon;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text costText;
@@ -30,6 +32,9 @@ public class P2CardOptionUI : MonoBehaviour
 
         if (_tooltipSource == null)
             _tooltipSource = GetComponent<HoverTooltipSource>();
+
+        if (_tooltipSource != null)
+            _tooltipSource.SetController(tooltipController);
 
         Sprite art = card != null && card.effect != null && card.effect.CardArtOverride != null
             ? card.effect.CardArtOverride

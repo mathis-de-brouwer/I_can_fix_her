@@ -52,7 +52,7 @@ public class P1ItemChoiceNavigator : MonoBehaviour
         _navigateHeld = false;
         _tooltipVisible = false;
 
-        TooltipController.Instance?.Hide();
+        HideP1Tooltip();
         RefreshSelection();
     }
 
@@ -61,7 +61,7 @@ public class P1ItemChoiceNavigator : MonoBehaviour
         _active = false;
         _tooltipVisible = false;
 
-        TooltipController.Instance?.Hide();
+        HideP1Tooltip();
         ClearSelection();
     }
 
@@ -109,7 +109,7 @@ public class P1ItemChoiceNavigator : MonoBehaviour
 
         if (!_tooltipVisible)
         {
-            TooltipController.Instance?.Hide();
+            HideP1Tooltip();
             return;
         }
 
@@ -133,8 +133,20 @@ public class P1ItemChoiceNavigator : MonoBehaviour
         if (!slot.TryBuildTooltip(out Sprite icon, out string title, out string body))
             return;
 
+        TooltipController controller = slot.TooltipController != null ? slot.TooltipController : TooltipController.Instance;
+
         Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(null, slot.transform.position);
-        TooltipController.Instance?.Show(icon, title, body, screenPos);
+        controller?.Show(icon, title, body, screenPos);
+    }
+
+    void HideP1Tooltip()
+    {
+        // Hide on the P1 channel if we can find it; otherwise fall back to global.
+        // We intentionally do NOT hide “every tooltip in the game”.
+
+        P1ItemOptionUI slot = GetActiveSlot(_selectedActiveIndex);
+        TooltipController controller = slot != null && slot.TooltipController != null ? slot.TooltipController : TooltipController.Instance;
+        controller?.Hide();
     }
 
     static int WrapIndex(int index, int count)
@@ -148,8 +160,8 @@ public class P1ItemChoiceNavigator : MonoBehaviour
 
     float ReadNavigateX()
     {
-        if (navigateAction.activeControl != null && navigateAction.activeControl.valueType == typeof(Vector2))
-            return navigateAction.ReadValue<Vector2>().x;
+        if (navigateAction.activeControl != null && navigateAction.activeControl.valueType == typeof(UnityEngine.Vector2))
+            return navigateAction.ReadValue<UnityEngine.Vector2>().x;
 
         return navigateAction.ReadValue<float>();
     }

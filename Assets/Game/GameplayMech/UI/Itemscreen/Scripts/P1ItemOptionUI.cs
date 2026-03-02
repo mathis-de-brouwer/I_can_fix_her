@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class P1ItemOptionUI : MonoBehaviour
 {
+    [SerializeField] private TooltipController tooltipController;
+
     [SerializeField] private Image icon;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text multiplierText;
@@ -21,6 +23,8 @@ public class P1ItemOptionUI : MonoBehaviour
     Vector3 _iconBaseScale;
 
     public P1RewardOffer Offer => _offer;
+
+    public TooltipController TooltipController => tooltipController;
 
     void Awake()
     {
@@ -113,17 +117,17 @@ public class P1ItemOptionUI : MonoBehaviour
             }
 
             case P1RewardOfferType.PassiveUpgrade:
-                {
-                    PassiveItems passive = offer.Prefab != null ? offer.Prefab.GetComponent<PassiveItems>() : null;
-                    PassiveItemsScriptableObjects data = passive != null ? passive.passiveItemsData : null;
+            {
+                PassiveItems passive = offer.Prefab != null ? offer.Prefab.GetComponent<PassiveItems>() : null;
+                PassiveItemsScriptableObjects data = passive != null ? passive.passiveItemsData : null;
 
-                    offerIcon = data != null ? data.Icon : null;
+                offerIcon = data != null ? data.Icon : null;
 
-                    string baseName = data != null && !string.IsNullOrEmpty(data.ItemName) ? data.ItemName : offerName;
-                    offerName = $"Upgrade: {baseName}";
-                    offerDetails = data != null && data.NextLevelPrefab != null ? "-> Next" : "Max";
-                    break;
-                }
+                string baseName = data != null && !string.IsNullOrEmpty(data.ItemName) ? data.ItemName : offerName;
+                offerName = $"Upgrade: {baseName}";
+                offerDetails = data != null && data.NextLevelPrefab != null ? "-> Next" : "Max";
+                break;
+            }
         }
 
         SetVisuals(offerIcon, offerName, offerDetails);

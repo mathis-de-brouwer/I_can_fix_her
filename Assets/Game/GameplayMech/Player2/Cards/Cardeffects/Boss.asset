@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648fd7785baa6114c8558864c83a0dc3, type: 3}
+  m_Name: Boss
+  m_EditorClassIdentifier: Assembly-CSharp::P2SpawnBossCardEffect
+  cardArtOverride: {fileID: -4959699801194026053, guid: d4e9717827a21da46b8f52e1ce47b4be, type: 3}
+  spawnRadius: 8
+  randomJitter: 0.5

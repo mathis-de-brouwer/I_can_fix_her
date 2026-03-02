@@ -286,6 +286,53 @@ MonoBehaviour:
   expectedMaxDeckSize: 20
   minScale: 0.9
   maxScale: 1.1
+--- !u!1 &299367291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 299367293}
+  - component: {fileID: 299367292}
+  m_Layer: 0
+  m_Name: EnemySpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &299367292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299367291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d58bde954c526418adb92874d37206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnDirector
+  targetPlayer: {fileID: 925199399}
+  matchClock: {fileID: 1217737599}
+  config: {fileID: 11400000, guid: a86f58dd8b00aad468e88667b38a385a, type: 2}
+--- !u!4 &299367293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299367291}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 715.42645, y: 444.59583, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &306971707
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +759,7 @@ MonoBehaviour:
   timeScaling: {fileID: 11400000, guid: 02ffa90420c93c347848ea4e77333299, type: 2}
   minScaledCost: 0.1
   gameResultPrefab: {fileID: 5704826936650097207, guid: ea8435265e3fca54abd404e961981e0e, type: 3}
+  bossCard: {fileID: 11400000, guid: ad91a1b4126a84b43adce1370baa0cf2, type: 2}
 --- !u!114 &421071089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1125,8 +1173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -35}
-  m_SizeDelta: {x: 0, y: -70}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: 0, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &688125436
 MonoBehaviour:
@@ -2206,7 +2254,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 70}
+  m_SizeDelta: {x: 45, y: 80}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1027873208
 MonoBehaviour:
@@ -3157,7 +3205,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 140, y: 70}
+  m_SizeDelta: {x: 155, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1916675127
 MonoBehaviour:
@@ -3329,3 +3377,4 @@ SceneRoots:
   - {fileID: 395505136}
   - {fileID: 1217737600}
   - {fileID: 1804399262}
+  - {fileID: 299367293}

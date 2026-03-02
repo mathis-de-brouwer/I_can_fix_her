@@ -4,7 +4,7 @@ Genre & concept
 A local 2-player asymmetric PvP game. The two players have completely different gameplay loops that work against each other in real time on the same machine:
 • P1 (the Survivor) — plays like Vampire Survivors: top-down 2D, moves around an infinite procedurally generated world, auto-attacks enemies, gains XP, levels up, gets stronger through passive items and weapons
 • P2 (the Antagonist) — plays like Slay the Spire: manages a hand of cards, spends charges to play them, using card effects to make P1's life harder
-• Win condition: P1 dies -> P2 wins. P2's deck runs out -> P1 wins
+• Win condition: P1 dies -> P2 wins. P2's deck runs out -> P1 wins (but see Final Boss rule below)
 
 ---
 
@@ -91,7 +91,8 @@ P2DeckManager
   ├── deck / hand / usedPile — List<P2Card>
   ├── P2Charges — float resource, regenerates over time, spent to play cards
   ├── TryPlayCard() -> ResolvePlayRoutine() -> P2CardEffectResolver.Resolve()
-  └── deck empty + hand empty -> GameResultScreenUI.Setup(Winner.P1)
+  ├── Lose condition: normally, deck empty + hand empty -> GameResultScreenUI.Setup(Winner.P1)
+  └── NEW: Final Boss rule (see below) modifies the deck-empty lose flow
 
 P2Card (ScriptableObject)
   ├── cost (charges), duration, value, prefab
@@ -99,13 +100,38 @@ P2Card (ScriptableObject)
 
 P2CardEffect subclasses:
   ├── P2DoubleMonstersCardEffect  — duplicates N random live enemies
-  └── P2SpawnWaveDirectionalCardEffect — spawns a wave of enemies from one direction toward P1
+  ├── P2SpawnWaveDirectionalCardEffect — spawns a wave of enemies from one direction toward P1
+  ├── P2SpawnSurgeCardEffect — spawns a large surge over time around the player
+  └── NEW: P2SpawnBossCardEffect — spawns exactly one boss enemy and attaches a death hook (below)
 
 P2CardEffectResolver
-  └── builds P2CardEffectContext (spawnPoint, charges, target = P1 transform) -> card.effect.Resolve()
+  └── builds P2CardEffectContext (spawnPoint, charges, target = P1 transform, elapsedSeconds from P2MatchClock, timeScaling) -> card.effect.Resolve()
 
 P2DeckVisualUI
   └── listens to DeckStateChanged event -> updates deck/discard count display in real time
+
+P2HandUI / P2CardUI
+  └── hand UI is driven by P2DeckManager.hand; special boss card is displayed like any other card when granted
+
+NEW: Final Boss rule (P2 “last stand”)
+  Goal: When P2 runs out of cards, they do not instantly lose. Instead they get one final boss card.
+  ├── Trigger: deck.Count == 0 AND hand.Count == 0 (after _gameStarted)
+  ├── Action: P2DeckManager grants a configured bossCard into hand once (bossCard has cost 0)
+  ├── P2 must play the boss card (normal UI click -> TryPlayCard)
+  ├── Boss card uses P2SpawnBossCardEffect:
+  │     - spawns card.prefab once near the player
+  │     - calls P2DeckManager.NotifyBossSpawned()
+  │     - attaches P2BossDeathHook to the spawned boss
+  └── Boss death:
+        - P2BossDeathHook.OnDestroy() calls P2DeckManager.NotifyBossDied()
+        - P2DeckManager ends the match with Winner.P1
+
+Files added/changed for Final Boss rule
+  ├── CHANGED: Assets/Game/GameplayMech/Player2/Scripts/DeckLogic/P2DeckManager.cs
+  │     - added bossCard reference + boss phase flags
+  │     - modified CheckDeckEmpty() to grant boss card once, then use boss state
+  ├── ADDED: Assets/Game/GameplayMech/Player2/Scripts/CardEffect/P2SpawnBossCardEffect.cs
+  └── ADDED: Assets/Game/GameplayMech/Player2/Scripts/CardEffect/P2BossDeathHook.cs
 
 ---
 
@@ -124,8 +150,42 @@ EnemyStats
   ├── OnCollisionStay2D -> PlayerStats.TakeDamage()
   └── Kill() -> DropRateManager.TriggerDrop() -> spawns XP gem / items at death position
 
+EnemyMovement
+  └── moves toward P1 using EnemyStats.GetMoveSpeed(), respects stagger state
+
 DropRateManager
   └── weighted random drop table per enemy — drops prefabs (XP gems etc.) at enemy position
+
+NEW: Continuous enemy spawning - “Vampire Survivors” style
+  Goal: Spawn enemies continuously and ramp difficulty over time with an AnimationCurve-based multiplier.
+
+  Core ideas:
+  ├── Reuses weighted spawn tables via P2SpawnEntry + SpawnTable.Pick()
+  ├── Uses P2MatchClock.ElapsedSeconds and P2TimeScalingConfig.GetMagnitudeMultiplier(t)
+  ├── Spawns enemies in a ring around the player (radius + jitter)
+  ├── Enforces a max-alive cap to avoid runaway spawning
+  └── Tracks alive enemies using a registry instead of expensive scene searches
+
+  New/added components:
+  ├── EnemySpawnDirector (MonoBehaviour)
+  │     - reads elapsedSeconds
+  │     - computes spawnsPerSecond and maxAlive using curve multiplier
+  │     - spawns prefabs on a timed loop (accumulator + interval)
+  │     - registers spawned enemies in EnemySpawnRegistry
+  ├── EnemySpawnDirectorConfig (ScriptableObject)
+  │     - spawnTable: List<P2SpawnEntry>
+  │     - baseSpawnsPerSecond, baseMaxAlive
+  │     - spawnRadius, randomJitter
+  │     - timeScaling: P2TimeScalingConfig (curve-driven)
+  │     - spawnsPerSecondScale, maxAliveScale
+  └── EnemySpawnRegistry (static)
+        - maintains AliveCount
+        - Register(enemy) auto-attaches a hook component that decrements on OnDestroy()
+
+Files added/changed for continuous spawning
+  ├── ADDED: Assets/Game/GameplayMech/Enemies/Spawning/EnemySpawnDirector.cs
+  ├── ADDED: Assets/Game/GameplayMech/Enemies/Spawning/EnemySpawnDirectorConfig.cs
+  └── ADDED: Assets/Game/GameplayMech/Enemies/Spawning/EnemySpawnRegistry.cs
 
 ---
 
@@ -189,7 +249,7 @@ Gameplay scene
 
 Key asymmetry
 P1 plays a real-time action game and has no direct control over P2.
-P2 plays a resource management card game and has no health bar — their only way to lose is running out of cards.
+P2 plays a resource management card game and has no health bar — their only way to lose is running out of cards (now extended with a Final Boss “last stand”).
 Every card P2 plays costs charges and draws one replacement, making deck composition and charge timing the core P2 skill expression.
 The level-up system is the only moment of cooperation — both players pause together, both gain power, then the fight continues
 

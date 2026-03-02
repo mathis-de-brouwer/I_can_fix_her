@@ -24,4 +24,4 @@ public sealed class P2TimeScalingConfig : ScriptableObject
         float v = magnitudeMultiplier != null ? magnitudeMultiplier.Evaluate(elapsedSeconds) : 1f;
         return Mathf.Clamp(v, minMagnitudeMultiplier, maxMagnitudeMultiplier);
     }
-}
+} 

@@ -44,7 +44,13 @@ public class P2DeckManager : MonoBehaviour
     [Header("Game Result")]
     [SerializeField] private GameObject gameResultPrefab; // same prefab as PlayerStats
 
+    [Header("Final boss (when P2 runs out of cards)")]
+    [Tooltip("Granted once when both deck and hand are empty. Recommended: cost = 0, scaleCostWithTime = false.")]
+    [SerializeField] private P2Card bossCard;
+
     private bool _gameStarted = false;
+    private bool _bossCardGranted;
+    private bool _bossAlive;
 
     public bool IsBusy => _isResolvingPlay;
 
@@ -118,6 +124,9 @@ public class P2DeckManager : MonoBehaviour
         hand.Clear();
         usedPile.Clear();
 
+        _bossCardGranted = false;
+        _bossAlive = false;
+
         if (allAvailableCards == null || allAvailableCards.Count == 0)
         {
             Debug.LogError("No available cards assigned. Cannot generate deck.");
@@ -140,6 +149,9 @@ public class P2DeckManager : MonoBehaviour
         deck.Clear();
         hand.Clear();
         usedPile.Clear();
+
+        _bossCardGranted = false;
+        _bossAlive = false;
 
         if (config == null)
         {
@@ -321,15 +333,65 @@ public class P2DeckManager : MonoBehaviour
 
     private void CheckDeckEmpty()
     {
-        if (!_gameStarted) return;
-        if (deck.Count == 0 && hand.Count == 0)
+        if (!_gameStarted)
+            return;
+
+        if (deck.Count != 0 || hand.Count != 0)
+            return;
+
+        if (!_bossCardGranted)
         {
-            if (gameResultPrefab != null)
+            _bossCardGranted = true;
+
+            if (bossCard == null)
             {
-                GameObject instance = Instantiate(gameResultPrefab);
-                instance.GetComponent<GameResultScreenUI>().Setup(GameResultScreenUI.Winner.P1);
+                Debug.LogWarning($"{nameof(P2DeckManager)}: deck+hand empty but bossCard is not assigned. P2 loses normally.");
+                EndMatchP2OutOfCards();
+                return;
             }
+
+            Debug.Log($"{nameof(P2DeckManager)}: deck+hand empty -> granting final boss card '{bossCard.cardName}'.");
+
+            hand.Add(bossCard);
+
+            // Refresh UI without re-entering CheckDeckEmpty via RaiseDeckStateChanged().
+            HandChanged?.Invoke();
+            DeckStateChanged?.Invoke();
+
+            return;
         }
+
+        // Boss card already granted. If the boss hasn't spawned yet, allow P2 to play it (hand will contain it).
+        // If the boss is alive, do not end match here.
+        if (_bossAlive)
+            return;
+
+        // Boss was granted and is no longer alive => boss defeated => P2 loses.
+        EndMatchP2OutOfCards();
+    }
+
+    private void EndMatchP2OutOfCards()
+    {
+        if (gameResultPrefab == null)
+            return;
+
+        GameObject instance = Instantiate(gameResultPrefab);
+        GameResultScreenUI ui = instance.GetComponent<GameResultScreenUI>();
+        if (ui != null)
+            ui.Setup(GameResultScreenUI.Winner.P1);
+    }
+
+    public void NotifyBossSpawned()
+    {
+        _bossAlive = true;
+    }
+
+    public void NotifyBossDied()
+    {
+        _bossAlive = false;
+
+        // If P2 has no cards left at this moment, this will end the match.
+        CheckDeckEmpty();
     }
 
     /// <summary>Adds a card directly to the deck (used by the level-up reward system).</summary>
