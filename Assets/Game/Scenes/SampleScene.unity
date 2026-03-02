@@ -2013,8 +2013,6 @@ MonoBehaviour:
   experience: 0
   level: 1
   experienceCap: 0
-  experienceCapGrowthFactor: 1.33
-  experienceCapFlatBonusPerLevel: 0
   invincibilityDuration: 1
   levelRanges:
   - startlevel: 0
