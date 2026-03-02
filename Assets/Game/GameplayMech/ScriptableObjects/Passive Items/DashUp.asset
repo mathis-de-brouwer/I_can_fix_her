@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
   baseItem: {fileID: 11400000}
   icon: {fileID: -4858207643542637017, guid: 185d21e016054ca42b03e2151cd3249a, type: 3}
-  itemName: 
+  itemName: Better Dash
   description: Increases your dash distance
   multiplier: 0
-  level: 0
+  level: 1
   nextLevelPrefab: {fileID: 0}

@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KnifeController
   weaponData: {fileID: 11400000, guid: 169c0363c2fefce438d9d15dca8f94e5, type: 2}
+  minCooldownDuration: 0.05
+  multiShotLevel: 1
+  multiShotCount: 1
+  multiShotSpreadDegrees: 12

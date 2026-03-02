@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
   baseItem: {fileID: 11400000}
   icon: {fileID: -2094737778, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
-  itemName: 
+  itemName: Wings
   description: increases your movement speed
   multiplier: 10
-  level: 0
+  level: 1
   nextLevelPrefab: {fileID: 149397951995052163, guid: 9d51af1a0b9a9644db45bda729903c3b, type: 3}

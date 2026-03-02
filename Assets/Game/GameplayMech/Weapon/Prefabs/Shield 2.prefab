@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1640132445063703228}
   - component: {fileID: 2345188289965783301}
   m_Layer: 0
-  m_Name: Shield
+  m_Name: Shield 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e02b210680e5aa4dae409d6d190363a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldController
-  weaponData: {fileID: 11400000, guid: 441b646319609364ebf9da6b02a3c6bc, type: 2}
+  weaponData: {fileID: 11400000, guid: 9f9fcca1edd9d57488ca9fe26d69c5c6, type: 2}
   minCooldownDuration: 0.05
   shieldHealthPerLevel: 30
   cooldownReductionPerLevel: 2

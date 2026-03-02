@@ -436,6 +436,10 @@ public class LevelUpRewardManager : MonoBehaviour
                 continue;
             }
 
+            // New passive offers must start at level 1.
+            if (data.Level > 1)
+                continue;
+
             if (ownedData != null && ownedData.Contains(data))
                 continue;
 
@@ -465,6 +469,10 @@ public class LevelUpRewardManager : MonoBehaviour
                 filtered.Add(prefab);
                 continue;
             }
+
+            // New weapon offers must start at level 1.
+            if (data.Level > 1)
+                continue;
 
             if (ownedData != null && ownedData.Contains(data))
                 continue;

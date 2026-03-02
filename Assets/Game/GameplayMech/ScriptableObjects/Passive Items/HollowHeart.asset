@@ -17,5 +17,5 @@ MonoBehaviour:
   itemName: Hollow Heart
   description: Regens your health faster
   multiplier: 5
-  level: 0
+  level: 1
   nextLevelPrefab: {fileID: 0}

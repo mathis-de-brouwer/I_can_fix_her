@@ -2019,17 +2019,14 @@ MonoBehaviour:
     endlevel: 5
     experienceCapIncrease: 100
   - startlevel: 6
-    endlevel: 10
-    experienceCapIncrease: 200
-  - startlevel: 11
     endlevel: 15
-    experienceCapIncrease: 400
+    experienceCapIncrease: 200
   - startlevel: 16
     endlevel: 20
-    experienceCapIncrease: 750
+    experienceCapIncrease: 300
   - startlevel: 21
     endlevel: 30
-    experienceCapIncrease: 1000
+    experienceCapIncrease: 400
   weaponIndex: 0
   passiveItemIndex: 0
 --- !u!114 &925199406
