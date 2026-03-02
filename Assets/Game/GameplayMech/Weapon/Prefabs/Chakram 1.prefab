@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1640132445063703228}
-  - component: {fileID: 2345188289965783301}
+  - component: {fileID: -655494228452384652}
   m_Layer: 0
-  m_Name: Shield
+  m_Name: Chakram 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2345188289965783301
+--- !u!114 &-655494228452384652
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4386680800323226713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e02b210680e5aa4dae409d6d190363a, type: 3}
+  m_Script: {fileID: 11500000, guid: fe66f8d7fba9f984cb7e5f8f2f9030dc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShieldController
-  weaponData: {fileID: 11400000, guid: 441b646319609364ebf9da6b02a3c6bc, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::OrbitController
+  weaponData: {fileID: 11400000, guid: 3883d568fd0ae3f439ce47118094c8bc, type: 2}
   minCooldownDuration: 0.05
-  shieldHealthPerLevel: 30
-  cooldownReductionPerLevel: 2
-  minShieldCooldown: 10
+  orbitCountPerLevel: 2

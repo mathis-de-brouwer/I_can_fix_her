@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798809de9fa582f469d7b7f0e1a61926, type: 3}
-  m_Name: Knife Weapon
+  m_Name: Shakram weapon 2
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObject
-  icon: {fileID: -752201445, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
-  weaponName: Knife
-  description: A Knife flying to your ennemies
-  prefab: {fileID: 6807994539994310721, guid: 80fe7f23d42dd1b4c8c855683e2b8992, type: 3}
+  icon: {fileID: -25555464, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
+  weaponName: Chakram 3
+  description: A flying chakram that cuts through close ennemies
+  prefab: {fileID: 5776035500426996723, guid: 359ea9ec98a8d134faea12f576b0009d, type: 3}
   damage: 10
-  speed: 10
-  cooldownDuration: 2
-  pierce: 3
-  level: 1
-  nextLevelPrefab: {fileID: 4386680800323226713, guid: 5383f537d38e0c94daf1b9d849ffb40f, type: 3}
+  speed: 0
+  cooldownDuration: 5
+  pierce: 999
+  level: 3
+  nextLevelPrefab: {fileID: 0}

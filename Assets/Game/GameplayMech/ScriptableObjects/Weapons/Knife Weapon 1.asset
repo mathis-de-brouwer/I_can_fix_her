@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Knife Weapon 1
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObject
   icon: {fileID: -752201445, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
-  weaponName: 
+  weaponName: Knife 2
   description: A knife flying through your ennemies
   prefab: {fileID: 6807994539994310721, guid: 0fb72f92f10b4ef4e97ec45ac972548a, type: 3}
   damage: 10
@@ -21,4 +21,4 @@ MonoBehaviour:
   cooldownDuration: 1
   pierce: 5
   level: 2
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 4386680800323226713, guid: 22d2b7be57d9b2644a479abf7610e9cf, type: 3}

@@ -8,6 +8,15 @@ public class OrbitBehavior : ProjectileWeaponBehavior
 
     private Transform _player;
     private float _currentAngle;
+    private float _angleOffset;
+
+    public void InitializeOrbit(int index, int totalCount)
+    {
+        int safeTotal = Mathf.Max(1, totalCount);
+        int safeIndex = Mathf.Clamp(index, 0, safeTotal - 1);
+
+        _angleOffset = (360f / safeTotal) * safeIndex;
+    }
 
     protected override void Start()
     {
@@ -23,19 +32,20 @@ public class OrbitBehavior : ProjectileWeaponBehavior
         _currentAngle = 0f;
     }
 
-    void Update()
+    private void Update()
     {
         if (_player == null) return;
 
         _currentAngle += orbitSpeed * Time.deltaTime;
         if (_currentAngle >= 360f) _currentAngle -= 360f;
 
-        float rad = _currentAngle * Mathf.Deg2Rad;
+        float finalAngle = _currentAngle + _angleOffset;
+
+        float rad = finalAngle * Mathf.Deg2Rad;
         Vector3 offset = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad), 0f) * orbitRadius;
         transform.position = _player.position + offset;
 
-        // Optional: rotate the sprite to face the orbit direction
-        transform.rotation = Quaternion.Euler(0f, 0f, _currentAngle);
+        transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
     }
 
     protected override void OnTriggerEnter2D(Collider2D col)

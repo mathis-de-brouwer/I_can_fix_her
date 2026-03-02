@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798809de9fa582f469d7b7f0e1a61926, type: 3}
-  m_Name: Shakram weapon
+  m_Name: Shakram weapon 1
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObject
   icon: {fileID: -25555464, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
-  weaponName: Chakram
+  weaponName: Chakram 2
   description: A flying chakram that cuts through close ennemies
   prefab: {fileID: 5776035500426996723, guid: 359ea9ec98a8d134faea12f576b0009d, type: 3}
-  damage: 5
+  damage: 7
   speed: 0
   cooldownDuration: 5
   pierce: 999
-  level: 1
-  nextLevelPrefab: {fileID: 4386680800323226713, guid: 88236d5f805d5be47a3be8c398232592, type: 3}
+  level: 2
+  nextLevelPrefab: {fileID: 4386680800323226713, guid: 39acf94207ea0ee4d89c1ac451897496, type: 3}

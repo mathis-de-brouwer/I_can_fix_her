@@ -1969,8 +1969,17 @@ MonoBehaviour:
   invincibilityDuration: 1
   levelRanges:
   - startlevel: 0
-    endlevel: 0
-    experienceCapIncrease: 0
+    endlevel: 5
+    experienceCapIncrease: 100
+  - startlevel: 6
+    endlevel: 15
+    experienceCapIncrease: 200
+  - startlevel: 16
+    endlevel: 20
+    experienceCapIncrease: 300
+  - startlevel: 21
+    endlevel: 30
+    experienceCapIncrease: 400
   weaponIndex: 0
   passiveItemIndex: 0
 --- !u!114 &925199406

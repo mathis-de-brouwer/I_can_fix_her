@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1640132445063703228}
-  - component: {fileID: 2345188289965783301}
+  - component: {fileID: 7255977207459371032}
   m_Layer: 0
-  m_Name: Shield
+  m_Name: Knife WeaponItem 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2345188289965783301
+--- !u!114 &7255977207459371032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4386680800323226713}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e02b210680e5aa4dae409d6d190363a, type: 3}
+  m_Script: {fileID: 11500000, guid: ca9a22c7fb8804647b00c8cde4369dc3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShieldController
-  weaponData: {fileID: 11400000, guid: 441b646319609364ebf9da6b02a3c6bc, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::KnifeController
+  weaponData: {fileID: 11400000, guid: 8428fe81afcc0ef409c0f67a62a0e751, type: 2}
   minCooldownDuration: 0.05
-  shieldHealthPerLevel: 30
-  cooldownReductionPerLevel: 2
-  minShieldCooldown: 10
+  multiShotLevel: 2
+  multiShotCount: 3
+  multiShotSpreadDegrees: 12
