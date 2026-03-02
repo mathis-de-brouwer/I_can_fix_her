@@ -2,37 +2,29 @@ using UnityEngine;
 
 public class PlayerCollector : MonoBehaviour
 {
-PlayerStats player;
-CircleCollider2D playerCollector; 
+    private PlayerStats player;
+    private CircleCollider2D playerCollector;
 
-public float pullSpeed;
-
-    void Start()
+    private void Start()
     {
         player = FindAnyObjectByType<PlayerStats>();
         playerCollector = GetComponent<CircleCollider2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        playerCollector.radius = player.currentMagnet; 
+        if (playerCollector != null && player != null)
+            playerCollector.radius = player.currentMagnet;
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        //checks if the game object has the Icollectible interface
-        if(col.gameObject.TryGetComponent(out ICollectible collectible))
-        {
-            //pulling animation for objects to the player 
-            //this here gets the rigidbody2D component on the item 
-            Rigidbody2D rb = col.gameObject.GetComponent<Rigidbody2D>();
-            //vector2 pointing from the item to the player
-            Vector2 forceDirection = ( transform.position - col.transform.position).normalized;
-            //Applies force to the item in the forceDirection with pullSpeed
-            rb.AddForce(forceDirection * pullSpeed);
+        if (!col.gameObject.TryGetComponent(out ICollectible _))
+            return;
 
-            //If it does, call the collect method
-            collectible.Collect();
+        if (col.gameObject.TryGetComponent(out PickUp pickUp))
+        {
+            pickUp.BeginFollow(transform);
         }
     }
 }

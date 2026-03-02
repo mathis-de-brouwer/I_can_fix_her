@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 public sealed class HoverTooltipSource : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IMoveHandler, ISelectHandler, IDeselectHandler
 {
+    [Header("Routing")]
+    [SerializeField] private TooltipController tooltipController;
+
     [Header("Data (optional override)")]
     [SerializeField] private Sprite icon;
     [SerializeField] private string title;
@@ -30,6 +33,16 @@ public sealed class HoverTooltipSource : MonoBehaviour, IPointerEnterHandler, IP
             Debug.Log($"[Tooltip] {name}#{GetInstanceID()}: SetContent(title='{title}', bodyLen={(body ?? string.Empty).Length})", this);
     }
 
+    public void SetController(TooltipController controller)
+    {
+        tooltipController = controller;
+    }
+
+    TooltipController ResolveController()
+    {
+        return tooltipController != null ? tooltipController : TooltipController.Instance;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (debugLogs)
@@ -49,7 +62,7 @@ public sealed class HoverTooltipSource : MonoBehaviour, IPointerEnterHandler, IP
         if (!showOnPointerHover)
             return;
 
-        TooltipController.Instance?.Hide();
+        ResolveController()?.Hide();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -72,13 +85,13 @@ public sealed class HoverTooltipSource : MonoBehaviour, IPointerEnterHandler, IP
 
             if (!_rightClickVisible)
             {
-                TooltipController.Instance?.Hide();
+                ResolveController()?.Hide();
                 return;
             }
         }
 
         if (debugLogs)
-            Debug.Log($"[Tooltip] {name}#{GetInstanceID()}: About to Show. controller={(TooltipController.Instance != null ? TooltipController.Instance.name : "null")} title='{title}' bodyLen={(body ?? string.Empty).Length}", this);
+            Debug.Log($"[Tooltip] {name}#{GetInstanceID()}: About to Show. controller={(ResolveController() != null ? ResolveController().name : "null")} title='{title}' bodyLen={(body ?? string.Empty).Length}", this);
 
         Show(eventData.position, "RightClick");
     }
@@ -103,7 +116,7 @@ public sealed class HoverTooltipSource : MonoBehaviour, IPointerEnterHandler, IP
         if (!showOnSelect)
             return;
 
-        TooltipController.Instance?.Hide();
+        ResolveController()?.Hide();
     }
 
     public void OnMove(AxisEventData eventData)
@@ -120,16 +133,17 @@ public sealed class HoverTooltipSource : MonoBehaviour, IPointerEnterHandler, IP
 
     void Show(Vector2 screenPos, string reason)
     {
-        if (TooltipController.Instance == null)
+        TooltipController controller = ResolveController();
+        if (controller == null)
         {
             if (debugLogs)
-                Debug.LogWarning($"[Tooltip] {name}#{GetInstanceID()}: Show skipped ({reason}) - TooltipController.Instance is null", this);
+                Debug.LogWarning($"[Tooltip] {name}#{GetInstanceID()}: Show skipped ({reason}) - TooltipController is null", this);
             return;
         }
 
         if (debugLogs)
             Debug.Log($"[Tooltip] {name}#{GetInstanceID()}: Show ({reason}) pos={screenPos} title='{title}' bodyLen={(body ?? string.Empty).Length}", this);
 
-        TooltipController.Instance.Show(icon, title, body, screenPos);
+        controller.Show(icon, title, body, screenPos);
     }
 }

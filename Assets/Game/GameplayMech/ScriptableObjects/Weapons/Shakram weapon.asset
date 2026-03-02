@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Shakram weapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObject
   icon: {fileID: -25555464, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
-  weaponName: 
-  description: 
-  prefab: {fileID: 0}
+  weaponName: Chakram
+  description: A flying chakram that cuts through close ennemies
+  prefab: {fileID: 5776035500426996723, guid: 359ea9ec98a8d134faea12f576b0009d, type: 3}
   damage: 5
   speed: 0
   cooldownDuration: 5
