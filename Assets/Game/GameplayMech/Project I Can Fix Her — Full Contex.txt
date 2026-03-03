@@ -277,6 +277,58 @@ Files changed for tooltip channels
   └── CHANGED: Assets/Game/GameplayMech/UI/Itemscreen/Scripts/P2CardOptionUI.cs
         - added TooltipController reference (P2 channel) and injects it into HoverTooltipSource
 
+Recent changes (implemented)
+
+Pickups / magnet (fix “yeeted collectibles”)
+- PlayerCollector no longer collects instantly on magnet trigger.
+- PickUp now supports attraction:
+  - PlayerCollector.OnTriggerEnter2D() calls PickUp.BeginFollow(playerTransform) for ICollectible items.
+  - PickUp.FixedUpdate() steers the Rigidbody2D toward the follow target (followSpeed/maxFollowSpeed).
+  - Collect() is invoked only when the pickup hits the Player trigger; then the pickup is destroyed.
+Files changed:
+- Assets/Game/GameplayMech/Player/PlayerCollector.cs
+- Assets/Game/GameplayMech/Pick-ups/PickUp.cs
+
+XP progression (less exponential)
+- PlayerStats XP cap no longer uses a multiplicative growth factor (fields commented out).
+- XP cap increases are now driven by LevelRanges (linear-by-segment):
+  - PlayerStats.CalculateNextExperienceCap() adds the matching range’s experienceCapIncrease each level.
+File changed:
+- Assets/Game/GameplayMech/Player/PlayerStats.cs
+
+Weapon level-up behaviors
+- Chakram (Orbit):
+  - OrbitController spawns multiple orbit prefabs based on weaponData.Level * orbitCountPerLevel.
+  - OrbitBehavior supports InitializeOrbit(index, total) to apply angle offsets so orbits are equally spaced.
+Files changed:
+- Assets/Game/GameplayMech/Weapon/Scripts/Weapon Controller/OrbitController.cs
+- Assets/Game/GameplayMech/Weapon/Scripts/Weapon Behavior/OrbitBehavior.cs
+
+- Knife:
+  - KnifeController supports multi-shot when weaponData.Level >= multiShotLevel (default 3),
+    spawning multiShotCount knives with a configurable spread.
+File changed:
+- Assets/Game/GameplayMech/Weapon/Scripts/Weapon Controller/Knife Controller.cs
+
+- Shield:
+  - ShieldController scales ShieldBehavior.maxShieldHealth up and shieldCooldown down per weapon level
+    (clamped by minShieldCooldown).
+File changed:
+- Assets/Game/GameplayMech/Weapon/Scripts/Weapon Controller/ShieldController.cs
+
+Level-up reward offers (sequential level gating)
+- NewWeapon/NewPassive offers are filtered to only include items with Level == 1.
+  Higher level prefabs should only be reachable via upgrade offers (NextLevelPrefab chain).
+File changed:
+- Assets/Game/GameplayMech/UI/Itemscreen/LevelUpRewardManager.cs
+
+Deckbuilder tooltip (pinned/controller-routed tooltips)
+- Deckbuilder card tile now populates HoverTooltipSource content from P2Card (icon/title/description).
+- Deckbuilder passes a TooltipController reference into tiles for explicit routing (supports fixed anchor usage).
+Files changed:
+- Assets/Game/GameplayMech/Player2/Scripts/DeckLogic/UI/P2DeckBuilderUI.cs
+- Assets/Game/GameplayMech/Player2/Scripts/DeckLogic/UI/P2DeckBuilderCardTileUI.cs
+
 
 
 

@@ -40,6 +40,7 @@ public class P2CardChoiceUI : MonoBehaviour
             return;
 
         _confirmed = true;
+        UiSfx.PlayRewardChoice();
 
         // Dim all others for visual feedback, then immediately confirm
         for (int i = 0; i < optionSlots.Count; i++)

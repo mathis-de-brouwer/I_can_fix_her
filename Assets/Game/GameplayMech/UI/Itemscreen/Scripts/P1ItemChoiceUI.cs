@@ -55,6 +55,8 @@ public class P1ItemChoiceUI : MonoBehaviour
 
         _confirmed = true;
 
+        UiSfx.PlayRewardChoice();
+
         for (int i = 0; i < optionSlots.Count; i++)
             optionSlots[i].SetDimmed(optionSlots[i].Offer != offer);
 

@@ -143,6 +143,7 @@ public class P2CardUI : MonoBehaviour
         if (card == null || deckManager == null)
             return;
 
+        UiSfx.PlayGameplayCard();
         deckManager.TryPlayCard(card);
     }
 }

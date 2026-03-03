@@ -286,6 +286,7 @@ public class P2DeckManager : MonoBehaviour
             return false;
         }
 
+        UiSfx.PlayClick(); // play-confirm on success (optional)
         StartCoroutine(ResolvePlayRoutine(card));
         return true;
     }

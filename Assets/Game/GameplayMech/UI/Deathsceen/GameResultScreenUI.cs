@@ -276,5 +276,6 @@ public class GameResultScreenUI : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
+        UiSfx.PlayConfirm();
     }
 }

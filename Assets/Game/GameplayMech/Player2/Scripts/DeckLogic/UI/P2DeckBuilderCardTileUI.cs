@@ -80,6 +80,7 @@ public sealed class P2DeckBuilderCardTileUI : MonoBehaviour
         if (_card == null)
             return;
 
+        UiSfx.PlayDeckbuilderCard();
         _onClicked?.Invoke(_card);
     }
 }

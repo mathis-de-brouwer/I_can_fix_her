@@ -44,6 +44,7 @@ public sealed class P2DeckBuilderSelectedSlotUI : MonoBehaviour
 
     private void HandleClick()
     {
+        UiSfx.PlayDeckbuilderCard();
         _onClicked?.Invoke(_index);
     }
 }

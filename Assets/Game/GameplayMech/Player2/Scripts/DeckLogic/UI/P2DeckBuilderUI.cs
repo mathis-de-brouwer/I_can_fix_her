@@ -127,6 +127,8 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
 
     public void PlaySeededDeck()
     {
+        UiSfx.PlayClick();
+
         if (_selected.Count != requiredSeedCount)
             return;
 
@@ -144,6 +146,8 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
 
     public void PlayRandomDeck()
     {
+        UiSfx.PlayClick();
+
         EnsureSessionExists();
         P2DeckSelectionSession.Instance.SetConfig(new P2DeckBuildConfig
         {

@@ -8,6 +8,8 @@ public class StartController : MonoBehaviour
 
     public void OnStartClick()
     {
+        UiSfx.PlayClick();
+
         if (string.IsNullOrWhiteSpace(startSceneName))
         {
             Debug.LogError($"{nameof(StartController)}: Start scene name is empty.");
@@ -22,6 +24,8 @@ public class StartController : MonoBehaviour
 
     public void OnExitClick()
     {
+        UiSfx.PlayClick();
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif

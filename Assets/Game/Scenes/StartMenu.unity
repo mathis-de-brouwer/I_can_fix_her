@@ -682,6 +682,100 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &1690270211
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 170410974471516964, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_Name
+      value: AudioRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 170410974471516964, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763398700612208877, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5387336103422970123, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 1690270212}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfx1Confirm
+      value: 
+      objectReference: {fileID: 8300000, guid: 926a02832521f5a46ba995b16a0650fd, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfx3GameplayCard
+      value: 
+      objectReference: {fileID: 8300000, guid: f9b43351dff4dbd44bf936a30f0df388, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfx4RewardChoice
+      value: 
+      objectReference: {fileID: 8300000, guid: 2935b727b471b544997a2fae24ae867f, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfx2DeckbuilderCard
+      value: 
+      objectReference: {fileID: 8300000, guid: f9b43351dff4dbd44bf936a30f0df388, type: 3}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 916.5748
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 483.6104
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7008944675527115850, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+--- !u!82 &1690270212 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2540471543423706829, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+  m_PrefabInstance: {fileID: 1690270211}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1913513931
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,3 +1031,4 @@ SceneRoots:
   - {fileID: 1643394466}
   - {fileID: 2052872301}
   - {fileID: 232076064}
+  - {fileID: 1690270211}
