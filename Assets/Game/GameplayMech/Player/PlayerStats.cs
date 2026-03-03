@@ -25,13 +25,6 @@ public class PlayerStats : MonoBehaviour
     public int level = 1;
     public int experienceCap;
 
-    //[Header("Experience curve")]
-    //[Tooltip("Experience cap scaling applied after each level-up. Example: 1.15 = +15% per level.")]
-    //[SerializeField] float experienceCapGrowthFactor = 1.15f;
-
-    //[Tooltip("Flat bonus added after applying the growth factor each level-up.")]
-    //[SerializeField] int experienceCapFlatBonusPerLevel = 0;
-
     [System.Serializable]
     public class LevelRange
     {
@@ -225,6 +218,8 @@ public class PlayerStats : MonoBehaviour
 
         if (!isInvincible)
         {
+            UiSfx.PlayPlayerHit();
+
             if (MatchStats.Instance != null)
                 MatchStats.Instance.RegisterDamageToP1(dmg);
 
@@ -249,6 +244,8 @@ public class PlayerStats : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+
+        UiSfx.PlayPlayerDeath();
 
         if (animator != null)
             animator.SetTrigger("Die");

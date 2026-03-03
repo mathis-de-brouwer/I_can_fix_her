@@ -38,6 +38,8 @@ public class OrbitController : WeaponController
         {
             GameObject orbit = Instantiate(weaponData.Prefab, transform.position, Quaternion.identity);
             _orbits.Add(orbit);
+
+            UiSfx.PlayOrbitSpawn();
         }
 
         while (_orbits.Count > desiredCount)

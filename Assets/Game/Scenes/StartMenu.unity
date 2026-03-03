@@ -715,6 +715,38 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 926a02832521f5a46ba995b16a0650fd, type: 3}
     - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxEnemyHit
+      value: 
+      objectReference: {fileID: 8300000, guid: 544f71d1272bacd459468816745e8cde, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxPlayerHit
+      value: 
+      objectReference: {fileID: 8300000, guid: e12f64f1f43c0be4995e8f49223d123a, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxEnemyDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: 544f71d1272bacd459468816745e8cde, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxKnifeThrow
+      value: 
+      objectReference: {fileID: 8300000, guid: df16d76d20b73924b90e9ac46f7f2c25, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxOrbitSpawn
+      value: 
+      objectReference: {fileID: 8300000, guid: d3fce82a86cca2f47bdbae4c39bb2b81, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxPlayerDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ecd4c739fb0ad348b64345274cc0717, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxShieldBreak
+      value: 
+      objectReference: {fileID: 8300000, guid: eca6d5c276fc46243a362235b0a76253, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxShieldRegen
+      value: 
+      objectReference: {fileID: 8300000, guid: 334a2c1b82f498543bd36db70dd706ec, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
       propertyPath: sfx3GameplayCard
       value: 
       objectReference: {fileID: 8300000, guid: f9b43351dff4dbd44bf936a30f0df388, type: 3}

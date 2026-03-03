@@ -68,6 +68,8 @@ public class ShieldBehavior : MonoBehaviour
 
     void BreakShield()
     {
+        UiSfx.PlayShieldBreak();
+
         _shieldActive = false;
         _cooldownTimer = shieldCooldown;
 
@@ -78,6 +80,8 @@ public class ShieldBehavior : MonoBehaviour
 
     void ReactivateShield()
     {
+        UiSfx.PlayShieldRegen();
+
         _shieldActive = true;
         _currentHealth = maxShieldHealth;
 

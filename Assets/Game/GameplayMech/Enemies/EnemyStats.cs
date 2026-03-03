@@ -46,6 +46,8 @@ public class EnemyStats : MonoBehaviour
             return;
         }
 
+        UiSfx.PlayEnemyHit();
+
         if (sr != null)
             StartCoroutine(FlashColor());
 
@@ -75,6 +77,8 @@ public class EnemyStats : MonoBehaviour
 
     public void Kill()
     {
+        UiSfx.PlayEnemyDeath();
+
         if (MatchStats.Instance != null)
             MatchStats.Instance.RegisterMonsterKilled();
 

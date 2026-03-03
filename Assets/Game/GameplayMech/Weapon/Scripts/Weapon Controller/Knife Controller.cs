@@ -23,6 +23,8 @@ public class KnifeController : WeaponController
         int count = level >= multiShotLevel ? multiShotCount : 1;
         float spread = count > 1 ? multiShotSpreadDegrees : 0f;
 
+        UiSfx.PlayKnifeThrow();
+
         for (int i = 0; i < count; i++)
         {
             float t = count == 1 ? 0.5f : (float)i / (count - 1);
@@ -35,5 +37,4 @@ public class KnifeController : WeaponController
             spawnedKnife.GetComponent<KnifeBehavior>().DirectionChecker(dir); // this reference and set the direction the knife will go
         }
     }
-
 }
