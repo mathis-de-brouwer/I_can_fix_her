@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4313987297060280492}
   - component: {fileID: -868969307298538491}
   - component: {fileID: 237880178381050275}
+  - component: {fileID: -3914875438674893585}
   m_Layer: 0
   m_Name: Shakram
   m_TagString: Untagged
@@ -145,3 +146,16 @@ MonoBehaviour:
   destroyAfterSeconds: 0
   orbitRadius: 2
   orbitSpeed: 200
+--- !u!114 &-3914875438674893585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5776035500426996723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509dee828bf357b43b11fdccf61d6c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ysorting
+  sortingOriginOffset: 0

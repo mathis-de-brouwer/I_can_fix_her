@@ -23,9 +23,9 @@ MonoBehaviour:
     weight: 2
   - prefab: {fileID: 2797907090213795397, guid: 201258d43d62be5468415edd43cd69a1, type: 3}
     weight: 3
-  baseSpawnsPerSecond: 2
+  baseSpawnsPerSecond: 1
   baseMaxAlive: 120
-  spawnRadius: 15
+  spawnRadius: 30
   randomJitter: 3
   timeScaling: {fileID: 11400000, guid: 02ffa90420c93c347848ea4e77333299, type: 2}
   spawnsPerSecondScale: 1.5
