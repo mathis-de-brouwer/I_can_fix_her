@@ -25,6 +25,9 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private string gameplaySceneName = "Gameplay";
 
+    [Header("Tooltip")]
+    [SerializeField] private TooltipController tooltipController;
+
     private readonly List<P2Card> _selected = new List<P2Card>();
     private readonly List<P2DeckBuilderCardTileUI> _tiles = new List<P2DeckBuilderCardTileUI>();
     private readonly List<P2DeckBuilderSelectedSlotUI> _slots = new List<P2DeckBuilderSelectedSlotUI>();
@@ -57,7 +60,7 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
                 continue;
 
             P2DeckBuilderCardTileUI tile = Instantiate(availableCardTilePrefab, availableCardsContent);
-            tile.Setup(card, CanSelectCard, SelectCard);
+            tile.Setup(card, CanSelectCard, SelectCard, tooltipController);
             _tiles.Add(tile);
         }
     }
