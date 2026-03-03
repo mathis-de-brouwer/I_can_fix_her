@@ -34,6 +34,8 @@ public sealed class P2DeckBuilderUI : MonoBehaviour
 
     private void Start()
     {
+        MusicService.Play(MusicId.DeckBuilder);
+
         BuildAvailableList();
         BuildSlots();
         RefreshAll();

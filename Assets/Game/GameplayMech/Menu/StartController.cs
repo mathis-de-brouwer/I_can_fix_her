@@ -6,6 +6,11 @@ public class StartController : MonoBehaviour
     [Header("Scenes")]
     [SerializeField] private string startSceneName = "SampleScene";
 
+    private void Start()
+    {
+        MusicService.Play(MusicId.Menu);
+    }
+
     public void OnStartClick()
     {
         UiSfx.PlayClick();

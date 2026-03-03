@@ -68,6 +68,8 @@ public class LevelUpRewardManager : MonoBehaviour
             OnP1Chose,
             OnP2Chose
         );
+
+        MusicService.Play(MusicId.LevelUp);
     }
 
     List<P1RewardOffer> BuildP1Offers(int count)
@@ -586,6 +588,8 @@ public class LevelUpRewardManager : MonoBehaviour
         Time.timeScale = 1f;
         SetP1GameplayInputEnabled(true);
         _rewardActive = false;
+
+        MusicService.Play(MusicId.Gameplay);
     }
 
     static List<T> PickRandom<T>(List<T> source, int count)

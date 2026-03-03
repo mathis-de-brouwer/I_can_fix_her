@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7008944675527115850}
   - component: {fileID: 6641096950073489046}
+  - component: {fileID: -5139567111512403864}
   m_Layer: 0
   m_Name: AudioRig
   m_TagString: Untagged
@@ -47,7 +48,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UiSfx
   sfxSource: {fileID: 0}
-  clickClip: {fileID: 0}
+  sfx1Confirm: {fileID: 0}
+  sfx2DeckbuilderCard: {fileID: 0}
+  sfx3GameplayCard: {fileID: 0}
+  sfx4RewardChoice: {fileID: 0}
+  sfxEnemyHit: {fileID: 0}
+  sfxPlayerHit: {fileID: 0}
+  sfxEnemyDeath: {fileID: 0}
+  sfxPlayerDeath: {fileID: 0}
+  sfxKnifeThrow: {fileID: 0}
+  sfxOrbitSpawn: {fileID: 0}
+  sfxShieldBreak: {fileID: 0}
+  sfxShieldRegen: {fileID: 0}
+  enemyHitCooldownSeconds: 0.05
+  playerHitCooldownSeconds: 0.15
+--- !u!114 &-5139567111512403864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170410974471516964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361c9815e9555c14b89386d465ba8fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicService
+  musicSource: {fileID: 0}
 --- !u!1 &2763398700612208877
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,6 +58,8 @@ public class GameResultScreenUI : MonoBehaviour
 
         PopulateStatsAndVisuals();
 
+        MusicService.Play(MusicId.GameResult);
+
         Time.timeScale = 0f;
     }
 

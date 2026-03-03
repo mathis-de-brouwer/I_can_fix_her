@@ -690,6 +690,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5139567111512403864, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: menuMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 1774833bc66d2b948973abd610032586, type: 3}
+    - target: {fileID: -5139567111512403864, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 1820290903}
+    - target: {fileID: -5139567111512403864, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: levelUpMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: b78f684dc080d7145bae66499f615835, type: 3}
+    - target: {fileID: -5139567111512403864, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: gameplayMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 0cdf73c7dcc9bfe45badff5b52ed0b2b, type: 3}
+    - target: {fileID: -5139567111512403864, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: gameResultMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: afcb41753ae0ac845b638376aad30630, type: 3}
+    - target: {fileID: -5139567111512403864, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: deckBuilderMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 0cdf73c7dcc9bfe45badff5b52ed0b2b, type: 3}
     - target: {fileID: 170410974471516964, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
       propertyPath: m_Name
       value: AudioRig
@@ -806,6 +830,11 @@ PrefabInstance:
 --- !u!82 &1690270212 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 2540471543423706829, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+  m_PrefabInstance: {fileID: 1690270211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1820290903 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 9199903761014288597, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
   m_PrefabInstance: {fileID: 1690270211}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1913513931
