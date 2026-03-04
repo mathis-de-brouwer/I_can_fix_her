@@ -31,6 +31,8 @@ public class StartController : MonoBehaviour
     {
         UiSfx.PlayClick();
 
+        Application.Quit();
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
