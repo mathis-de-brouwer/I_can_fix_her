@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -1474016925773278618}
   - component: {fileID: 3590674798271206926}
   - component: {fileID: 2929431813327949449}
+  - component: {fileID: 3134457119626780483}
   m_Layer: 3
   m_Name: BOSS
   m_TagString: Enemy
@@ -243,6 +244,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0044304132, y: -0.022603154}
   m_Size: {x: 0.24759017, y: 0.49518034}
   m_Direction: 0
+--- !u!114 &3134457119626780483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2797907090213795397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5375c4c33910c4781f11cf303b5813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangedAttack
+  projectilePrefab: {fileID: -4610251465013821254, guid: cefca0e9c4b88694aa92669ddb83af24, type: 3}
+  muzzle: {fileID: 0}
+  cooldownSeconds: 6
+  maxRange: 15
+  minRange: 0
 --- !u!1 &4008853012034964782
 GameObject:
   m_ObjectHideFlags: 0

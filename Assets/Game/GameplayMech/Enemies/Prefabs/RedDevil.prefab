@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4068351505415514550}
   - component: {fileID: -1474016925773278618}
   - component: {fileID: 3590674798271206926}
+  - component: {fileID: 7972200829361853608}
   m_Layer: 3
   m_Name: RedDevil
   m_TagString: Enemy
@@ -243,6 +244,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7972200829361853608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2797907090213795397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5375c4c33910c4781f11cf303b5813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangedAttack
+  projectilePrefab: {fileID: -4610251465013821254, guid: a1277c5130c590b4b94210cb63f036fa, type: 3}
+  muzzle: {fileID: 0}
+  cooldownSeconds: 9
+  maxRange: 8
+  minRange: 0
 --- !u!1 &4008853012034964782
 GameObject:
   m_ObjectHideFlags: 0
