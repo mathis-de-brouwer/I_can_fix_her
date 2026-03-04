@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cfcb2dedcccbbe4893bf8bde0458c0d, type: 3}
+  m_Name: HollowHeart 1
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
+  baseItem: {fileID: 11400000, guid: 8b17c1ec333eeee45b35803567aaf5e8, type: 2}
+  icon: {fileID: -1469541493, guid: c0b66ee0975595a468934a4b373d5e27, type: 3}
+  itemName: Hollow Heart
+  description: Regens your health faster
+  multiplier: 15
+  level: 2
+  nextLevelPrefab: {fileID: 3202734083236546784, guid: 4f9c54c5314ceb6448252c7c38ffb9af, type: 3}

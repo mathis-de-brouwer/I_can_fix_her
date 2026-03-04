@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SpinachPassiveItem
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
   baseItem: {fileID: 11400000}
-  icon: {fileID: 1187507397, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
+  icon: {fileID: 1930365335857138742, guid: 7ff7c01388b3f974ab87e18e88527480, type: 3}
   itemName: Spinach
   description: Increases the damage your weapons deal
-  multiplier: 20
+  multiplier: 10
   level: 1
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 2493217695765593761, guid: 48ae1007d52e4454fbe22e58391d48d0, type: 3}

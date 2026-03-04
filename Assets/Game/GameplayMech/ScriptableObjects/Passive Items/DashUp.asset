@@ -16,6 +16,6 @@ MonoBehaviour:
   icon: {fileID: -4858207643542637017, guid: 185d21e016054ca42b03e2151cd3249a, type: 3}
   itemName: Better Dash
   description: Increases your dash distance
-  multiplier: 0
+  multiplier: 5
   level: 1
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 3202734083236546784, guid: 592cfc70488bf4d4cb97ad12c55fa870, type: 3}

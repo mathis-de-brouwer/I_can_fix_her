@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WingsPassiveItem 2
   m_EditorClassIdentifier: Assembly-CSharp::PassiveItemsScriptableObjects
   baseItem: {fileID: 11400000, guid: f5af0a1f3a52b1c488ccd03f1597c61d, type: 2}
-  icon: {fileID: -2094737778, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
-  itemName: Wings 3
+  icon: {fileID: -8323773704877422078, guid: 7ff7c01388b3f974ab87e18e88527480, type: 3}
+  itemName: Ring of Movement 3
   description: increases your movement speed
   multiplier: 20
   level: 3

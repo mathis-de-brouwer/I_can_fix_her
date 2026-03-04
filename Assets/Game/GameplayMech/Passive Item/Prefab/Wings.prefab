@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff9c9f2023ebf449b9bd9a3349ea39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WingPassiveItem
-  passiveItemsData: {fileID: 11400000, guid: 75c7f2fd25254544db8e5e275f8ef712, type: 2}
+  passiveItemsData: {fileID: 11400000, guid: f5af0a1f3a52b1c488ccd03f1597c61d, type: 2}
