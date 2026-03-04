@@ -846,6 +846,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 334a2c1b82f498543bd36db70dd706ec, type: 3}
     - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxFireballCast
+      value: 
+      objectReference: {fileID: 8300000, guid: 169c6dd24c95ba44aa702a6764e5d52e, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
       propertyPath: sfx3GameplayCard
       value: 
       objectReference: {fileID: 8300000, guid: f9b43351dff4dbd44bf936a30f0df388, type: 3}
@@ -853,6 +857,10 @@ PrefabInstance:
       propertyPath: sfx4RewardChoice
       value: 
       objectReference: {fileID: 8300000, guid: 2935b727b471b544997a2fae24ae867f, type: 3}
+    - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
+      propertyPath: sfxFireballExplode
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ecd4c739fb0ad348b64345274cc0717, type: 3}
     - target: {fileID: 6641096950073489046, guid: 1566ce8f9f5509b4ba5ef80b81eec327, type: 3}
       propertyPath: sfx2DeckbuilderCard
       value: 

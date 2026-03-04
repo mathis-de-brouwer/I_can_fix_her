@@ -873,7 +873,7 @@ TextureImporter:
         x: 67
         y: 323
         width: 25
-        height: 23
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1510,8 +1510,8 @@ TextureImporter:
         serializedVersion: 2
         x: 67
         y: 195
-        width: 24
-        height: 24
+        width: 26
+        height: 26
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2104,7 +2104,7 @@ TextureImporter:
         serializedVersion: 2
         x: 67
         y: 67
-        width: 25
+        width: 26
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2384,6 +2384,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Weapon Sprite (temp)_91
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 226
+        width: 2
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6ad312c0472d014d9c3bdff7ff37f19
+      internalID: -1398301275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -2491,6 +2513,7 @@ TextureImporter:
       Weapon Sprite (temp)_89: 1702898886
       Weapon Sprite (temp)_9: 849452039
       Weapon Sprite (temp)_90: 1714670066
+      Weapon Sprite (temp)_91: -1398301275
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

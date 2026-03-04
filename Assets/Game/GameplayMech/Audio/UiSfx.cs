@@ -23,6 +23,8 @@ public sealed class UiSfx : MonoBehaviour
 	[SerializeField] private AudioClip sfxOrbitSpawn;
 	[SerializeField] private AudioClip sfxShieldBreak;
 	[SerializeField] private AudioClip sfxShieldRegen;
+	[SerializeField] private AudioClip sfxFireballCast;
+	[SerializeField] private AudioClip sfxFireballExplode;
 
 	[Header("Gameplay SFX anti-spam")]
 	[SerializeField, Min(0f)] private float enemyHitCooldownSeconds = 0.05f;
@@ -98,6 +100,12 @@ public sealed class UiSfx : MonoBehaviour
 
 	public static void PlayShieldRegen()
 		=> Play(_instance != null ? _instance.sfxShieldRegen : null);
+
+	public static void PlayFireballCast()
+		=> Play(_instance != null ? _instance.sfxFireballCast : null);
+
+	public static void PlayFireballExplode()
+		=> Play(_instance != null ? _instance.sfxFireballExplode : null);
 
 	private static void Play(AudioClip clip)
 	{

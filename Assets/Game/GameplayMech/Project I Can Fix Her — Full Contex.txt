@@ -34,6 +34,7 @@ Weapons are represented by TWO kinds of prefabs:
    ├── referenced by WeaponScriptableObject.Prefab
    ├── has projectile behavior scripts (e.g. KnifeBehavior)
    └── does NOT contain WeaponController
+   └── NOTE: some weapons spawn a projectile that later spawns an AoE "explosion" prefab which applies damage via a trigger zone (ExplosionDamageZone).
 
 WeaponController (base)
   ├── auto-fires on cooldown
@@ -81,6 +82,7 @@ PlayerStats
         - registers into first free slot index (tracked by passiveItemIndex)
 
 ---
+
 
 P2 — The Antagonist system
 
@@ -315,6 +317,31 @@ File changed:
     (clamped by minShieldCooldown).
 File changed:
 - Assets/Game/GameplayMech/Weapon/Scripts/Weapon Controller/ShieldController.cs
+
+NEW: Magic Staff (random-direction fireball + AoE explosion)
+- MagicStaffController:
+  - Spawns a staff visual that floats next to the player (bobbing only; no rotation).
+  - Fires fireballs automatically on cooldown using weaponData.Prefab.
+  - Fire direction is random (4-way; optional diagonals).
+  - Fireball spawns offset away from the player in its travel direction (spawnDistance) to avoid overlap.
+  - Explosion radius scales with weapon level:
+    radius = baseExplosionRadius + explosionRadiusPerLevel * (weaponData.Level - 1)
+- FireballBehavior (projectile):
+  - Moves forward in the initialized direction.
+  - Explodes on enemy hit OR on lifetime expiry (whichever happens first).
+  - Rotates to face its travel direction.
+  - Spawns an explosion prefab oriented to the travel direction.
+  - Plays SFX: cast + explosion.
+- ExplosionDamageZone (explosion prefab behavior):
+  - Explosion prefab has a CircleCollider2D trigger that applies AoE damage to enemies detected via EnemyStats in parent.
+  - Radius is set at runtime by adjusting CircleCollider2D.radius (supports level scaling).
+  - Lifetime is controlled by lifetimeSeconds (destroys itself).
+Files added/changed:
+- ADDED/CHANGED: Assets/Game/GameplayMech/Weapon/Scripts/Weapon Controller/MagicStaffController.cs
+- ADDED/CHANGED: Assets/Game/GameplayMech/Weapon/Scripts/Weapon Behavior/FireballBehavior.cs
+- ADDED/CHANGED: Assets/Game/GameplayMech/Weapon/Scripts/Weapon Behavior/ExplosionDamageZone.cs
+- CHANGED: Assets/Game/GameplayMech/Audio/UiSfx.cs
+  - added sfxFireballCast / sfxFireballExplode + PlayFireballCast() / PlayFireballExplode()
 
 Level-up reward offers (sequential level gating)
 - NewWeapon/NewPassive offers are filtered to only include items with Level == 1.
