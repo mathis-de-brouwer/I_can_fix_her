@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnDirectorConfig
   spawnTable:
   - prefab: {fileID: 2797907090213795397, guid: 9df3826359dfe0042a7489aec0f76b70, type: 3}
-    weight: 40
+    weight: 80
   - prefab: {fileID: 2797907090213795397, guid: 5d65f9ac93367a1468ab2e3a4c5338e7, type: 3}
-    weight: 20
+    weight: 40
   - prefab: {fileID: 2797907090213795397, guid: 6a0a962e2f44dd4418e90f7fb2bfa0dc, type: 3}
     weight: 4
   - prefab: {fileID: 2797907090213795397, guid: 3556318e613215948967745f73af593d, type: 3}
     weight: 2
   - prefab: {fileID: 2797907090213795397, guid: 201258d43d62be5468415edd43cd69a1, type: 3}
-    weight: 3
+    weight: 1
   baseSpawnsPerSecond: 1
   baseMaxAlive: 120
   spawnRadius: 30

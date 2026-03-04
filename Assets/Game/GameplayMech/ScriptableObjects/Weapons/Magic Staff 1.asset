@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798809de9fa582f469d7b7f0e1a61926, type: 3}
-  m_Name: Magic Staff
+  m_Name: Magic Staff 1
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObject
-  icon: {fileID: 2019571914, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
-  weaponName: Magic Staff
+  icon: {fileID: 1086608803, guid: b29576a43d53f1943933e635fff3b2c6, type: 3}
+  weaponName: Magic Staff 2
   description: A Magic Staff that rains down fire on your enemies
   prefab: {fileID: 5104805768424443778, guid: 89b428fbf9fabd34988acaf7c09cfb6c, type: 3}
-  damage: 30
+  damage: 50
   speed: 5
   cooldownDuration: 0
   pierce: 0
-  level: 1
-  nextLevelPrefab: {fileID: 4386680800323226713, guid: b5330de764ef93146a836d53699279c2, type: 3}
+  level: 2
+  nextLevelPrefab: {fileID: 4386680800323226713, guid: cfa9e6fee624181498e24b06b54ad39d, type: 3}
